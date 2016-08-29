@@ -1,0 +1,4 @@
+* enfors-lib
+
+This repository contains my personal Emacs initialization files. Most
+likely of no interest to anyone else.
