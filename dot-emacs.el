@@ -18,12 +18,6 @@
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
 
-;;;; Faces
-(set-face-foreground 'font-lock-string-face        "yellow")
-(set-face-foreground 'font-lock-keyword-face       "magenta")
-(set-face-foreground 'font-lock-comment-face       "cyan")
-(set-face-foreground 'font-lock-variable-name-face "green")
-
 ;; This doesn't work for some reason (probably because terminal)
 (global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -129,7 +123,9 @@
 ;; (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
 
 ;; Load enfors-lib
-(load-file "/home/enfors/devel/elisp/enfors-lib/enfors-lib.el")
+(or (boundp 'enf-path)
+    (setq enf-path "/home/enfors/devel/elisp/enfors-lib"))
+(load-file (concat enf-path "/enfors-lib.el"))
 
 (require 'ido)
 (ido-mode t)
@@ -142,9 +138,3 @@
  '(erc-nick "Enfors")
  '(org-clock-into-drawer t)
  '(org-log-into-drawer t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )

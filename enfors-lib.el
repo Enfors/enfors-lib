@@ -1,12 +1,13 @@
 ;;;; enfors-lib/enfors-lib.el - main file.
 
-(setq enf-dir   "/home/enfors/devel/elisp/enfors-lib")
-(add-to-list    'load-path enf-dir)
+(or (boundp 'enf-path)
+    (setq   enf-path   "/home/enfors/devel/elisp/enfors-lib"))
+(add-to-list 'load-path enf-path)
 
-(setq enf-files '("toys.el"))
+(setq enf-files '("toys.el" "themes.el"))
 
 (mapcar (lambda (enf-file)
-	  (load-file (concat enf-dir "/" enf-file)))
+	  (load-file (concat enf-path "/" enf-file)))
 	enf-files)
 
 
