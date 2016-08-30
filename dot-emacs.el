@@ -11,7 +11,8 @@
 ;(setq inferior-lisp-program "/home/enfors/ccl/armcl")
 
 ;;;; ERC
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(setq erc-hide-list '("JOIN" "PART" "QUIT")
+      erc-nick      "Enfors")
 
 ;;;; General emacs stuff
 (setq transient-mark-mode t)
@@ -135,6 +136,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-nick "Enfors")
  '(org-clock-into-drawer t)
  '(org-log-into-drawer t))
