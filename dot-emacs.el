@@ -46,9 +46,9 @@
 ;; (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
 
 ;; Load enfors-lib
-(or (boundp 'enf-path)
-    (setq enf-path "/home/enfors/devel/elisp/enfors-lib"))
-(load-file (concat enf-path "/enfors-lib.el"))
+(or (boundp 'enfors-path)
+    (setq enfors-path "/home/enfors/devel/elisp/enfors-lib"))
+(load-file (concat enfors-path "/enfors-lib.el"))
 
 (require 'ido)
 (ido-mode t)

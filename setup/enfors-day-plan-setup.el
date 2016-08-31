@@ -1,4 +1,4 @@
-(defun ce-ins-day (week-day)
+(defun enfors-ins-day (week-day)
   "Insert a day plan at point."
   (interactive "sEnter day of week: ")
   
@@ -15,7 +15,7 @@
 "))
 
 
-(defun ce-ins-week (week-num)
+(defun enfors-ins-week (week-num)
   "Insert a week plan at point."
   (interactive "sEnter week number: ")
   (insert "
@@ -33,11 +33,11 @@
 | Totalt  |           |
 
 ")
-  (ce-ins-day "Måndag")
-  (ce-ins-day "Tisdag")
-  (ce-ins-day "Onsdag")
-  (ce-ins-day "Torsdag")
-  (ce-ins-day "Fredag")
+  (enfors-ins-day "Måndag")
+  (enfors-ins-day "Tisdag")
+  (enfors-ins-day "Onsdag")
+  (enfors-ins-day "Torsdag")
+  (enfors-ins-day "Fredag")
   (forward-line -35)
   (forward-char 2))
 

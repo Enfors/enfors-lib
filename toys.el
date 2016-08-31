@@ -1,6 +1,6 @@
 ;;;; enfors-lib/toys.el
 
-(defun enf-draw-maze ()
+(defun enfors-draw-maze ()
   "Draw a maze-like pattern in the current buffer."
   (interactive)
   (random t)				; Seed the random function

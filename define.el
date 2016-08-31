@@ -1,6 +1,6 @@
 ;;;; enfors-lib/define.el
 
-(defun enf-ins-review-checklist ()
+(defun enfors-ins-review-checklist ()
   "Insert a #define ticket review checklist at point."
   (interactive)
   (insert "- [/] Checklist

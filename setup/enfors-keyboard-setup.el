@@ -1,10 +1,10 @@
 ;;; My own keyboard stuff
-(defun ce-ins-tilde ()
+(defun enfors-ins-tilde ()
   "Insert ~ at point."
   (interactive)
   (insert "~"))
 
-(defun ce-ins-caret ()
+(defun enfors-ins-caret ()
   "Insert ^ at point."
   (interactive)
   (insert "^"))
