@@ -3,6 +3,7 @@
 (or (boundp 'enf-path)
     (setq   enf-path   "/home/enfors/devel/elisp/enfors-lib"))
 (add-to-list 'load-path enf-path)
+(add-to-list 'load-path (concat enf-path "/setup"))
 
 (setq enf-files '("toys.el" "themes.el"))
 
