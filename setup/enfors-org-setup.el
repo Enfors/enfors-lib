@@ -3,9 +3,14 @@
       '((sequence "TODO(t)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
 
-;;; What to automatically set up when starting org-mode
-(add-hook 'org-mode-hook 'auto-fill-mode)
-(add-hook 'org-mode-hook 'org-indent-mode)
+;;; Always use org-indent-mode
+(setq org-startup-indented t)
+
+;;; Hide the all but the last star in headings
+(setq org-hide-leading-stars t)
+
+;;; Always use auto-fill-mode in org-mode
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
