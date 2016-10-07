@@ -25,7 +25,8 @@
 (global-set-key (kbd "C-x j")       '(lambda ()
 				       (interactive)
 				       (find-file "~/plan/journal.org")))
-
+;; IMenu - used to navigate. Press M-i tab for list of destinations.
+(global-set-key (kbd "M-i") 'imenu)
 
 ;; Switch windows backwards with M-o
 (global-set-key (kbd "M-o") (lambda ()
@@ -33,6 +34,8 @@
 			      (other-window -1)))
 
 (show-paren-mode 1)			; Always show matching parens.
+
+
 
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
