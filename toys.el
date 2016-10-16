@@ -35,8 +35,6 @@
 			(* a b)))))
     (insert (format "You got %d out of %d correct.\n"
 		    correct-answers num-questions))))
-(with-output-to-temp-buffer "*foo*" (print 'foo))
-
 
 
 
