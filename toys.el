@@ -20,6 +20,7 @@
 	(b 0)
 	(answer 0)
 	(correct-answers 0))
+    (switch-to-buffer (generate-new-buffer "*enfors-practice-math*"))
     (dotimes (iter num-questions)
       (setq a (+ 2 (random (- max 1)))
 	    b (+ 2 (random (- max 1))))
@@ -34,6 +35,7 @@
 			(* a b)))))
     (insert (format "You got %d out of %d correct.\n"
 		    correct-answers num-questions))))
+(with-output-to-temp-buffer "*foo*" (print 'foo))
 
 
 
