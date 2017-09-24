@@ -1,7 +1,7 @@
 ;;;; enfors-lib/enfors-lib.el - main file.
 
 (or (boundp 'enfors-path)
-    (setq   enfors-path   "/home/enfors/devel/elisp/enfors-lib"))
+    (setq   enfors-path   "~/devel/elisp/enfors-lib"))
 (add-to-list 'load-path enfors-path)
 (add-to-list 'load-path (concat enfors-path "/setup"))
 
@@ -10,5 +10,3 @@
 (mapcar (lambda (enfors-file)
 	  (load-file (concat enfors-path "/" enfors-file)))
 	enfors-files)
-
-
