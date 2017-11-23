@@ -6,3 +6,4 @@
 (set-face-foreground 'font-lock-keyword-face       "magenta")
 (set-face-foreground 'font-lock-comment-face       "cyan")
 (set-face-foreground 'font-lock-variable-name-face "green")
+(set-face-foreground 'font-lock-constant-face      "green")

@@ -18,7 +18,6 @@
   "major mode for editing EnforsML bots."
   (setq font-lock-defaults '(emlb-highlights)))
 
-(set-face-foreground 'font-lock-constant-face "green")
 (add-to-list 'auto-mode-alist '("\\.emlb\\'" . emlb-mode))
 
 (provide 'emlb-mode)
