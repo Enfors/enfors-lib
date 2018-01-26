@@ -10,7 +10,4 @@
 (set-face-foreground 'font-lock-constant-face      "green")
 (set-background-color                              "black")
 
-;;;; Org-mode faces
-(set-face-foreground 'org-target                   "yellow")
-
 
