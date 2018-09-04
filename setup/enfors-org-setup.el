@@ -1,6 +1,6 @@
 ;;;; Org-mode stuff
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w@)" "VERIFY(v)" "|"
+      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
 
 ;;; Always use org-indent-mode
