@@ -25,9 +25,9 @@
 (global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
 ;; Key for opening journal file
-(global-set-key (kbd "C-x j")       '(lambda ()
-				       (interactive)
-				       (find-file "~/plan/journal.org")))
+;(global-set-key (kbd "C-x j")       '(lambda ()
+;				       (interactive)
+;				       (find-file "~/plan/journal.org")))
 ;; IMenu - used to navigate. Press M-i tab for list of destinations.
 (global-set-key (kbd "M-i") 'imenu)
 
