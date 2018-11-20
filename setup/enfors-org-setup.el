@@ -1,6 +1,6 @@
 ;;;; Org-mode stuff
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w@)" "VERIFY(v)" "|"
+      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
 
 ;;; Always use org-indent-mode
@@ -11,6 +11,7 @@
 
 ;;; Always use auto-fill-mode in org-mode
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook '(lambda () (set-face-foreground 'org-target "yellow")))
 
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
@@ -24,4 +25,3 @@
  '(org-log-into-drawer t))
 
 (provide 'enfors-org-setup)
-

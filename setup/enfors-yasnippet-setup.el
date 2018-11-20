@@ -6,5 +6,7 @@
 		   "~/.emacs.d/plugins/yasnippet")
       (require 'yasnippet)
       (yas-global-mode 1)
+      (require 'warnings)
+      (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
       (provide 'enfors-yasnippet-setup))
   (message "yasnippet doesn't appear to be installed."))

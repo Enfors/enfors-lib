@@ -42,7 +42,7 @@
 
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
-    (setq enfors-path "/home/enfors/devel/elisp/enfors-lib"))
+    (setq enfors-path "~/devel/elisp/enfors-lib"))
 (load-file (concat enfors-path "/enfors-lib.el"))
 
 (require 'ido)
