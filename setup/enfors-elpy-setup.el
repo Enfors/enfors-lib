@@ -18,5 +18,8 @@
 ;; Use Python 3, not Python 2
 (setq elpy-rpc-python-command "python3")
 
+;; Try to make it use sensible colors
+;(setq frame-background-mode "dark")
+
 (provide 'enfors-elpy-setup)
 ;;; enfors-elpy-setup.el ends here
