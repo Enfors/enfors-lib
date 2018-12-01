@@ -2,6 +2,18 @@
 
 ;;; Commentary:
 
+;; Elpy documentation: https://elpy.readthedocs.io/
+
+;; Some useful hotkeys
+;; ===================
+;; M-.      : Goto definition
+;; C-c C-z  : Start interactive Python shell
+;; C-c C-e  : Globally rename identifyer under point
+;;
+;; Inside code completion dropdown menu thingie
+;; ============================================
+;; C-d      : Show documentation for current menu item
+
 ;;; Code:
 
 (require 'package)
@@ -17,6 +29,7 @@
 
 ;; Use Python 3, not Python 2
 (setq elpy-rpc-python-command "python3")
+(setq python-shell-interpreter "python3")
 
 ;; Try to make it use sensible colors
 ;(setq frame-background-mode "dark")
