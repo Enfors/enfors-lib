@@ -27,6 +27,11 @@
 (package-initialize)
 (elpy-enable)
 
+;; Strip trailing whitespace before saving
+(add-hook 'elpy-mode-hook
+          (lambda () (add-to-list 'write-file-functions
+                                  'delete-trailing-whitespace)))
+
 ;; Use Python 3, not Python 2
 (setq elpy-rpc-python-command "python3")
 (setq python-shell-interpreter "python3")
