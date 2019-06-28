@@ -17,6 +17,7 @@
 (setq transient-mark-mode t)
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
+(setq-default indent-tabs-mode  nil)    ; Use spaces, not tabs
 
 ;; This doesn't work for some reason (probably because terminal)
 (global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
