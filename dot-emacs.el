@@ -38,7 +38,9 @@
 
 (show-paren-mode 1)			; Always show matching parens.
 
-
+;; Horizontal scroll
+; 'current-line scrolls only current line. nil disables scrolling.
+(setq auto-hscroll-mode 'current-line)
 
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
