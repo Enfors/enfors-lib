@@ -16,6 +16,18 @@
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
 
+;; Define function for loading all org files in directory
+(defun enfors-load-all-org-files-in-directory (directory)
+  "Load all files ending with .org from specified directory."
+  (interactive "sEnter directory: ")
+  (dolist (file (directory-files directory t "\.org$"))
+    (find-file file)))
+
+;; Custom keys setup, from https://orgmode.org/manual/Activation.html:
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
