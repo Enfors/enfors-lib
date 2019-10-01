@@ -18,6 +18,8 @@
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
 (setq-default indent-tabs-mode  nil)    ; Use spaces, not tabs
+(menu-bar-mode                    -1)   ; Get rid of the filthy menu bar
+(tool-bar-mode                    -1)   ; and its ugly tool bar cousin
 
 ;; This doesn't work for some reason (probably because terminal)
 (global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
