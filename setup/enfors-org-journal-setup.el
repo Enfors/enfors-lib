@@ -9,3 +9,5 @@
 (require 'org-journal)
 (setq org-journal-dir         "~/priv/journal/"
       org-journal-date-format "%x: %A")
+
+(setq org-duration-format (quote h:mm))
