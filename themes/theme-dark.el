@@ -1,5 +1,6 @@
-(set-background-color "#000033")
+(set-background-color "#001138")
 (set-foreground-color "#ccccff")
+(set-cursor-color "green")
 
 ;;;; Faces
 (set-face-foreground 'default                      "white")
