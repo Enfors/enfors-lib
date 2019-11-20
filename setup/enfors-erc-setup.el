@@ -7,6 +7,9 @@
 (setq erc-hide-list '("JOIN" "PART" "QUIT")
       erc-nick      "Enfors")
 
+(add-hook 'erc-mode-hook (lambda () (setq scroll-step 1
+                                          scroll-conservatively 10000)))
+
 ;;; The following section was copied from
 ;;; https://www.emacswiki.org/emacs/ErcNickColors, Option 2:
 ;; Pool of colors to use when coloring IRC nicks.
