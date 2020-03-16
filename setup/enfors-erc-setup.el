@@ -17,6 +17,7 @@
 ;; special colors for some people
 (setq erc-nick-color-alist '(("John" . "blue")
 			     ("Bob" . "red")
+                             ("AzuraBot" . "blue")
 			     ))
 
 (defun erc-get-color-for-nick (nick)
