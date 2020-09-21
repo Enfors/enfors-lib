@@ -1,0 +1,184 @@
+# key: thisweek
+# name: thisweek
+# --
+*** Veckorapport vecka `(insert (format-time-string "%V"))`
+
+- [/] Checklista
+  - [ ] Uppdatera veckans tidsrapport
+  - [ ] Skriv veckosummering
+  - [ ] Kolla nästa veckas agenda
+- Veckosummering
+  -
+
+$0**** Tidrapport
+
+| Projekt       |  M |  T |  O |  T |  F | L | S | Tot |  \$/h | Deb |
+|---------------+----+----+----+----+----+---+---+-----+------+-----|
+|               |    |    |    |    |    |   |   |   0 |    0 |   0 |
+|               |    |    |    |    |    |   |   |   0 |    0 |   0 |
+|               |    |    |    |    |    |   |   |   0 |    0 |   0 |
+|               |    |    |    |    |    |   |   |   0 |    0 |     |
+|               |    |    |    |    |    |   |   |   0 |      |     |
+|               |    |    |    |    |    |   |   |   0 |      |     |
+|---------------+----+----+----+----+----+---+---+-----+------+-----|
+| Admin         |    |    |    |    |    |   |   |   0 |      |     |
+| Bids          |    |    |    |    |    |   |   |   0 |      |     |
+| Flex out      |    |    |    |    |    |   |   |   0 |      |     |
+| Semester      |    |    |    |    |    |   |   |   0 |      |     |
+| Publ. holiday |    |    |    |    |    |   |   |   0 |      |     |
+| Sjuk          |    |    |    |    |    |   |   |   0 |      |     |
+| In between    |    |    |    |    |    |   |   |   0 |      |     |
+| Permitterad   |    |    |    |    |    |   |   |   0 |      |     |
+|               |    |    |    |    |    |   |   |     |      |     |
+|---------------+----+----+----+----+----+---+---+-----+------+-----|
+| Travel time 1 |    |    |    |    |    |   |   |   0 |      |     |
+| Travel time 2 |    |    |    |    |    |   |   |   0 |      |     |
+|---------------+----+----+----+----+----+---+---+-----+------+-----|
+| Summa         |  0 |  0 |  0 |  0 |  0 | 0 | 0 |   0 |      |   0 |
+|               |    |    |    |    |    |   |   |     |      |     |
+| +/- normtid   | -8 | -8 | -8 | -8 | -8 | 0 | 0 | -40 |      |     |
+|               |    |    |    |    |    |   |   |     |      |     |
+#+TBLFM: @2\$9=vsum(\$2..\$8)::@2\$11=\$9*\$10::@3\$9=vsum(\$2..\$8)::@3\$11=\$9*\$10::@4\$9=vsum(\$2..\$8)::@4\$11=\$9*\$10::@5\$9=vsum(\$2..\$8)::@6\$9=vsum(\$2..\$8)::@7\$9=vsum(\$2..\$8)::@8\$9=vsum(\$2..\$8)::@9\$9=vsum(\$2..\$8)::@10\$9=vsum(\$2..\$8)::@11\$9=vsum(\$2..\$8)::@12\$9=vsum(\$2..\$8)::@13\$9=vsum(\$2..\$8)::@14\$9=vsum(\$2..\$8)::@15\$9=vsum(\$2..\$8)::@17\$9=vsum(\$2..\$8)::@18\$9=vsum(\$2..\$8)::@19\$2=vsum(@2..@15)::@19\$3=vsum(@2..@15)::@19\$4=vsum(@2..@15)::@19\$5=vsum(@2..@15)::@19\$6=vsum(@2..@15)::@19\$7=vsum(@2..@15)::@19\$8=vsum(@2..@15)::@19\$9=vsum(@2..@16)::@19\$11=vsum(@2..@7)::@21\$2=@19-8::@21\$3=@19-8::@21\$4=@19-8::@21\$5=@19-8::@21\$6=@19-8::@21\$7=@19::@21\$8=@19::@21\$9=@19\$9-40
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 2 :block `(insert (format-time-string "%Y-W%V"))`
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+**** Måndag
+
+- [/] Förmiddag
+  - [ ] Arkivera förra veckans DONE i front/*.org
+  - [ ]
+- [/] Eftermiddag
+  - [ ] 
+- [/] Avsluta dagen
+  - [ ] Uppdatera dagens tidrapport
+  - [ ] Skriv dagsanteckningar
+  - [ ] Kolla morgondagens agenda
+  - [ ] Skriv morgondagens todos
+  - [ ] Rensa mail
+  - [ ] Kopiera C:\Admin till H:
+- Dagsanteckningar
+  -
+
+***** Dagens tidrapport
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 3 :block today
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+**** Tisdag
+
+- [/] Förmiddag
+  - [ ] 
+  - [ ] 
+- [/] Eftermiddag
+  - [ ] 
+- [/] Avsluta dagen
+  - [ ] Uppdatera dagens tidrapport
+  - [ ] Skriv dagsanteckningar
+  - [ ] Kolla morgondagens agenda
+  - [ ] Skriv morgondagens todos
+  - [ ] Rensa mail
+  - [ ] Kopiera C:\Admin till H:
+- Dagsanteckningar
+  -
+
+***** Dagens tidrapport
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 3 :block today
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+**** Onsdag
+
+- [/] Förmiddag
+  - [ ] 
+- [/] Eftermiddag
+  - [ ] 
+- [/] Avsluta dagen
+  - [ ] Uppdatera dagens tidrapport
+  - [ ] Skriv dagsanteckningar
+  - [ ] Kolla morgondagens agenda
+  - [ ] Skriv morgondagens todos
+  - [ ] Rensa mail
+  - [ ] Kopiera C:\Admin till H:
+- Dagsanteckningar
+  -
+
+***** Dagens tidrapport
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 3 :block today
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+**** Torsdag
+
+- [/] Förmiddag
+  - [ ] 
+- [/] Eftermiddag
+  - [ ] 
+- [/] Avsluta dagen
+  - [ ] Uppdatera dagens tidrapport
+  - [ ] Skriv dagsanteckningar
+  - [ ] Kolla morgondagens agenda
+  - [ ] Skriv morgondagens todos
+  - [ ] Rensa mail
+  - [ ] Kopiera C:\Admin till H:
+- Dagsanteckningar
+  -
+
+***** Dagens tidrapport
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 3 :block today
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+**** Fredag
+
+- [/] Förmiddag
+  - [ ] 
+  - [ ] 11:00 Tidrapportera
+- [/] Eftermiddag
+  - [ ] 
+- [/] Avsluta dagen
+  - [ ] Uppdatera dagens tidrapport
+  - [ ] Skriv dagsanteckningar
+  - [ ] Skriv veckosummering
+  - [ ] Kolla måndagens agenda
+  - [ ] Skriv måndagens todos
+  - [ ] Rensa mail
+  - [ ] Kopiera C:\Admin till H:
+- Dagsanteckningar
+  -
+
+***** Dagens tidrapport
+
+#+BEGIN: clocktable :scope `(insert
+         (format "%S" (directory-files "c:/admin/front" t "\.org\$")))` :maxlevel 3 :block today
+#+CAPTION: Clock summary at [2019-09-25 ons 10:29]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
