@@ -10,7 +10,12 @@
 ;;; The following section was copied from
 ;;; https://www.emacswiki.org/emacs/ErcNickColors, Option 2:
 ;; Pool of colors to use when coloring IRC nicks.
-(setq erc-colors-list '("red" "blue" "cyan" "green" "magenta" "red" "white"))
+(setq erc-colors-list '("red" "lightred"
+                        "blue" "lightblue"
+                        "cyan" "darkcyan"
+                        "green" "darkgreen"
+                        "magenta" "lightmagenta" "darkmagenta"
+                        "white"))
 ;; special colors for some people
 (setq erc-nick-color-alist '(("John" . "blue")
 			     ("Bob" . "red")
