@@ -36,6 +36,9 @@
 (setq elpy-rpc-python-command "python3")
 (setq python-shell-interpreter "python3")
 
+;; Disable column markers
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+
 ;; Try to make it use sensible colors
 ;(setq frame-background-mode "dark")
 

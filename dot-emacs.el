@@ -45,6 +45,9 @@
 ; 'current-line scrolls only current line. nil disables scrolling.
 (setq auto-hscroll-mode 'current-line)
 
+(add-to-list 'auto-mode-alist '("\\.lr\\'" . markdown-mode))
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
     (setq enfors-path "~/devel/elisp/enfors-lib"))
