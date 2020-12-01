@@ -48,6 +48,9 @@
 (add-to-list 'auto-mode-alist '("\\.lr\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
+;; Weeks start on Mondays. Americans are crazy.
+(setq calendar-week-start-day 1)  ; 0 = Sunday, 1 = Monday, etc.
+
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
     (setq enfors-path "~/devel/elisp/enfors-lib"))
