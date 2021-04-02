@@ -1,13 +1,13 @@
 ;;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
-(setq package-archives
-      '(("gnu"       . "http://elpa.gnu.org/packages/")
-	("marmalade" . "http://marmalade-repo.org/packages/")
-	("melpa"     . "http://melpa.milkbox.net/packages/")
-	("melpa stable" . "http://stable.melpa.org/packages")))
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (package-initialize)
-;(package-refresh-contents)
+;; To install packages: M-x package-install RET
+;; If you have added an archive, you might need to
+;; (package-refresh-contents) first.
 
 ;;;; Common lisp
 ;(load (expand-file-name "~/quicklisp/slime-helper.el"))
