@@ -1,3 +1,5 @@
+;;;; To find faces to customize: M-x list-faces-display RET
+
 (set-background-color "#001138")
 (set-foreground-color "#ccccff")
 (set-cursor-color "green")
