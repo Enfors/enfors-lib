@@ -13,7 +13,12 @@
 ;(add-hook 'org-mode-hook 'turn-on-auto-fill)
 ;;; Actually, use visual-line-mode instead for soft wrap
 (add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'org-mode-hook '(lambda () (set-face-foreground 'org-target "yellow")))
+
+;;; Colors
+(add-hook 'org-mode-hook '(lambda ()
+                            (set-face-foreground 'org-target   "yellow")
+                            (set-face-foreground 'org-checkbox "blue")
+                            ))
 
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
