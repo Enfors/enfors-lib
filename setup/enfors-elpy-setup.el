@@ -31,6 +31,7 @@
 (add-hook 'elpy-mode-hook
           (lambda () (add-to-list 'write-file-functions
                                   'delete-trailing-whitespace)))
+(add-hook 'elpy-mode-hook 'column-number-mode)
 
 ;; Use Python 3, not Python 2
 (setq elpy-rpc-python-command "python3")
