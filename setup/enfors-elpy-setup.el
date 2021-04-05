@@ -24,7 +24,6 @@
 ;; Some features might need to be enabled with M-x elpy-config RET
 
 ;; Enable elpy by default
-(package-initialize)
 (elpy-enable)
 
 ;; Strip trailing whitespace before saving
