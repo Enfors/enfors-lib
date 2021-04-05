@@ -1,4 +1,5 @@
 ;;;; Org-mode stuff
+(require 'org)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
