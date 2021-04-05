@@ -1,0 +1,13 @@
+# key: npc
+# name: npc
+# --
+- Kön: $1
+- Roll: $2
+- Ras: $3
+- Class: $4
+- Utseende: $5
+- Personlighet: $6
+- Mål: $7
+- Level: $8
+- Relationer: $9
+- Övrigt: $10
