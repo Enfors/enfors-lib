@@ -4,7 +4,7 @@
 (set-face-foreground 'erc-input-face "yellow")
 ;(set-face-foreground 'erc-nick-default-face "blue")
 
-(setq erc-hide-list '("JOIN" "PART" "QUIT")
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
 (setq erc-nick      "Enfors")
 
 (add-hook 'erc-mode-hook (lambda () (setq scroll-step 1
