@@ -1,4 +1,4 @@
-q;;;; enfors-evennia-setup --- Major mode for Evennia batch scripts
+;;;; enfors-evennia-setup --- Major mode for Evennia batch scripts
 
 ;;; Commentary:
 
