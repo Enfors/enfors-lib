@@ -3,6 +3,7 @@
              :init
              (setq org-roam-v2-ack t
                    org-roam-db-update-method 'immediate
+                   org-roam-completion-everywhere t
                    org-roam-node-display-template "${title}")
              ; With tags, this should be (according to my Discourse thread:
 ;                   org-roam-node-display-template "${title} ${tag}")
