@@ -5,6 +5,7 @@
 (set-cursor-color "green")
 
 (require 'magit)
+(require 'company)
 
 ;;;; Faces
 (set-face-foreground 'default                      "white")
@@ -14,3 +15,6 @@
 (set-face-foreground 'font-lock-variable-name-face "green")
 (set-face-foreground 'font-lock-constant-face      "green")
 (set-face-foreground 'magit-section-highlight      "#EE88CC")
+(set-face-foreground 'magit-diff-removed-highlight "white")
+(set-face-foreground 'magit-diff-added-highlight   "blue")
+(set-face-foreground 'company-tooltip              "yellow")
