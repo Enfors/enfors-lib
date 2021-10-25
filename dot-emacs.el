@@ -56,5 +56,6 @@
     (setq enfors-path "~/devel/elisp/enfors-lib"))
 (load-file (concat enfors-path "/enfors-lib.el"))
 
-(require 'ido)
-(ido-mode t)
+;(require 'ido)
+;(ido-mode t)
+(helm-mode 1)

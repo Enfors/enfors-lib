@@ -6,6 +6,7 @@
 
 (require 'magit)
 (require 'company)
+(require 'helm)
 
 ;;;; Faces
 (set-face-foreground 'default                      "white")
@@ -18,3 +19,4 @@
 (set-face-foreground 'magit-diff-removed-highlight "white")
 (set-face-foreground 'magit-diff-added-highlight   "blue")
 (set-face-foreground 'company-tooltip              "yellow")
+(set-face-foreground 'helm-selection               "red")
