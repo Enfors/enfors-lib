@@ -14,7 +14,8 @@
                     ("C-c n f" . org-roam-node-find)
                     ("C-c n i" . org-roam-node-insert)
                     :map org-mode-map
-                    ("C-M-i"   . completion-at-point)
+                    (("C-M-i"   . completion-at-point)
+                     ("C-c n t" . org-roam-tag-add))
                     :map org-roam-dailies-map
                     ("Y" . org-roam-dailies-capture-yesterday)
                     ("T" . org-roam-dailies-capture-tomorrow))
