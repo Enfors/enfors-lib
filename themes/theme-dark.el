@@ -23,6 +23,8 @@
 (set-face-foreground 'org-level-1                  "#a0a0dd")
 (set-face-foreground 'org-drawer                   "#88aaaa")
 (set-face-foreground 'org-document-info-keyword    "#777777")
+(set-face-foreground 'org-hide                     "#140624")
+(set-face-foreground 'org-table                    "#6666cc")
 
 (set-face-foreground 'custom-comment-tag           "#88aaaa")
 
