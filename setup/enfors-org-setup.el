@@ -2,7 +2,7 @@
 (require 'org)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
-		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
+		  "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
 
 ;;; Always use org-indent-mode
 (setq org-startup-indented t)
@@ -38,6 +38,9 @@
 
 ;; Show time reports as hours and minutes, never days
 (setq org-duration-format (quote h:mm))
+
+;; Colors
+(set-face-foreground 'org-table "#aa88cc")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
