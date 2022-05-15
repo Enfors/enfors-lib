@@ -20,3 +20,21 @@
 (set-face-foreground 'magit-diff-added-highlight   "blue")
 (set-face-foreground 'company-tooltip              "yellow")
 (set-face-foreground 'helm-selection               "red")
+(set-face-foreground 'org-level-1                  "#a0a0dd")
+(set-face-foreground 'org-drawer                   "#88aaaa")
+(set-face-foreground 'org-document-info-keyword    "#777777")
+(set-face-foreground 'org-hide                     "#140624")
+(set-face-foreground 'org-table                    "#6666cc")
+
+(set-face-foreground 'custom-comment-tag           "#88aaaa")
+
+(set-face-foreground 'dired-directory              "#6666cc")
+
+(set-face-foreground 'epa-string                   "#6666cc")
+
+(set-face-foreground 'minibuffer-prompt            "#9966cc")
+(set-face-foreground 'helm-minibuffer-prompt       "#9966cc")
+
+;;;; Set in other files:
+
+;; enfors-roam-setup: org-document-title
