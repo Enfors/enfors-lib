@@ -36,17 +36,17 @@
     (insert (format "You got %d out of %d correct.\n"
 		    correct-answers num-questions))))
 
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
+(defun enfors-dice (num max &optional mod)
+  "Roll a number of dice with optional modifier."
+  (let ((index 0)
+        (result 0)
+        (modifier (if (not (null mod))
+                      mod
+                    0)))
+    (while (< index num)
+      (setq result (+ result (random max) 1))
+      (setq index (1+ index)))
+    (if (eq modifier 0)
+        (insert (format "%dd%d: *%d*" num max result))
+      (insert (format "%dd%d+%d: %d + %d = *%d*" num max modifier result modifier
+                    (+ result modifier))))))
