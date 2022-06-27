@@ -19,7 +19,7 @@
 (set-face-foreground 'magit-diff-removed-highlight "white")
 (set-face-foreground 'magit-diff-added-highlight   "blue")
 (set-face-foreground 'company-tooltip              "yellow")
-(set-face-foreground 'helm-selection               "red")
+(set-face-foreground 'helm-selection               "white")
 (set-face-foreground 'org-level-1                  "#8080dd")
 (set-face-foreground 'org-drawer                   "#88aaaa")
 (set-face-foreground 'org-document-info-keyword    "#777777")
