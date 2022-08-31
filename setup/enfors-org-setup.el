@@ -19,6 +19,7 @@
 (add-hook 'org-mode-hook '(lambda ()
                             (set-face-foreground 'org-target   "yellow")
                             (set-face-foreground 'org-checkbox "blue")
+                            (bind-key "C-c d" 'enfors-dice)
                             ))
 
 ;; Always display the empty line between headings

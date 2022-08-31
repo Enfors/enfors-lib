@@ -36,17 +36,22 @@
     (insert (format "You got %d out of %d correct.\n"
 		    correct-answers num-questions))))
 
-
-
-
-
-      
-
-
-
-
-
-
-
-
+(defun enfors-dice (num max mod)
+  "Roll a number of dice with a modifier. Insert results into current buffer."
+  (interactive (list (read-number "Number of dice: ")
+                     (read-number "Die size: ")
+                     (read-number "Modifier: ")))
+  (let ((index 0)
+        (result 0)
+        (operator "+"))
+    (if (< mod 0)
+        (setq operator "-"))
+    (while (< index num)
+      (setq result (+ result (random max) 1))
+      (setq index (1+ index)))
+    (if (eq mod 0)
+        (insert (format "%dd%d: *%d*" num max result))
+      (insert (format "%dd%d%s%d: %d %s %d = *%d*"
+                      num max operator (abs mod) result operator (abs mod)
+                      (+ result mod))))))
 
