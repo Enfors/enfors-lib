@@ -3,7 +3,7 @@
 ;; As suggested by the book Mastering Emacs:
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "http://melpa.org/packages/") t)
 (package-initialize)
 ;; To install packages: M-x package-install RET
 ;; If you have added an archive, you might need to
@@ -59,3 +59,5 @@
 ;(require 'ido)
 ;(ido-mode t)
 (helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
