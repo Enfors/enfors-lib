@@ -25,5 +25,6 @@
              (require 'org-roam-dailies)  ;; Ensure keymap available
              (org-roam-setup))
 (set-face-foreground 'org-document-title "#4444cc")
+(org-roam-db-autosync-mode)
 
 (provide 'enfors-roam-setup)
