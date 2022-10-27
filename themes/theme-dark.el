@@ -18,7 +18,7 @@
 (set-face-foreground 'magit-section-highlight      "#EE88CC")
 (set-face-foreground 'magit-diff-removed-highlight "white")
 (set-face-foreground 'magit-diff-added-highlight   "blue")
-(set-face-foreground 'company-tooltip              "yellow")
+(set-face-foreground 'company-tooltip              "blue")
 (set-face-foreground 'helm-selection               "white")
 (set-face-foreground 'org-level-1                  "#8080dd")
 (set-face-foreground 'org-drawer                   "#88aaaa")
