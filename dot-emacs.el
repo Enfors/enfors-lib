@@ -58,6 +58,10 @@
 
 ;(require 'ido)
 ;(ido-mode t)
+
+;;; To re-enable Helm, uncomment the following lines and all lines to do with
+;;; helm in themes/theme-dark.el.
+
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
