@@ -33,7 +33,7 @@
 (set-face-foreground 'epa-string                   "#6666cc")
 
 (set-face-foreground 'minibuffer-prompt            "#9966cc")
-(set-face-foreground 'helm-minibuffer-prompt       "#9966cc")
+;(set-face-foreground 'helm-minibuffer-prompt       "#9966cc")
 
 ;;;; Set in other files:
 
