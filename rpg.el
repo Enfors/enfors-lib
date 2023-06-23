@@ -38,6 +38,7 @@
                     (lambda (item)
                       (org-element-property :raw-value item)))))
       (nth (random (length items)) items))))
+
 (provide 'rpg)
 ;; Usage example:
 (message "Random item: %s" (org-get-random-item "file.org"))

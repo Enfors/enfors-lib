@@ -1,70 +1,63 @@
 (require 'org-element)
-(defun urpg-get-headings-from-file (file)
-  "Return a list of all headings from FILE."
-  (with-temp-buffer
-    (insert-file-contents file)
-    (org-mode)
-    (org-map-entries
-     (lambda ()
-       (let ((heading (org-element-at-point)))
-         (when (eq (org-element-type heading) 'headline)
-           (org-element-property :raw-value heading)))))))
-
-(defun urpg-load-ast (file)
-  "Load an org-file in the background and return its AST."
-  (with-temp-buffer
-    (insert-file-contents file)
-    (org-element-parse-buffer)))
-
-(defun urpg-find-first-list-under-heading (ast target-heading)
-  (let (found-heading)
-    (org-element-map ast 'headline
-      (lambda (headline)
-        (when (and (not found-heading)
-                   (string= (org-element-property :raw-value headline)
-                            target-heading))
-          (setq found-heading t)
-          (org-element-map headline 'plain-list
-            (lambda (plain-list)
-              plain-list)))))))
-
-(defun urpg-extract-item-names (plain-list)
-  (org-element-map plain-list 'item
-    (lambda (item)
-      (let ((item-content (org-element-contents item)))
-        (when item-content
-          (org-element-interpret-data (car item-content)))))))
-
 
 (defun urpg-random-item (items)
   (nth (random (length items)) items))
 
-;(setq ast (urpg-load-ast
-;           "~/devel/RoamNotes/20230112201948-unified_rpg_core_rules.org"))
-(setq ast (urpg-load-ast "~/test-file.org"))
-(setq items (urpg-find-first-list-under-heading ast "Heading1"))
+;; The following function was written by user dalanicolai:
+;; https://emacs.stackexchange.com/questions/76421/how-to-get-item-names-from-lists-in-an-org-mode-file-using-elisp
+(defun org-get-heading-random-list-elements (heading-title)
+  (let* ((heading (car (org-element-map (org-element-parse-buffer)
+                           'headline
+                         (lambda (h)
+                           (when (string= (org-element-property :raw-value h) heading-title)
+                             h)))))
+         (heading-contents (org-element-contents heading))
+         (first-plain-list (caar (org-element-map heading-contents
+                                     'section
+                                   (lambda (s)
+                                     (org-element-map s 'plain-list #'identity)))))
+         (item-contents (org-element-map (org-element-contents first-plain-list)
+                            'item
+                          #'org-element-contents))
+         (paragraph-contents (mapcar (lambda (ic)
+                                       (org-element-map
+                                           ic
+                                           'paragraph
+                                         #'org-element-contents))
+                                     item-contents))
+         (list-items (mapcar #'caar paragraph-contents)))
+    (string-trim-right (substring-no-properties (nth (random (length list-items)) list-items)))))
 
-(org-element-property :bullet (car items))
-(message (urpg-random-item items))
+(defun urpg-get-random-list-element-from-file-and-heading (file-name heading-title)
+  (save-excursion
+    (with-temp-buffer
+      (insert-file-contents file-name)
+      (org-get-heading-random-list-elements heading-title))))
 
-;; Experiments
-(car (urpg-extract-item-names items))
-(setq item-list (org-element-map items 'item
-                  (lambda (item)
-                    item)))
-(car item-list)
-(setq my-item (car item-list))
-(car my-item)
-(org-element-property :paragraph (car my-item))
+(urpg-get-random-list-element-from-file-and-heading "~/test-file.org" "Heading1-1")
 
+(setq urpg-core-file-name "~/devel/RoamNotes/20230112201948-unified_rpg_core_rules.org")
 
-(defun list-item-properties (item)
-  (let ((props (nth 1 (assq (org-element-type item) org-element--set-regexps)))
-        (properties-alist))
-    (dolist (prop props)
-      (let ((value (org-element-property prop item)))
-        (when value
-          (push (cons prop value) properties-alist))))
-    properties-alist))
+(defun urpg-get-random-item-from-core-heading (heading)
+  (interactive)
+  (urpg-get-random-list-element-from-file-and-heading urpg-core-file-name heading))
+  
 
-(list-item-properties my-item)
+(defun urpg-get-random-action ()
+  (interactive)
+  (urpg-get-random-item-from-core-heading "Action"))
+
+(defun urpg-get-random-theme ()
+  (interactive)
+  (urpg-get-random-item-from-core-heading "Theme"))
+
+(defun urpg-get-random-action-and-theme ()
+  (interactive)
+  (let ((action (urpg-get-random-action))
+        (theme (urpg-get-random-theme)))
+    (message "Action and Theme: %s %s" action theme)
+    (concat action " " theme)))
+
+(urpg-get-random-action)
+(urpg-get-random-theme)
+(urpg-get-random-action-and-theme)
