@@ -26,7 +26,7 @@
 (set-face-foreground 'org-hide                     "#140624")
 (set-face-foreground 'org-table                    "#6666cc")
 
-(set-face-foreground 'custom-comment-tag           "#88aaaa")
+; (set-face-foreground 'custom-comment-tag           "#88aaaa") ;; elpy
 
 (set-face-foreground 'dired-directory              "#6666cc")
 
