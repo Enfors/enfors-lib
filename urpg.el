@@ -58,6 +58,6 @@
     (message "Action and Theme: %s %s" action theme)
     (concat action " " theme)))
 
-(urpg-get-random-action)
-(urpg-get-random-theme)
-(urpg-get-random-action-and-theme)
+;(urpg-get-random-action)
+;(urpg-get-random-theme)
+;(urpg-get-random-action-and-theme)
