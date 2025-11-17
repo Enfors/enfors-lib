@@ -34,7 +34,7 @@
       (insert-file-contents file-name)
       (org-get-heading-random-list-elements heading-title))))
 
-(urpg-get-random-list-element-from-file-and-heading "~/test-file.org" "Heading1-1")
+;(urpg-get-random-list-element-from-file-and-heading "~/test-file.org" "Heading1-1")
 
 (setq urpg-core-file-name "~/devel/RoamNotes/20230112201948-unified_rpg_core_rules.org")
 
