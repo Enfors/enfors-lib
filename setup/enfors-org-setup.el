@@ -51,4 +51,7 @@
  '(org-clock-into-drawer t)
  '(org-log-into-drawer t))
 
+;; Agenda
+;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20220513130808-hitachi.org")
+
 (provide 'enfors-org-setup)
