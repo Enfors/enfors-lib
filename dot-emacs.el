@@ -19,8 +19,8 @@
 (setq next-screen-context-lines   3)
 (setq-default indent-tabs-mode  nil)    ; Use spaces, not tabs
 (menu-bar-mode                    -1)   ; Get rid of the filthy menu bar
-(tool-bar-mode                    -1)   ; and its ugly tool bar cousin
-
+(unless (ignore-errors (tool-bar-mode -1))   ; and its ugly tool bar cousin
+  (message "Unable to turn off toolbar mode."))
 ;; This doesn't work for some reason (probably because terminal)
 (global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -65,3 +65,4 @@
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(setq helm-buffer-max-length 40)
