@@ -37,6 +37,19 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
+;; The following two functions were created by Gemini 3 (don't shoot me).
+;; The add s-Enter to indent to same level as leading "-" on previous line.
+(defun my-org-dumb-newline ()
+  "Insert newline and copy the previous line's indentation (block indent)."
+  (interactive)
+  (newline)
+  (indent-relative))
+
+(with-eval-after-load 'org
+  ;; Bind Shift-Return to the 'dumb' newline
+  (define-key org-mode-map (kbd "S-<return>") #'my-org-dumb-newline))
+;; End of code by Gemini
+
 ;; Show time reports as hours and minutes, never days
 (setq org-duration-format (quote h:mm))
 
