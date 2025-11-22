@@ -4,6 +4,11 @@
 (require 'seq)
 (require 'hydra)
 
+;; Since this file and 'enfors-ttrpg-plot.el' are now in the same directory
+;; (and that directory is added to load-path in your init.el), 
+;; we can just require it directly.
+(require 'enfors-ttrpg-plot)
+
 ;; =============================================================================
 ;; CONFIGURATION
 ;; =============================================================================
@@ -13,7 +18,6 @@
   :type 'file
   :group 'enfors-ttrpg)
 
-;; Ensure this path points to the ACTUAL file where you pasted the oracle tables!
 (defcustom enfors-ttrpg-oracle-file "~/devel/RoamNotes/20250320221815-action_theme_oracle.org"
   "Path to the Org file containing Oracle tables."
   :type 'file
@@ -332,6 +336,7 @@ Otherwise, query the user."
   ^^^^^^^^-----------------------------------
   _n_: NPC (Stage)         _r_: Roll (Msg)
   _o_: Oracle (Act/Thm)    _i_: Roll (Insert)
+  _p_: Plot Generator
   
   ^Staging^
   ^^^^^^^^----------------
@@ -341,6 +346,7 @@ Otherwise, query the user."
   "
   ("n" enfors-ttrpg-stage-npc :color red)
   ("o" enfors-ttrpg-oracle-roll :color red)
+  ("p" enfors-ttrpg-plot-generate :color red)
   ("k" enfors-ttrpg-keep-stage)
   ("d" enfors-ttrpg-discard-stage)
   ("r" enfors-ttrpg-dice-roll-message :color red)
