@@ -47,15 +47,6 @@
           ((= roll 8)  "Very large")
           (t           "Extremely large"))))
 
-(defun enfors-ttrpg-npc--roll-feature ()
-  "Roll feature recursively from ENFORS-TTRPG-NPC-FILE."
-  (let ((roll (1+ (random 20))))
-    (if (>= roll 15)
-        (format "%s, %s" (enfors-ttrpg-npc--roll-feature) (enfors-ttrpg-npc--roll-feature))
-      (let* ((data (enfors-ttrpg-get-table enfors-ttrpg-npc-file "app-features"))
-             (row (nth (1- roll) data)))
-        (if (> (length row) 1) (nth 1 row) (car row))))))
-
 ;; =============================================================================
 ;; MAIN GENERATOR COMMAND
 ;; =============================================================================
@@ -89,7 +80,9 @@
          (hair-len (enfors-ttrpg-roll-random-row enfors-ttrpg-npc-file "app-hair-length"))
          (hair-sty (enfors-ttrpg-roll-random-row enfors-ttrpg-npc-file "app-hair-style"))
          (facial (enfors-ttrpg-roll-random-row enfors-ttrpg-npc-file "app-facial-hair"))
-         (features (enfors-ttrpg-npc--roll-feature)) 
+         
+         ;; Simplified Feature Roll (No more recursion)
+         (features (enfors-ttrpg-roll-random-row enfors-ttrpg-npc-file "app-features"))
 
          (chest (enfors-ttrpg-npc--lookup-body-part size-mod))
          (waist (enfors-ttrpg-npc--lookup-body-part size-mod))
