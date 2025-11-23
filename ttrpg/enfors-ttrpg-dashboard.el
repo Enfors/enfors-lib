@@ -9,6 +9,7 @@
 (require 'enfors-ttrpg-plot)
 (require 'enfors-ttrpg-oracle)
 (require 'enfors-ttrpg-npc)
+(require 'enfors-ttrpg-names) ;; New Module
 
 ;; =============================================================================
 ;; DICE UI WRAPPERS
@@ -111,6 +112,8 @@
   ^^^^^^^^-------------------------------------------------------
   _n_: NPC (Stage)         _y_: Yes/No (Ask)        _r_: Roll (Msg)
   _p_: Plot Generator      _o_: Action/Theme        _i_: Roll (Insert)
+  _m_: Name (Male)
+  _f_: Name (Female)
   
   ^Staging^
   ^^^^^^^^----------------
@@ -122,6 +125,8 @@
   ("o" enfors-ttrpg-oracle-roll-action-theme :color red)
   ("y" enfors-ttrpg-oracle-ask :color red)
   ("p" enfors-ttrpg-plot-generate :color red)
+  ("m" enfors-ttrpg-names-get-male :color red)
+  ("f" enfors-ttrpg-names-get-female :color red)
   ("k" enfors-ttrpg-keep-stage)
   ("d" enfors-ttrpg-discard-stage)
   ("r" enfors-ttrpg-dice-roll-message :color red)
