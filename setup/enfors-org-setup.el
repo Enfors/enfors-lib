@@ -58,6 +58,12 @@
 ;; Colors
 (set-face-foreground 'org-table "#aa88cc")
 
+;;; Agenda view
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done  t
+      org-agenda-start-on-weekday       nil ;; Start today, not on Monday
+      org-agenda-span                   7)  ;; Show next 7 days
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
