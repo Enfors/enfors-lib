@@ -17,4 +17,8 @@
 (setq user-full-name    "Christer Enfors"
       user-mail-address "christer.enfors@gmail.com")
 
+;; Prevent gnus from generating its own MessageIDs for news
+(setq message-required-news-headers
+      (remove 'Message-ID message-required-news-headers))
+
 (provide 'enfors-gnus-setup)
