@@ -4,45 +4,65 @@
 (use-package org
   :ensure t
   :config
-  ;; 1. Visual Tweaks
-  (setq org-ellipsis "▾")             ;; Replaces "..." with an arrow
-  (setq org-hide-emphasis-markers t)  ;; Hides markers, // becomes italic
-
-  ;; 2. Enable Habits Module
+  ;; --- 1. MODULES & LOADING (Must happen first) ---
   (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)    ;; Adjusts where consistency graph starts
+  (require 'org-habit)
 
-  ;; Make sure priorities are colorful and standard
+  ;; --- 2. VISUAL TWEAKS ---
+  (setq org-ellipsis "▾")
+  (setq org-hide-emphasis-markers t)
+  
+  ;; --- 3. HABIT CONFIGURATION ---
+  (setq org-habit-show-habits-only-for-today t)
+  (setq org-log-done 'time) 
+  
+  ;; --- 4. PRIORITIES ---
   (setq org-priority-start-cycle-with-default nil)
   (setq org-agenda-fontify-priorities t)
 
-  ;; 3. Define Context Tags
-  ;; The character after the dog is the shortcut key for that tag
+  ;; --- 5. TAGS ---
   (setq org-tag-alist
         '((:startgroup)
-          ;; Mutually exclusive tags (You can't be at work and at home)
           ("@work" . ?w)
           ("@home" . ?h)
           (:endgroup)
-          ;; General tags
           ("ttrpg" . ?t)
           ("pr-prep" . ?p)
           ("solo" . ?s)
-          ("urgent" . ?u))))
+          ("urgent" . ?u)))
 
-(use-package org
-  :ensure nil
-  :config
-  ;; 1. Add the inbox file to the agenda files.
+  ;; --- 6. AGENDA FILES ---
+  ;; We add both files here in the main block
   (add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124144908-inbox.org")
+  (add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124205807-habits.org")
 
-  ;; 2. The "Universal Inbox" Capture Template
-  ;; We use add-to-list to preserve any existing templates.
+  ;; --- 7. CAPTURE TEMPLATES ---
   (add-to-list 'org-capture-templates
                '("i" "Inbox Task" entry
                  (file "~/devel/RoamNotes/20260124144908-inbox.org")
                  "* TODO %?\n  %i"
-                 :empty-lines 1)))
+                 :empty-lines 1))
+                 
+  (add-to-list 'org-capture-templates
+               '("h" "Habit" entry
+                 (file "~/devel/RoamNotes/20260124205807-habits.org")
+                 "* TODO %?\nSCHEDULED: <%<%Y-%m-%d %a .+1d>>\n:PROPERTIES:\n:STYLE: habit\n:END:\n  %i"
+                 :empty-lines 1))
+  ;; --- 8. REFILE SETTINGS ---
+  ;; Tell org-mode that any file in 'org-agenda-files' is a target.
+  ;; :maxlevel 3 means you can refile to a Top Level heading, or 2 levels down.
+  (setq org-refile-targets
+        '((org-agenda-files . (:maxlevel . 3))))
+
+  ;; Use full outline paths (e.g., "work.org/ProjectA/Task")
+  (setq org-refile-use-outline-path 'file)
+
+  ;; Essential for Helm/Ivy: Allows you to type "ProjA" and jumpt straight there
+  ;; instead of having to tab-complete step-by-step.
+  (setq org-outline-path-complete-in-steps t)
+
+  ;; Allow creating new nodes during refile if you need a new parent
+  (setq org-refile-allow-creating-parent-nodes 'confirm))
 
 (use-package dashboard
   :ensure t
@@ -52,31 +72,30 @@
   ;; 1. Visual Configuration
   (setq dashboard-banner-logo-title "Welcome back, Operator.")
   (setq dashboard-startup-banner 'official)
-  (setq dashboard-center-content t)
-  (setq dashboard-show-shortcuts nil)
-  (setq dashboard-agenda-prefix-format "%-12:c %-10s ")
+  (setq dashboard-center-content t)  ;; Centering is ON
+  (setq dashboard-show-shortcuts t)
 
-  ;; 2. DEFINE CUSTOM SECTIONS (The Robust Manual Way)
+  ;; Display 'fortune' if installed
+  (setq dashboard-footer-messages
+        (if (executable-find "fortune")
+            (list (string-trim (shell-command-to-string "fortune -s")))
+          '("Fortune command not found. Install it for wisdom.ö")))
+  
+  ;; Tweak this prefix. If it's too long, it pushes the graph away.
+  (setq dashboard-agenda-prefix-format " %-12:c %-10s ")
+
+  ;; 2. DEFINE CUSTOM SECTIONS
   (add-to-list 'dashboard-item-generators
                '(important . (lambda (list-size)
-                               ;; A. Insert the Header manually
-                               ;; We use the standard dashboard face for consistency
                                (insert (propertize "★ Critical Tasks" 'face 'dashboard-heading))
                                (insert "\n")
-                               
-                               ;; B. Fetch the items
                                (let ((items (org-map-entries
                                              (lambda () 
-                                               ;; (org-get-heading NO-TAGS NO-TODO NO-PRIORITY NO-COMMENT)
-                                               ;; We pass 't' only to tags. We WANT Todo and Priority.
                                                (org-get-heading t nil nil nil))
-                                             "PRIORITY=\"A\"/TODO" ;; Filter
-                                             'agenda)))            ;; Scope
-                                 
-                                 ;; C. Insert them
+                                             "PRIORITY=\"A\"/TODO"
+                                             'agenda)))
                                  (if items
                                      (dolist (item items)
-                                       ;; Simple, clean insertion
                                        (insert (format "  • %s\n" item)))
                                    (insert "  (No critical tasks right now)\n"))))))
 
@@ -84,50 +103,43 @@
                '(shortcuts . (lambda (list-size)
                                (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
                                (insert "\n")
-                               (insert "  [i] Inbox   [w] Work view    [p] Personal view"))))
-  
+                               (insert "  [i] Inbox   [w] Work view    [p] Personal view    [C-c c] Capture"))))
+   
   ;; 3. What sections to show?
-  (setq dashboard-items '((important . 10)   ;; Custom section first
-                          (agenda . 10)
-                          (shortcuts . 5)
-                          (recents . 5)))   
+  (setq dashboard-items '((important . 10)
+                          (agenda . 15)
+                          (recents . 5)
+                          (shortcuts . 3)))
 
-  ;; 4. Sorting Strategy (for the standard agenda section)
+
+  ;; 4. Sorting
   (setq dashboard-agenda-sort-strategy '(priority-up time-up))
 
-  ;; 5. Custom Navigation Shortcuts
+  ;; 5. Custom Navigation
   (add-hook 'dashboard-mode-hook
             (lambda ()
-              (local-set-key (kbd "i") (lambda () (interactive)
-                                       (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
-              (local-set-key (kbd "w") (lambda () (interactive)
-                                       (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
-              (local-set-key (kbd "p") (lambda () (interactive)
-                                         (find-file "~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org")))))
-  ;; 6. Auto-Focus the Agenda
-  ;; When dashboard opens, jump straight to the first actionable item
+              (local-set-key (kbd "i") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
+              (local-set-key (kbd "w") (lambda () (interactive) (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
+              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org")))))
+  
+  ;; 6. Auto-Focus
   (add-hook 'dashboard-mode-hook
             (lambda ()
-              (goto-char (point-min))       ;; Start at top
-              (if (search-forward "Agenda for" nil t) ;; Find the Agenda Header
+              (goto-char (point-min))
+              (if (search-forward "Agenda for" nil t)
                   (progn
-                    (forward-line 1)        ;; Go down one line
-                    (back-to-indentation))  ;; Move to start of text
-                (goto-char (point-min)))))) ;; Fallback to top if not found
+                    (forward-line 1)
+                    (back-to-indentation))
+                (goto-char (point-min))))))
 
 (use-package org-agenda
   :ensure nil
   :config
   (setq org-agenda-custom-commands
-       '(
-         ;; 1. Work view (press 'w')
-         ;; Shows tasks tagged 'work' or '@work'
-         ("w" "Work view"
+       '(("w" "Work view"
           ((tags-todo "+work|+@work"
                       ((org-agenda-overriding-header "Work Tasks")
                        (org-agenda-sorting-strategy '(priority-down time-up))))))
-
-         ;; 2. Personal view (press 'p')
          ("p" "Personal view"
           ((tags-todo "+personal"
                       ((org-agenda-overriding-header "Personal Tasks")))
@@ -135,9 +147,6 @@
                       ((org-agenda-overriding-header "Pathfinder Prep")))
            (tags-todo "+solo"
                       ((org-agenda-overriding-header "Solo Campaigns")))))
-
-         ;; 3. Inbox processor (press 'p')
-         ;; Shows everything in your inbox file specifically
          ("n" "Process Inbox"
           ((tags "ALL"
                  ((org-agenda-files '("~/devel/RoamNotes/20260124144908-inbox.org"))
