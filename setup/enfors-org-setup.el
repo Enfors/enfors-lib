@@ -61,6 +61,7 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
+      org-agenda-remove-tags            t
       org-agenda-start-on-weekday       nil ;; Start today, not on Monday
       org-agenda-span                   7)  ;; Show next 7 days
 
