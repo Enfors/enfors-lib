@@ -36,6 +36,8 @@
     (insert (format "You got %d out of %d correct.\n"
 		    correct-answers num-questions))))
 
+;; The following functions have been deprecated in favor of dice.el
+
 ;; (defun enfors-dice (num max mod)
 ;;   "Roll a number of dice with modifier, print result in message window."
 ;;   (interactive (list (read-number "Number of dice: ")
