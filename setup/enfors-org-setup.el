@@ -25,6 +25,11 @@
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
 
+;; Always force an empty line before every new heading/task
+(setq org-blank-before-new-entry 
+        '((heading . t)
+          (plain-list-item . auto)))
+
 ;; Define function for loading all org files in directory
 (defun enfors-load-all-org-files-in-directory (directory)
   "Load all files ending with .org from specified directory."
