@@ -14,6 +14,7 @@
   
   ;; --- 3. HABIT CONFIGURATION ---
   (setq org-habit-show-habits-only-for-today t)
+  (setq org-habit-graph-column 60)
   (setq org-log-done 'time) 
   
   ;; --- 4. PRIORITIES ---
@@ -108,8 +109,8 @@
   ;; 3. What sections to show?
   (setq dashboard-items '((important . 10)
                           (agenda . 15)
-                          (recents . 5)
-                          (shortcuts . 3)))
+                          (recents . 10)
+                          (shortcuts . 2)))
 
 
   ;; 4. Sorting
