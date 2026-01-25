@@ -1,3 +1,7 @@
+;;;; Locale
+;; Force English timestamps (Mon, Tue, Wed) to prevent Org Mode corruption
+(setq system-time-locale "C")
+
 ;;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
