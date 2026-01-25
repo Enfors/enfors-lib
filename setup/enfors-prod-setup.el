@@ -34,8 +34,9 @@
 
   ;; --- 6. AGENDA FILES ---
   ;; We add both files here in the main block
-  (add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124144908-inbox.org")
-  (add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124205807-habits.org")
+  ;; Note - no point in doing it here. Resets from custom in .emacs anyway.
+  ;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124144908-inbox.org")
+  ;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124205807-habits.org")
 
   ;; --- 7. CAPTURE TEMPLATES ---
   (add-to-list 'org-capture-templates
@@ -111,7 +112,6 @@
                           (agenda . 15)
                           (recents . 10)
                           (shortcuts . 2)))
-
 
   ;; 4. Sorting
   (setq dashboard-agenda-sort-strategy '(priority-up time-up))
