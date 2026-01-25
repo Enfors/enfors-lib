@@ -1,30 +1,36 @@
 (use-package org-roam
-             :ensure t
-             :init
-             (setq org-roam-v2-ack t
-;                   org-roam-db-update-method 'immediate
-                   org-roam-completion-everywhere t
-                   org-roam-node-display-template "${title}")
-             ; With tags, this should be (according to my Discourse thread:
-;                   org-roam-node-display-template "${title} ${tag}")
-             :custom
-             (org-roam-directory "~/devel/RoamNotes")
-             ;(org-roam-completion-everywhere t)
-             :bind (("C-c n l" . org-roam-buffer-toggle)
-                    ("C-c n f" . org-roam-node-find)
-                    ("C-c n i" . org-roam-node-insert)
-                    :map org-mode-map
-                    (("C-M-i"   . completion-at-point)
-                     ("C-c n t" . org-roam-tag-add))
-                    :map org-roam-dailies-map
-                    ("Y" . org-roam-dailies-capture-yesterday)
-                    ("T" . org-roam-dailies-capture-tomorrow))
-             :bind-keymap
-             ("C-c n d" . org-roam-dailies-map)
-             :config
-             (require 'org-roam-dailies)  ;; Ensure keymap available
-             (org-roam-setup))
-(set-face-foreground 'org-document-title "#4444cc")
-(org-roam-db-autosync-mode)
+  :ensure t
+  :custom
+  (org-roam-directory "~/devel/RoamNotes")
+  
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; --- DAILIES KEYBINDINGS ---
+         ("C-c n d" . org-roam-dailies-capture-today)    ; Quick capture to today's log
+         ("C-c n D" . org-roam-dailies-goto-today)       ; Open today's log file
+         ("C-c n m" . org-roam-dailies-capture-tomorrow) ; Plan for tomorrow
+         ("C-c n y" . org-roam-dailies-goto-yesterday))  ; Review yesterday
+
+  :config
+  ;; Enable the database synchronization
+  (org-roam-db-autosync-mode)
+
+  ;; --- DAILIES CONFIGURATION ---
+  (require 'org-roam-dailies)
+  
+  ;; 1. Where do the files live? (Relative to org-roam-directory)
+  ;; This puts them in ~/devel/RoamNotes/daily/
+  (setq org-roam-dailies-directory "daily/")
+
+  ;; 2. Template: Standard YYYY-MM-DD.org files
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n")
+           :empty-lines 1))))
 
 (provide 'enfors-roam-setup)

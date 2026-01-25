@@ -121,17 +121,8 @@
             (lambda ()
               (local-set-key (kbd "i") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
               (local-set-key (kbd "w") (lambda () (interactive) (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
-              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org")))))
+              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org"))))))
   
-  ;; 6. Auto-Focus
-  (add-hook 'dashboard-mode-hook
-            (lambda ()
-              (goto-char (point-min))
-              (if (search-forward "Agenda for" nil t)
-                  (progn
-                    (forward-line 1)
-                    (back-to-indentation))
-                (goto-char (point-min))))))
 
 (use-package org-agenda
   :ensure nil

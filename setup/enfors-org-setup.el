@@ -1,5 +1,8 @@
 ;;;; Org-mode stuff
 (require 'org)
+(require 'org-habit)
+(require 'org-capture)
+
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
@@ -16,11 +19,11 @@
 (add-hook 'org-mode-hook 'visual-line-mode)
 
 ;;; Colors
-(add-hook 'org-mode-hook '(lambda ()
-                            (set-face-foreground 'org-target   "yellow")
-                            (set-face-foreground 'org-checkbox "blue")
-                            (bind-key "C-c d" 'enfors-dice)
-                            ))
+(add-hook 'org-mode-hook (lambda ()
+                           (set-face-foreground 'org-target   "yellow")
+                           (set-face-foreground 'org-checkbox "blue")
+                           (bind-key "C-c d" 'enfors-dice)
+                           ))
 
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
