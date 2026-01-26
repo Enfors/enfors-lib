@@ -28,9 +28,12 @@
           ("@home" . ?h)
           (:endgroup)
           ("ttrpg" . ?t)
-          ("pr-prep" . ?p)
-          ("solo" . ?s)
-          ("urgent" . ?u)))
+          ("starter" . ?s)
+          ("urgent" . ?u))
+        org-tag-faces
+        '(("starter" . (:foreground "#449977" :weight bold))  ; Inviting Green
+          ("urgent"  . (:foreground "#cc6666" :weight bold))  ; Alert Red
+          ("@work"   . (:foreground "#6699cc"))))
 
   ;; --- 6. AGENDA FILES ---
   ;; We add both files here in the main block
@@ -76,6 +79,7 @@
   (setq dashboard-startup-banner 'official)
   (setq dashboard-center-content t)  ;; Centering is ON
   (setq dashboard-show-shortcuts t)
+  (setq org-agenda-window-setup 'current-window)
 
   ;; Display 'fortune' if installed
   (setq dashboard-footer-messages
@@ -87,19 +91,19 @@
   (setq dashboard-agenda-prefix-format " %-12:c %-10s ")
 
   ;; 2. DEFINE CUSTOM SECTIONS
-  (add-to-list 'dashboard-item-generators
-               '(important . (lambda (list-size)
-                               (insert (propertize "★ Critical Tasks" 'face 'dashboard-heading))
-                               (insert "\n")
-                               (let ((items (org-map-entries
-                                             (lambda () 
-                                               (org-get-heading t nil nil nil))
-                                             "PRIORITY=\"A\"/TODO"
-                                             'agenda)))
-                                 (if items
-                                     (dolist (item items)
-                                       (insert (format "  • %s\n" item)))
-                                   (insert "  (No critical tasks right now)\n"))))))
+  ;; (add-to-list 'dashboard-item-generators
+  ;;              '(important . (lambda (list-size)
+  ;;                              (insert (propertize "★ Critical Tasks" 'face 'dashboard-heading))
+  ;;                              (insert "\n")
+  ;;                              (let ((items (org-map-entries
+  ;;                                            (lambda () 
+  ;;                                              (org-get-heading t nil nil nil))
+  ;;                                            "PRIORITY=\"A\"/TODO"
+  ;;                                            'agenda)))
+  ;;                                (if items
+  ;;                                    (dolist (item items)
+  ;;                                      (insert (format "  • %s\n" item)))
+  ;;                                  (insert "  (No critical tasks right now)\n"))))))
 
   (add-to-list 'dashboard-item-generators
                '(shortcuts . (lambda (list-size)
@@ -108,7 +112,8 @@
                                (insert "  [i] Inbox   [w] Work view    [p] Personal view    [C-c c] Capture"))))
    
   ;; 3. What sections to show?
-  (setq dashboard-items '((important . 10)
+  (setq dashboard-items '(
+                          ;; (important . 10)
                           (agenda . 15)
                           (recents . 10)
                           (shortcuts . 2)))

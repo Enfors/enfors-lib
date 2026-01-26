@@ -69,9 +69,10 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
-      org-agenda-remove-tags            t
+      org-agenda-remove-tags            nil
+      org-agenda-tags-column            80
       org-agenda-start-on-weekday       nil ;; Start today, not on Monday
-      org-agenda-span                   7)  ;; Show next 7 days
+      )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
