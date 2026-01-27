@@ -72,6 +72,10 @@
       org-agenda-remove-tags            nil
       org-agenda-tags-column            80
       org-agenda-start-on-weekday       nil ;; Start today, not on Monday
+      org-agenda-show-outline-path      t   ;; Show outline in message buffer
+      org-enforce-todo-dependencies     t   ;; All children must be DONE before parent
+      org-agenda-dim-blocked-tasks      t
+      org-agenda-echo-preserve-layout   t   ;; Keep breadcrumb visible in msg area
       )
 
 (custom-set-variables
