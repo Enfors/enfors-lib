@@ -149,6 +149,19 @@
                  ((org-agenda-files '("~/devel/RoamNotes/20260124144908-inbox.org"))
                   (org-agenda-overriding-header "Inbox items to refile"))))))))
 
+;; Configure M-x calendar
+(setq calendar-intermonth-header
+      (propertize "Wk" 'font-lock-face 'font-lock-keyword-face))
+
+;; Add week number display to M-x calendar
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+                (car
+                 (calendar-iso-from-absolute
+                  (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'font-lock-comment-face))
+
 (global-set-key (kbd "C-c h") 'dashboard-open)
 
 (provide 'enfors-prod-setup)
