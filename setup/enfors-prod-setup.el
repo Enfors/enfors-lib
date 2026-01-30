@@ -119,7 +119,7 @@
                           (shortcuts . 2)))
 
   ;; 4. Sorting
-  (setq dashboard-agenda-sort-strategy '(priority-up time-up))
+  (setq dashboard-agenda-sort-strategy '(time-up priority up))
 
   ;; 5. Custom Navigation
   (add-hook 'dashboard-mode-hook
