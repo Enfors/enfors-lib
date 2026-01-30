@@ -150,10 +150,10 @@
                   (org-agenda-overriding-header "Inbox items to refile"))))))))
 
 ;; Configure M-x calendar
+;; Add week number display to M-x calendar
 (setq calendar-intermonth-header
       (propertize "Wk" 'font-lock-face 'font-lock-keyword-face))
 
-;; Add week number display to M-x calendar
 (setq calendar-intermonth-text
       '(propertize
         (format "%2d"
