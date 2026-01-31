@@ -69,6 +69,7 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
+      org-deadline-warning-days         0   ;; How many days in advance to warn
       org-agenda-remove-tags            nil
       org-agenda-tags-column            80
       org-agenda-start-on-weekday       nil ;; Start today, not on Monday
