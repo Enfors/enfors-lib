@@ -85,7 +85,7 @@
   (setq dashboard-footer-messages
         (if (executable-find "fortune")
             (list (string-trim (shell-command-to-string "fortune -s")))
-          '("Fortune command not found. Install it for wisdom.ö")))
+          '("Fortune command not found. Install it for wisdom.")))
   
   ;; Tweak this prefix. If it's too long, it pushes the graph away.
   (setq dashboard-agenda-prefix-format " %-12:c %-10s ")
