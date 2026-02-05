@@ -80,6 +80,12 @@
       org-deadline-warning-days         0   ;; Don't show future deadlines today
       )
 
+(setq org-agenda-time-grid
+      '((daily today require-timed)
+        (800 900 1000 1100 1200 1300 1400 1500 1600 1700)
+        "......"
+        "----------------"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
