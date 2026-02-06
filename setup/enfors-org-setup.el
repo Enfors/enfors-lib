@@ -81,10 +81,35 @@
       )
 
 (setq org-agenda-time-grid
-      '((daily today require-timed)
+      '((daily today require-timed remove-match)
         (800 900 1000 1100 1200 1300 1400 1500 1600 1700)
         "......"
         "----------------"))
+
+;;; Hack to get backlinks to sort in order of file modification date,
+;;; rather than alphabetical sort of file name.
+;;; Future versions of org-roam has org-roam-backlinks-sort - once I
+;;; get that version, this hack will be obsolete.
+(defun enfors-org-roam-backlinks-section (node)
+  "The 'Backlinks' section for Org-roam, sorted by file modification time."
+  (when-let ((backlinks (org-roam-backlinks-get node)))
+    (magit-insert-section (org-roam-backlinks)
+      (magit-insert-heading "Backlinks")
+      (dolist (backlink (sort backlinks (lambda (a b)
+                                          (time-less-p 
+                                           (org-roam-node-file-mtime (org-roam-backlink-source-node b))
+                                           (org-roam-node-file-mtime (org-roam-backlink-source-node a))))))
+        (org-roam-node-insert-section
+         :source-node (org-roam-backlink-source-node backlink)
+         :point (org-roam-backlink-point backlink)
+         :properties (org-roam-backlink-properties backlink))))
+    (insert "\n")))
+
+;; Tell Org-roam to use OUR function instead of the default
+(setq org-roam-mode-sections
+      (list #'enfors-org-roam-backlinks-section
+            #'org-roam-reflinks-section))
+;;; End of backlinks sorting hack.
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
