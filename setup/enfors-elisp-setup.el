@@ -9,6 +9,7 @@
 (add-hook 'emacs-lisp-mode-hook #'electric-pair-local-mode)
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
 ;; To show errors when eldoc overwrites them in minibuffer: C-h .
+;; To show diagnostics buffer: M-x flymake-show-buffer-diagnostics
 (setq eldoc-echo-area-use-multiline-p t)
 
 (define-key emacs-lisp-mode-map (kbd "M-n") #'flymake-goto-next-error)
