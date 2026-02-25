@@ -73,4 +73,6 @@
 ;; Bind it
 (define-key calendar-mode-map (kbd "d") 'enfors-calendar-open-roam-daily)
 
+(add-hook 'org-roam-mode-hook #'visual-line-mode)
+
 (provide 'enfors-roam-setup)
