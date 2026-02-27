@@ -56,6 +56,11 @@
   ;; Choose between `show-all' or `show-all' here:
   (setq outshine-startup-folded-p 'hide-body))
 
+(use-package hungry-delete
+  :ensure t
+  :config
+  :hook (emacs-lisp-mode . hungry-delete-mode))
+
 (provide 'enfors-elisp-setup)
 
 ;;; enfors-elisp-setup.el ends here
