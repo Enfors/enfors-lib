@@ -29,7 +29,8 @@
           (:endgroup)
           ("ttrpg" . ?t)
           ("starter" . ?s)
-          ("urgent" . ?u))
+          ("urgent" . ?u)
+          ("crypt" . ?c))
         org-tag-faces
         '(("starter" . (:foreground "#449977" :weight bold))  ; Inviting Green
           ("urgent"  . (:foreground "#cc6666" :weight bold))  ; Alert Red
