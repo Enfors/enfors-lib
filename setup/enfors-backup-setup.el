@@ -1,6 +1,8 @@
 ;;;; enfors-backup-setup.el - Set up backup configuration
 ;;;; Based on http://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
 
+;;; Code:
+
 ;; Set directory to save backups to.
 (setq backup-directory-alist '(("." . "~/.saves")))
 
