@@ -1,5 +1,7 @@
 ;;;; enfors-yasnippet-setup.el by Christer Enfors
 
+;;; Code:
+
 (require 'yasnippet)
 (yas-global-mode 1)
 (require 'warnings)
