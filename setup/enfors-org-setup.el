@@ -87,9 +87,9 @@
         "----------------"))
 
 ;;; Hack to get backlinks to sort in order of file modification date,
-;;; rather than alphabetical sort of file name.
-;;; Future versions of org-roam has org-roam-backlinks-sort - once I
-;;; get that version, this hack will be obsolete.
+;; rather than alphabetical sort of file name.
+;; Future versions of org-roam has org-roam-backlinks-sort - once I
+;; get that version, this hack will be obsolete.
 (defun enfors-org-roam-backlinks-section (node)
   "The 'Backlinks' section for Org-roam, sorted by file modification time."
   (when-let ((backlinks (org-roam-backlinks-get node)))
@@ -110,7 +110,31 @@
       (list #'enfors-org-roam-backlinks-section
             #'org-roam-reflinks-section))
 ;;; End of backlinks sorting hack.
+;;; Exporting setup
 
+(setq org-latex-remove-logfiles t)
+;; Add "tex" to the list of file extensions to delete after export
+(with-eval-after-load 'ox-latex
+      (add-to-list 'org-latex-logfiles-extensions "tex"))
+
+;;; Org-crypt setup
+(require 'org-crypt)
+
+;; Automatically encrypt upon saving
+(org-crypt-use-before-save-magic)
+
+;; Specify your GPG key ID or email address here
+(setq org-crypt-key "christer.enfors@gmail.com")
+;;(setq org-crypt-key "christer.enfors@afry.com") ; For work/union stuff
+
+;; Prevent the :crypt: tag from being inherited by sub-headings, 
+;; which messes up the encryption boundaries
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+;; Highly recommended: Prevent auto-save from leaking decrypted text
+(setq org-crypt-disable-auto-save t)
+
+;;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -123,3 +147,5 @@
 ;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20220513130808-hitachi.org")
 
 (provide 'enfors-org-setup)
+
+;;; enfors-org-setup.el ends here
