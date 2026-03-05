@@ -14,11 +14,15 @@
 ;; To show diagnostics buffer: M-x flymake-show-buffer-diagnostics
 (setq eldoc-echo-area-use-multiline-p t)
 
+(with-eval-after-load 'eldoc
+  (diminish 'eldoc-mode))
+
 (define-key emacs-lisp-mode-map (kbd "M-n") #'flymake-goto-next-error)
 (define-key emacs-lisp-mode-map (kbd "M-p") #'flymake-goto-prev-error)
 
 (use-package company
   :ensure t
+  :diminish company-mode  ; Requires diminish-mode
   :config
   :hook (emacs-lisp-mode . company-mode))
 
@@ -48,6 +52,7 @@
 
 (use-package outshine
   :ensure t
+  :diminish outshine-mode
   :hook (emacs-lisp-mode . outshine-mode)
   :bind (:map outshine-mode-map
               ("<backtab>" . enfors-outshine-cycle-and-reset)
