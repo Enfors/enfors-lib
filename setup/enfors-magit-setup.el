@@ -15,6 +15,7 @@
 
 ;; Set up a global key binding for magit-status
 (global-set-key (kbd "C-x g") 'magit-status)
+(setq magit-bury-buffer-function 'magit-restore-window-configuration)
 
 ;; require magit so that it's loaded, so we can set the colors:
 (require 'magit)
