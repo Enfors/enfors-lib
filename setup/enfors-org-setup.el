@@ -134,6 +134,9 @@
 ;; Highly recommended: Prevent auto-save from leaking decrypted text
 (setq org-crypt-disable-auto-save t)
 
+(with-eval-after-load 'epa
+  (setq epa-pinentry-mode 'loopback))
+
 ;;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
