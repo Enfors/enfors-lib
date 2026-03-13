@@ -1,4 +1,7 @@
-;;;; Org-mode stuff
+;;; enfors-org-setup --- My org-mode configuration
+;;; Commentary:
+;;; Code:
+
 (require 'org)
 (require 'org-habit)
 (require 'org-capture)
@@ -7,64 +10,33 @@
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
 		  "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
 
-;;; Always use org-indent-mode
+;;; General configuration
+;; Always use org-indent-mode
 (setq org-startup-indented t)
 
-;;; Hide the all but the last star in headings
+;; Hide the all but the last star in headings
 (setq org-hide-leading-stars t)
 
-;;; Always use auto-fill-mode in org-mode
-;(add-hook 'org-mode-hook 'turn-on-auto-fill)
-;;; Actually, use visual-line-mode instead for soft wrap
+;; Use visual-line-mode instead for soft wrap
 (add-hook 'org-mode-hook 'visual-line-mode)
-
-;;; Colors
-(add-hook 'org-mode-hook (lambda ()
-                           (set-face-foreground 'org-target   "yellow")
-                           (set-face-foreground 'org-checkbox "blue")
-                           (bind-key "C-c d" 'enfors-dice)
-                           ))
 
 ;; Always display the empty line between headings
 (setq org-cycle-separator-lines 1)
 
 ;; Always force an empty line before every new heading/task
-(setq org-blank-before-new-entry 
+(setq org-blank-before-new-entry
         '((heading . t)
           (plain-list-item . auto)))
-
-;; Define function for loading all org files in directory
-(defun enfors-load-all-org-files-in-directory (directory)
-  "Load all files ending with .org from specified directory."
-  (interactive "sEnter directory: ")
-  (dolist (file (directory-files directory t "\.org$"))
-    (find-file file)))
-
-;; Custom keys setup, from https://orgmode.org/manual/Activation.html:
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-;; Make Enter follow links instead of inserting an Enter into them.
-(setq org-return-follows-link t)  ; Now use C-c C-l to edit links
-
-;; The following two functions were created by Gemini 3 (don't shoot me).
-;; The add s-Enter to indent to same level as leading "-" on previous line.
-(defun my-org-dumb-newline ()
-  "Insert newline and copy the previous line's indentation (block indent)."
-  (interactive)
-  (newline)
-  (indent-relative))
-
-(with-eval-after-load 'org
-  ;; Bind Shift-Return to the 'dumb' newline
-  (define-key org-mode-map (kbd "S-<return>") #'my-org-dumb-newline))
-;; End of code by Gemini
 
 ;; Show time reports as hours and minutes, never days
 (setq org-duration-format (quote h:mm))
 
-;; Colors
-(set-face-foreground 'org-table "#aa88cc")
+;;; Colors
+(add-hook 'org-mode-hook (lambda ()
+                           (set-face-foreground 'org-target   "yellow")
+                           (set-face-foreground 'org-checkbox "blue")
+                           (set-face-foreground 'org-table    "#aa88cc")
+                           ))
 
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
@@ -85,6 +57,40 @@
         (800 900 1000 1100 1200 1300 1400 1500 1600)
         "......"
         "----------------"))
+;;; Key bindings
+
+;; Custom keys setup, from https://orgmode.org/manual/Activation.html:
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+;;; Misc
+
+;; Define function for loading all org files in directory
+(defun enfors-load-all-org-files-in-directory (directory)
+  "Load all files ending with .org from specified DIRECTORY."
+  (interactive "sEnter directory: ")
+  (dolist (file (directory-files directory t "\.org$"))
+    (find-file file)))
+
+;; Make Enter follow links instead of inserting an Enter into them.
+(setq org-return-follows-link t)  ; Now use C-c C-l to edit links
+
+
+;; The following two functions were created by Gemini 3 (don't shoot me).
+;; The add s-Enter to indent to same level as leading "-" on previous line.
+(defun my-org-dumb-newline ()
+  "Insert newline and copy the previous line's indentation (block indent)."
+  (interactive)
+  (newline)
+  (indent-relative))
+
+(with-eval-after-load 'org
+  ;; Bind Shift-Return to the 'dumb' newline
+  (define-key org-mode-map (kbd "S-<return>") #'my-org-dumb-newline))
+;; End of code by Gemini
+
+
 
 ;;; Hack to get backlinks to sort in order of file modification date,
 ;; rather than alphabetical sort of file name.
@@ -96,7 +102,7 @@
     (magit-insert-section (org-roam-backlinks)
       (magit-insert-heading "Backlinks")
       (dolist (backlink (sort backlinks (lambda (a b)
-                                          (time-less-p 
+                                          (time-less-p
                                            (org-roam-node-file-mtime (org-roam-backlink-source-node b))
                                            (org-roam-node-file-mtime (org-roam-backlink-source-node a))))))
         (org-roam-node-insert-section
@@ -109,7 +115,7 @@
 (setq org-roam-mode-sections
       (list #'enfors-org-roam-backlinks-section
             #'org-roam-reflinks-section))
-;;; End of backlinks sorting hack.
+;; End of backlinks sorting hack.
 ;;; Exporting setup
 
 (setq org-latex-remove-logfiles t)
