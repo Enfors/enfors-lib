@@ -1,3 +1,6 @@
+;;; enfors-prod-setup.el --- My dashboard and productivity setup
+;;; Commentary:
+;;; Code:
 (require 'enfors-org-setup)
 (require 'enfors-roam-setup)
 
@@ -15,7 +18,7 @@
   ;; --- 3. HABIT CONFIGURATION ---
   (setq org-habit-show-habits-only-for-today t)
   (setq org-habit-graph-column 60)
-  (setq org-log-done 'time) 
+  (setq org-log-done 'time)
   
   ;; --- 4. PRIORITIES ---
   (setq org-priority-start-cycle-with-default nil)
@@ -91,21 +94,6 @@
   ;; Tweak this prefix. If it's too long, it pushes the graph away.
   (setq dashboard-agenda-prefix-format " %-12:c %-10s ")
 
-  ;; 2. DEFINE CUSTOM SECTIONS
-  ;; (add-to-list 'dashboard-item-generators
-  ;;              '(important . (lambda (list-size)
-  ;;                              (insert (propertize "★ Critical Tasks" 'face 'dashboard-heading))
-  ;;                              (insert "\n")
-  ;;                              (let ((items (org-map-entries
-  ;;                                            (lambda () 
-  ;;                                              (org-get-heading t nil nil nil))
-  ;;                                            "PRIORITY=\"A\"/TODO"
-  ;;                                            'agenda)))
-  ;;                                (if items
-  ;;                                    (dolist (item items)
-  ;;                                      (insert (format "  • %s\n" item)))
-  ;;                                  (insert "  (No critical tasks right now)\n"))))))
-
   (add-to-list 'dashboard-item-generators
                '(shortcuts . (lambda (list-size)
                                (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
@@ -132,7 +120,6 @@
               (local-set-key (kbd "c") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
               )))
   
-
 (use-package org-agenda
   :ensure nil
   :config
@@ -169,3 +156,5 @@
 (global-set-key (kbd "C-c h") 'dashboard-open)
 
 (provide 'enfors-prod-setup)
+
+;;; enfors-prod-setup.el ends here
