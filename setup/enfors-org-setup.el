@@ -50,6 +50,7 @@
       org-agenda-dim-blocked-tasks      t
       org-agenda-echo-preserve-layout   t   ;; Keep breadcrumb visible in msg area
       org-deadline-warning-days         0   ;; Don't show future deadlines today
+      org-habit-graph-column           51   ; Don't let graph overwrite tags
       )
 
 (setq org-agenda-time-grid
