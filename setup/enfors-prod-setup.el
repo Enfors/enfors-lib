@@ -33,17 +33,20 @@
           ("ttrpg" . ?t)
           ("starter" . ?s)
           ("urgent" . ?u)
+          ("focus" . ?f)
           ("crypt" . ?c))
         org-tag-faces
         '(("starter" . (:foreground "#449977" :weight bold))  ; Inviting Green
           ("urgent"  . (:foreground "#cc6666" :weight bold))  ; Alert Red
+          ("focus"   . (:foreground "#e6b800" :weight bold))  ; Striking Gold
           ("@work"   . (:foreground "#6699cc"))))
 
-  ;; --- 6. AGENDA FILES ---
-  ;; We add both files here in the main block
-  ;; Note - no point in doing it here. Resets from custom in .emacs anyway.
-  ;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124144908-inbox.org")
-  ;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20260124205807-habits.org")
+  ;; --- 6. AGENDA VIEWS ---
+
+  (setq org-agenda-custom-commands
+        '(("f" "Focus Tasks" agenda ""
+           ((org-agenda-filter-preset '("+focus"))
+            (org-agenda-overriding-header "🎯 Today's focus tasks:\n")))))
 
   ;; --- 7. CAPTURE TEMPLATES ---
   (add-to-list 'org-capture-templates
