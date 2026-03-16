@@ -106,8 +106,8 @@
   ;; 3. What sections to show?
   (setq dashboard-items '(
                           ;; (important . 10)
-                          (agenda . 15)
-                          (recents . 10)
+                          (agenda . 10)
+                          (recents . 15)
                           (shortcuts . 2)))
 
   ;; 4. Sorting
