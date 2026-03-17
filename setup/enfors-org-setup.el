@@ -41,17 +41,23 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
-      org-deadline-warning-days         0   ;; How many days in advance to warn
+      org-deadline-warning-days         0   ; How many days in advance to warn
       org-agenda-remove-tags            nil
       org-agenda-tags-column            80
-      org-agenda-start-on-weekday       nil ;; Start today, not on Monday
-      org-agenda-show-outline-path      t   ;; Show outline in message buffer
-      org-enforce-todo-dependencies     t   ;; All children must be DONE before parent
+      org-habit-graph-column            51  ; Don't let graph overwrite tags
+      org-agenda-start-on-weekday       nil ; Start today, not on Monday
+      org-agenda-show-outline-path      t   ; Show outline in message buffer
+      org-enforce-todo-dependencies     t   ; All children must be DONE before parent
       org-agenda-dim-blocked-tasks      t
-      org-agenda-echo-preserve-layout   t   ;; Keep breadcrumb visible in msg area
-      org-deadline-warning-days         0   ;; Don't show future deadlines today
-      org-habit-graph-column           51   ; Don't let graph overwrite tags
+      org-agenda-echo-preserve-layout   t   ; Keep breadcrumb visible in msg area
+      org-deadline-warning-days         0   ; Don't show future deadlines today
       )
+
+(setq org-agenda-sorting-strategy
+      '((agenda priority-down scheduled-up time-up)
+        (todo   priority-down scheduled-up)
+        (tags   priority-down scheduled-up)
+        (search priority-down)))
 
 (setq org-agenda-time-grid
       '((daily today require-timed remove-match)
