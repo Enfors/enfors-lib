@@ -54,7 +54,7 @@
       )
 
 (setq org-agenda-sorting-strategy
-      '((agenda priority-down scheduled-up time-up)
+      '((agenda time-up priority-down scheduled-up)
         (todo   priority-down scheduled-up)
         (tags   priority-down scheduled-up)
         (search priority-down)))
