@@ -25,6 +25,7 @@
 (set-face-foreground 'org-document-info-keyword    "#777777")
 (set-face-foreground 'org-hide                     "#140624")
 (set-face-foreground 'org-table                    "#6666cc")
+(set-face-foreground 'org-verbatim                 "#606060")
 
 ; (set-face-foreground 'custom-comment-tag           "#88aaaa") ;; elpy
 
