@@ -35,7 +35,6 @@
 (add-hook 'org-mode-hook (lambda ()
                            (set-face-foreground 'org-target   "yellow")
                            (set-face-foreground 'org-checkbox "blue")
-                           (set-face-foreground 'org-table    "#aa88cc")
                            ))
 
 ;;; Agenda view

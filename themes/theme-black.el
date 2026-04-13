@@ -1,5 +1,5 @@
 (set-background-color "black")
-(set-foreground-color "white")
+(set-foreground-color "#c0c0c0")
 
 ;;;; Faces
 (set-face-foreground 'default                      "white")

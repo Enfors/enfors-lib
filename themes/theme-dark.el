@@ -9,7 +9,7 @@
 (require 'helm)
 
 ;;;; Faces
-(set-face-foreground 'default                      "white")
+(set-face-foreground 'default                      "#ddddff")
 (set-face-foreground 'font-lock-string-face        "#cccc33")
 (set-face-foreground 'font-lock-keyword-face       "magenta")
 (set-face-foreground 'font-lock-comment-face       "cyan")
@@ -24,10 +24,8 @@
 (set-face-foreground 'org-drawer                   "#88aaaa")
 (set-face-foreground 'org-document-info-keyword    "#777777")
 (set-face-foreground 'org-hide                     "#140624")
-(set-face-foreground 'org-table                    "#6666cc")
-(set-face-foreground 'org-verbatim                 "#606060")
-
-; (set-face-foreground 'custom-comment-tag           "#88aaaa") ;; elpy
+(set-face-foreground 'org-table                    "#8866cc")
+(set-face-foreground 'org-verbatim                 "#ffe090")
 
 (set-face-foreground 'dired-directory              "#6666cc")
 
