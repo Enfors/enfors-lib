@@ -1,4 +1,8 @@
-;;;; To find faces to customize: M-x list-faces-display RET
+;;; theme-dark.el -- Theme
+;;; Commentary:
+;;; Code:
+
+;; To find faces to customize: M-x list-faces-display RET
 
 (set-background-color "#001138")
 (set-foreground-color "#ccccff")
@@ -8,7 +12,7 @@
 (require 'company)
 (require 'helm)
 
-;;;; Faces
+;; Faces
 (set-face-foreground 'default                      "#ddddff")
 (set-face-foreground 'font-lock-string-face        "#cccc33")
 (set-face-foreground 'font-lock-keyword-face       "magenta")
@@ -34,6 +38,9 @@
 (set-face-foreground 'minibuffer-prompt            "#9966cc")
 (set-face-foreground 'helm-minibuffer-prompt       "#9966cc")
 
-;;;; Set in other files:
+;;; Set in other files:
 
 ;; enfors-roam-setup: org-document-title
+
+(provide 'theme-dark)
+;;; theme-dark.el ends here
