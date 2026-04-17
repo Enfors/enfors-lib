@@ -43,10 +43,6 @@
 
   ;; --- 6. AGENDA VIEWS ---
 
-  (setq org-agenda-custom-commands
-        '(("f" "Focus Tasks" agenda ""
-           ((org-agenda-filter-preset '("+focus"))
-            (org-agenda-overriding-header "🎯 Today's focus tasks:\n")))))
 
   ;; --- 7. CAPTURE TEMPLATES ---
   (add-to-list 'org-capture-templates
@@ -138,6 +134,9 @@
                       ((org-agenda-overriding-header "Pathfinder Prep")))
            (tags-todo "+solo"
                       ((org-agenda-overriding-header "Solo Campaigns")))))
+         ("f" "Focus Tasks" agenda ""
+           ((org-agenda-filter-preset '("+focus"))
+            (org-agenda-overriding-header "🎯 Today's focus tasks:\n")))
          ("n" "Process Inbox"
           ((tags "ALL"
                  ((org-agenda-files '("~/devel/RoamNotes/20260124144908-inbox.org"))
