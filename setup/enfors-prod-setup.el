@@ -118,7 +118,14 @@
               (local-set-key (kbd "d") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131135628-org_roam_workflow.org")))
               (local-set-key (kbd "c") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
               )))
-  
+
+(defun enfors-org-skip-unless-focus-or-calendar ()
+  "Skip agenda items unless they explicitly possess the 'focus' or 'calendar' tag."
+  (let ((tags (org-get-tags)))
+    (if (or (member "focus" tags) (member "cal" tags))
+        nil          ; Condition met: Keep it in the agenda
+      (save-excursion (org-end-of-subtree t))))) ; Condition failed: Skip it
+
 (use-package org-agenda
   :ensure nil
   :config
@@ -135,8 +142,8 @@
            (tags-todo "+solo"
                       ((org-agenda-overriding-header "Solo Campaigns")))))
          ("f" "Focus Tasks" agenda ""
-           ((org-agenda-filter-preset '("+focus"))
-            (org-agenda-overriding-header "🎯 Today's focus tasks:\n")))
+           ((org-agenda-skip-function 'enfors-org-skip-unless-focus-or-calendar)
+            (org-agenda-overriding-header "🎯 Today's focus tasks")))
          ("n" "Process Inbox"
           ((tags "ALL"
                  ((org-agenda-files '("~/devel/RoamNotes/20260124144908-inbox.org"))
