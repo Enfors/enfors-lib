@@ -82,6 +82,8 @@
 ;; Make Enter follow links instead of inserting an Enter into them.
 (setq org-return-follows-link t)  ; Now use C-c C-l to edit links
 
+;; Onen links in current window instead of find-file-other-window.
+(setf (alist-get 'file org-link-frame-setup) #'find-file)
 
 ;; The following two functions were created by Gemini 3 (don't shoot me).
 ;; The add s-Enter to indent to same level as leading "-" on previous line.
