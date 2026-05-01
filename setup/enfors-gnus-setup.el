@@ -21,10 +21,17 @@
             (auto-fill-mode 1)))
 
 (setq gnus-secondary-select-methods
-      '((nntp "news.eternal-september.org"
-              (nntp-port-number 119)
-              (nntp-open-connection-function nntp-open-network-stream)
-              (nntp-stream-type starttls))))
+      '((nntp "news.gmane.io")
+        (nntp "news.eternal-september.org"
+              (nntp-port-number 563)
+              (nntp-open-connection-function nntp-open-ssl-stream))))
+
+;; Below is a verified working version, but probably doesn't use encryption
+;; (setq gnus-secondary-select-methods
+;;       '((nntp "news.gmane.io")
+;;         (nntp "news.eternal-september.org"
+;;               (nntp-port-number 119)
+;;               (nntp-open-connection-function nntp-open-network-stream))))
 
 ;; (nntp-authinfo-file "~/.authinfo.gpg"))))
 ;; Recommended groups: comp.lang.c, comp.unix.shell
