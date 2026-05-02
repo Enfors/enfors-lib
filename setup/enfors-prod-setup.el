@@ -97,7 +97,9 @@
                '(shortcuts . (lambda (list-size)
                                (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
                                (insert "\n")
-                               (insert "  [i] Inbox   [w] Work   [c] Calendar   [C-c c] Capture   [d] Workflow doc"))))
+                               (insert (concat "  [w] Work      [p] Personal      [C-c c] Capture\n"
+                                               "  [c] Calendar  [d] Workflow doc  [i]     Inbox")))))
+
    
   ;; 3. What sections to show?
   (setq dashboard-items '(
@@ -114,7 +116,7 @@
             (lambda ()
               (local-set-key (kbd "i") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
               (local-set-key (kbd "w") (lambda () (interactive) (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
-              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org")))
+              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260502113133-personal_todos.org")))
               (local-set-key (kbd "d") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131135628-org_roam_workflow.org")))
               (local-set-key (kbd "c") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
               )))
