@@ -126,7 +126,7 @@
   (let ((tags (org-get-tags)))
     (if (or (member "focus" tags) (member "cal" tags))
         nil          ; Condition met: Keep it in the agenda
-      (save-excursion (org-end-of-subtree t))))) ; Condition failed: Skip it
+      (save-excursion (outline-next-heading) (point))))) ; Condition failed: Skip it
 
 (use-package org-agenda
   :ensure nil
