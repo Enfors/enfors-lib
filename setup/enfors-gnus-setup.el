@@ -96,6 +96,8 @@
   (bbdb-mua-auto-update-p t)
   ;; Prevent BBDB from messing up window splits
   (bbdb-mua-pop-up nil)
+  ;; Prevent TAB completion from opening the contact card window
+  (bbdb-completion-display-record nil)
   :config
   ;; Hook BBDB into Gnus and Message-mode on load
   (bbdb-initialize 'gnus 'message)
@@ -109,7 +111,7 @@
   :after bbdb
   :bind (:map message-mode-map
               ;; Overwrite standard address lookup with Helm
-              ("C-c C-f" . helm-bbdb)))
+              ("C-c b" . helm-bbdb)))
 
 (provide 'enfors-gnus-setup)
 
