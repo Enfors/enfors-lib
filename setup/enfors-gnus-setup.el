@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 (require 'gnus)
-;; (setq gnus-select-method            '(nntp "news.gmane.io"))
+
 (setq gnus-select-method '(nnimap "gmail"
                (nnimap-address "imap.gmail.com")
                (nnimap-server-port "imaps")
@@ -30,8 +30,9 @@
 ;; Turn off all the annoying HTML colors
 
 ;; 1. The "Prefer Plain Text" Rule
-;; Most modern emails are sent as "multipart/alternative" (they contain both text and HTML).
-;; This tells Gnus to actively despise the HTML part and exclusively load the plain text.
+;; Most modern emails are sent as "multipart/alternative" (they
+;; contain both text and HTML). This tells Gnus to actively despise
+;; the HTML part and exclusively load the plain text.
 (setq mm-discouraged-alternatives '("text/html" "text/richtext"))
 
 ;; 2. Tame the HTML Renderer (For HTML-only emails)
@@ -42,7 +43,8 @@
 (setq shr-use-fonts nil)
 (setq shr-inhibit-images t)
 
-;; Optional: If an HTML email has annoying clickable link markers, this tones them down.
+;; Optional: If an HTML email has annoying clickable link markers,
+;; this tones them down.
 (setq shr-bullet "• ")
 
 ;; Posting styles
@@ -50,7 +52,12 @@
       '((".*"  ; The default
          (eval (visual-line-mode 1))
          (eval (auto-fill-mode -1)))
-        ("^gnu\\." ; The override for old style formatting
+        ("OrgList" ; The override for old style formatting
+         (signature (concat "Christer Enfors\n"
+                            "Org contributor liaison\n"
+                            "GPG Fingerprint: 9CF7 3292 83BC D643 DF01  "
+                            "992C 1C3B 434F 2AC2 B1E6\n"
+                            "Public Key available at: keys.openpgp.org"))
          (eval (visual-line-mode -1))
          (eval (auto-fill-mode 1))
          (fill-column 72))))
@@ -68,24 +75,41 @@
               (nntp-port-number 563)
               (nntp-open-connection-function nntp-open-ssl-stream))))
 
-;; Below is a verified working version, but probably doesn't use encryption
-;; (setq gnus-secondary-select-methods
-;;       '((nntp "news.gmane.io")
-;;         (nntp "news.eternal-september.org"
-;;               (nntp-port-number 119)
-;;               (nntp-open-connection-function nntp-open-network-stream))))
-
-;; (nntp-authinfo-file "~/.authinfo.gpg"))))
-;; Recommended groups: comp.lang.c, comp.unix.shell
-
-
-;; "For a minimal setup for posting should also customize the variables user-full-name and user-mail-address."
+;; "For a minimal setup for posting should also customize the
+;; variables user-full-name and user-mail-address."
 (setq user-full-name    "Christer Enfors"
       user-mail-address "christer.enfors@gmail.com")
 
 ;; Prevent gnus from generating its own MessageIDs for news
 ;(setq message-required-news-headers
 ;      (remove 'Message-ID message-required-news-headers))
+
+;;; Big Brother Database - for email address completion
+
+;; ---------------------------------------------------------
+;; THE DATABASE: BBDB (Big Brother Database)
+;; ---------------------------------------------------------
+(use-package bbdb
+  :ensure t
+  :custom
+  ;; 'query = Ask me before saving. Change to t to save silently.
+  (bbdb-mua-auto-update-p t)
+  ;; Prevent BBDB from messing up window splits
+  (bbdb-mua-pop-up nil)
+  :config
+  ;; Hook BBDB into Gnus and Message-mode on load
+  (bbdb-initialize 'gnus 'message)
+  (bbdb-mua-auto-update-init 'gnus 'message))
+
+;; ---------------------------------------------------------
+;; THE INTERFACE: Helm-BBDB
+;; ---------------------------------------------------------
+(use-package helm-bbdb
+  :ensure t
+  :after bbdb
+  :bind (:map message-mode-map
+              ;; Overwrite standard address lookup with Helm
+              ("C-c C-f" . helm-bbdb)))
 
 (provide 'enfors-gnus-setup)
 
