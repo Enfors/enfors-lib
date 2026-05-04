@@ -1,8 +1,11 @@
-;;;; Locale
+;;; dot-emacs.el --- my ".emacs" for enfors-lib
+;;; Commentary:
+;;; Code:
+
 ;; Force English timestamps (Mon, Tue, Wed) to prevent Org Mode corruption
 (setq system-time-locale "C")
 
-;;;; Package manager stuff
+;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
 (require 'package)
@@ -13,11 +16,11 @@
 ;; If you have added an archive, you might need to
 ;; (package-refresh-contents) first.
 
-;;;; Common lisp
+;;; Common lisp
 ;(load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;(setq inferior-lisp-program "/home/enfors/ccl/armcl")
 
-;;;; General emacs stuff
+;;; General emacs stuff
 (setq transient-mark-mode t)
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
@@ -63,10 +66,11 @@
 ;(require 'ido)
 ;(ido-mode t)
 
-;;; To re-enable Helm, uncomment the following lines and all lines to do with
-;;; helm in themes/theme-dark.el.
-
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (setq helm-buffer-max-length 40)
+
+(provide 'dot-emacs)
+
+;;; dot-emacs.el ends here
