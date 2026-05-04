@@ -5,6 +5,10 @@
 ;; Force English timestamps (Mon, Tue, Wed) to prevent Org Mode corruption
 (setq system-time-locale "C")
 
+;; Weeks start on Mondays. Americans are crazy.
+(setq calendar-week-start-day 1)  ; 0 = Sunday, 1 = Monday, etc.
+
+
 ;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
@@ -12,13 +16,6 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://melpa.org/packages/") t)
 (package-initialize)
-;; To install packages: M-x package-install RET
-;; If you have added an archive, you might need to
-;; (package-refresh-contents) first.
-
-;;; Common lisp
-;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;(setq inferior-lisp-program "/home/enfors/ccl/armcl")
 
 ;;; General emacs stuff
 (setq transient-mark-mode t)
@@ -34,10 +31,6 @@
 (global-set-key (kbd "S-C-<down>")  'shrink-window)
 (global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
-;; Key for opening journal file
-;(global-set-key (kbd "C-x j")       '(lambda ()
-;				       (interactive)
-;				       (find-file "~/plan/journal.org")))
 ;; IMenu - used to navigate. Press M-i tab for list of destinations.
 (global-set-key (kbd "M-i") 'imenu)
 
@@ -55,9 +48,6 @@
 (add-to-list 'auto-mode-alist '("\\.lr\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'visual-line-mode)
 
-;; Weeks start on Mondays. Americans are crazy.
-(setq calendar-week-start-day 1)  ; 0 = Sunday, 1 = Monday, etc.
-
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
     (setq enfors-path "~/devel/elisp/enfors-lib"))
@@ -66,10 +56,16 @@
 ;(require 'ido)
 ;(ido-mode t)
 
+;;; Helm setup
+
+(setq helm-buffer-details-flag nil)
+(setq helm-buffer-max-length 40)
+
 (helm-mode 1)
+
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(setq helm-buffer-max-length 40)
+(global-set-key (kbd "C-x b")   'helm-mini)
 
 (provide 'dot-emacs)
 
