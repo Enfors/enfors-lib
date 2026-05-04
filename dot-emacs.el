@@ -8,7 +8,6 @@
 ;; Weeks start on Mondays. Americans are crazy.
 (setq calendar-week-start-day 1)  ; 0 = Sunday, 1 = Monday, etc.
 
-
 ;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
@@ -18,6 +17,7 @@
 (package-initialize)
 
 ;;; General emacs stuff
+
 (setq transient-mark-mode t)
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
@@ -47,6 +47,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.lr\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'visual-line-mode)
+
+;;; Windmove setup
+
+(use-package windmove
+  :ensure nil
+  :config
+  (windmove-default-keybindings))       ; S-arrows to switch windows
 
 ;; Load enfors-lib
 (or (boundp 'enfors-path)
