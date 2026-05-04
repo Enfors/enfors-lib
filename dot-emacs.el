@@ -55,7 +55,17 @@
   :config
   (windmove-default-keybindings))       ; S-arrows to switch windows
 
-;; Load enfors-lib
+;;; Prevent Emacs from opening stuff in the wrong window
+
+;; Force Emacs to open buffers in the currently focused window
+(setq display-buffer-base-action
+      '((display-buffer-same-window)
+        (inhibit-same-window . nil)))
+
+;; Prevent Emacs from aggressively splitting windows on its own
+(setq pop-up-windows nil)
+
+;;; Load enfors-lib
 (or (boundp 'enfors-path)
     (setq enfors-path "~/devel/elisp/enfors-lib"))
 (load-file (concat enfors-path "/enfors-lib.el"))
