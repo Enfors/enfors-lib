@@ -13,7 +13,9 @@
 (require 'helm)
 
 ;; Faces
-(set-face-foreground 'default                      "#ddddff")
+(set-face-foreground 'default                      "#9090d0")
+;(set-face-foreground 'bold                         "#6040a0")
+(set-face-attribute  'bold nil :foreground "#6040a0" :weight 'bold)
 (set-face-foreground 'font-lock-string-face        "#cccc33")
 (set-face-foreground 'font-lock-keyword-face       "magenta")
 (set-face-foreground 'font-lock-comment-face       "cyan")
@@ -24,7 +26,8 @@
 (set-face-foreground 'magit-diff-added-highlight   "blue")
 (set-face-foreground 'company-tooltip              "blue")
 (set-face-foreground 'helm-selection               "white")
-(set-face-foreground 'org-level-1                  "#8080dd")
+(set-face-foreground 'helm-match                   "#6060ff")
+(set-face-foreground 'org-level-1                  "#6060ff")
 (set-face-foreground 'org-drawer                   "#88aaaa")
 (set-face-foreground 'org-document-info-keyword    "#777777")
 (set-face-foreground 'org-hide                     "#140624")
