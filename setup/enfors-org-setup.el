@@ -40,6 +40,7 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
+      org-agenda-skip-unavailable-files t   ; Skip file if not present
       org-deadline-warning-days         0   ; How many days in advance to warn
       org-agenda-remove-tags            nil
       org-agenda-tags-column            80
