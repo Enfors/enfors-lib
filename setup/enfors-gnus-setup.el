@@ -49,10 +49,7 @@
 
 ;; Posting styles
 (setq gnus-posting-styles
-      '((".*"  ; The default
-         (eval (visual-line-mode 1))
-         (eval (auto-fill-mode -1)))
-        ("OrgList" ; The override for old style formatting
+      '((".*" ; The default, for GNU-type stuff
          (signature (concat "Christer Enfors\n"
                             "Org contributor liaison\n"
                             "GPG Fingerprint: 9CF7 3292 83BC D643 DF01  "
@@ -60,7 +57,10 @@
                             "Public Key available at: keys.openpgp.org"))
          (eval (visual-line-mode -1))
          (eval (auto-fill-mode 1))
-         (fill-column 72))))
+         (fill-column 72))
+        ("INBOX" ; For ordinary emails
+         (eval (visual-line-mode 1))
+         (eval (auto-fill-mode -1)))))
 
 ;; This version (which I no longer want) forces all email lines to be
 ;; maximum 72 characters long.
