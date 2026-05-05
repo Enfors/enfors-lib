@@ -57,13 +57,30 @@
 
 ;;; Prevent Emacs from opening stuff in the wrong window
 
-;; Force Emacs to open buffers in the currently focused window
-(setq display-buffer-base-action
-      '((display-buffer-same-window)
-        (inhibit-same-window . nil)))
+;; Force magit to behave
+(setq magit-display-buffer-function
+      #'magit-display-buffer-same-window-except-diff-v1)
 
-;; Prevent Emacs from aggressively splitting windows on its own
-(setq pop-up-windows nil)
+;; Force specific annoying pop-up buffers to use the current window
+(setq display-buffer-alist
+      '(
+        ;; Target standard Emacs help and info buffers
+        ("\\*Help\\*"    (display-buffer-same-window))
+        ("\\*Apropos\\*" (display-buffer-same-window))
+        ("\\*Info\\*"    (display-buffer-same-window))
+        
+        ;; If you have specific compilation or shell buffers that
+        ;; annoy you, you can add them here using regex:
+        ;; ("\\*compilation\\*" (display-buffer-same-window))
+        ))
+
+;; Force Emacs to open buffers in the currently focused window
+;; (setq display-buffer-base-action
+;;       '((display-buffer-same-window)
+;;         (inhibit-same-window . nil)))
+
+;; ;; Prevent Emacs from aggressively splitting windows on its own
+;; (setq pop-up-windows nil)
 
 ;;; Load enfors-lib
 
@@ -76,10 +93,12 @@
 
 ;;; Helm setup
 
-(setq helm-buffer-details-flag nil)
-(setq helm-buffer-max-length 40)
-
 (helm-mode 1)
+
+(setq helm-buffer-details-flag    nil
+      helm-buffer-max-length      40
+      helm-split-window-in-side-p t
+      )
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
