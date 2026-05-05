@@ -1,4 +1,5 @@
-;;;; ERC
+;;; enfors-erc-setup.el --- my setup for IRC
+;;; Commentary:
 ;;; Code:
 (require 'erc)
 (set-face-foreground 'erc-input-face "yellow")
@@ -6,6 +7,9 @@
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 (setq erc-nick      "Enfors")
+
+;; Open new channels in the current buffer
+(setq erc-join-buffer 'buffer)
 
 (add-hook 'erc-mode-hook (lambda () (setq scroll-step 1
                                           scroll-conservatively 10000)))
