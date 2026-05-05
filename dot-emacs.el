@@ -66,6 +66,7 @@
 (setq pop-up-windows nil)
 
 ;;; Load enfors-lib
+
 (or (boundp 'enfors-path)
     (setq enfors-path "~/devel/elisp/enfors-lib"))
 (load-file (concat enfors-path "/enfors-lib.el"))
