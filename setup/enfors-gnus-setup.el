@@ -47,6 +47,9 @@
 ;; this tones them down.
 (setq shr-bullet "• ")
 
+;; Stop gnus from automatically opening the first message
+(setq gnus-auto-select-first nil)
+
 ;; Posting styles
 (setq gnus-posting-styles
       '((".*" ; The default, for GNU-type stuff
