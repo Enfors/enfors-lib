@@ -40,6 +40,7 @@
 ;;; Agenda view
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done  t
+      org-agenda-time-leading-zero      t
       org-agenda-skip-unavailable-files t   ; Skip file if not present
       org-deadline-warning-days         0   ; How many days in advance to warn
       org-agenda-remove-tags            nil
@@ -61,7 +62,7 @@
 
 (setq org-agenda-time-grid
       '((daily today require-timed remove-match)
-        (800 900 1000 1100 1200 1300 1400 1500 1600)
+        (800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000)
         "......"
         "----------------"))
 ;;; Key bindings
