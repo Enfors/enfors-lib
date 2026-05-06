@@ -36,7 +36,7 @@
 (set-face-foreground 'org-document-info-keyword    "#777777")
 (set-face-foreground 'org-hide                     "#140624")
 (set-face-foreground 'org-table                    "#8866cc")
-(set-face-foreground 'org-verbatim                 "#ffe090")
+(set-face-foreground 'org-verbatim                 "#c0b070")
 
 (set-face-foreground 'dired-directory              "#6666cc")
 
