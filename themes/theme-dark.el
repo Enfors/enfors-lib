@@ -30,6 +30,8 @@
 (set-face-foreground 'org-level-1                  "#6060ff")
 (set-face-foreground 'org-level-2                  "#44ffa0")
 (set-face-foreground 'org-level-4                  "#44aaff")
+(set-face-foreground 'org-todo                     "#cc4488")
+(set-face-foreground 'org-done                     "#44cc88")
 (set-face-foreground 'org-drawer                   "#88aaaa")
 (set-face-foreground 'org-document-info-keyword    "#777777")
 (set-face-foreground 'org-hide                     "#140624")
