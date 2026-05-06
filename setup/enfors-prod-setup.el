@@ -97,8 +97,8 @@
                '(shortcuts . (lambda (list-size)
                                (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
                                (insert "\n")
-                               (insert (concat "  [w] Work      [p] Personal      [C-c c] Capture\n"
-                                               "  [c] Calendar  [d] Workflow doc  [i]     Inbox")))))
+                               (insert (concat "  [w] Work      [p] Personal      [t] Tracking  [C-c c] Capture\n"
+                                               "  [c] Calendar  [d] Workflow doc                [i]     Inbox")))))
 
    
   ;; 3. What sections to show?
@@ -119,6 +119,7 @@
               (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260502113133-personal_todos.org")))
               (local-set-key (kbd "d") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131135628-org_roam_workflow.org")))
               (local-set-key (kbd "c") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
+              (local-set-key (kbd "t") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260506122339-prod_tracking.org")))
               )))
 
 (defun enfors-org-skip-unless-focus-or-calendar ()
