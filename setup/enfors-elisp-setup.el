@@ -8,7 +8,7 @@
 (show-paren-mode 1)
 (add-hook 'emacs-lisp-mode-hook #'electric-pair-local-mode)
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
-(add-hook 'emacs-lisp-mode-hook #'column-number-mode)
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local column-number-mode t)))
 
 ;; To show errors when eldoc overwrites them in minibuffer: C-h .
 ;; To show diagnostics buffer: M-x flymake-show-buffer-diagnostics
