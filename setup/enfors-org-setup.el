@@ -12,7 +12,7 @@
 
 ;;; General configuration
 ;; Always use org-indent-mode
-(setq org-startup-indented t)
+(setq org-startup-indented t)           ; Diminished in dot-emacs.el
 
 ;; Hide the all but the last star in headings
 (setq org-hide-leading-stars t)
@@ -65,6 +65,10 @@
         (800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000)
         "......"
         "----------------"))
+
+(define-key org-agenda-mode-map (kbd "M-<up>") 'org-agenda-priority-up)
+(define-key org-agenda-mode-map (kbd "M-<down>") 'org-agenda-priority-down)
+
 ;;; Key bindings
 
 ;; Custom keys setup, from https://orgmode.org/manual/Activation.html:
@@ -143,7 +147,7 @@
 (setq org-crypt-key "christer.enfors@gmail.com")
 ;;(setq org-crypt-key "christer.enfors@afry.com") ; For work/union stuff
 
-;; Prevent the :crypt: tag from being inherited by sub-headings, 
+;; Prevent the :crypt: tag from being inherited by sub-headings,
 ;; which messes up the encryption boundaries
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
@@ -152,6 +156,26 @@
 
 (with-eval-after-load 'epa
   (setq epa-pinentry-mode 'loopback))
+
+;;; Configuration to shorten org-roam names in modeline
+
+;; Code by Gemini Pro.
+(defun my/org-roam-rename-buffer-to-title ()
+  "Rename the current buffer to the value of the #+title: keyword."
+  (when (and (derived-mode-p 'org-mode)
+             (org-roam-file-p))
+    (let ((title (or (cadar (org-collect-keywords '("TITLE")))
+                     (file-name-nondirectory (buffer-file-name)))))
+      (when title
+        (rename-buffer title t)))))
+
+;; Hook it into org-roam's file-opening process
+(add-hook 'org-roam-find-file-hook #'my/org-roam-rename-buffer-to-title)
+
+;; Optional: Rename already open buffers if they are org-roam nodes
+(dolist (buf (buffer-list))
+  (with-current-buffer buf
+    (my/org-roam-rename-buffer-to-title)))
 
 ;;; custom-set-variables
 (custom-set-variables

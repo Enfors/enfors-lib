@@ -1,4 +1,5 @@
-;;;; enfors-lib/enfors-lib.el - main file.
+;;; enfors-lib.el --- main file for enfors-lib
+;;; Commentary:
 
 ;;; Code:
 
@@ -20,3 +21,6 @@
 	enfors-files)
 
 (require 'enfors-ttrpg-dashboard)
+
+(provide 'enfors-lib)
+;;; enfors-lib.el ends here

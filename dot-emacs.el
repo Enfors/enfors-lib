@@ -91,6 +91,14 @@
 ;(require 'ido)
 ;(ido-mode t)
 
+;;; Diminish - hide modes from mode line
+
+(diminish 'auto-revert-mode)    ; Hide ARev
+(diminish 'outline-minor-mode)  ; Hide Outl
+
+;; Because org-indent-mode is set to t in enfors-org-setup.el:
+(diminish 'org-indent-mode)     ; Hide Ind
+
 ;;; Helm setup
 
 (helm-mode 1)
