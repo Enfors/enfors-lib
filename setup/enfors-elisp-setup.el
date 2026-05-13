@@ -1,4 +1,4 @@
-;;;; enfors-elisp-setup.el -- My setup for editing elisp files
+;;; enfors-elisp-setup.el -- My setup for editing elisp files
 
 ;;; Commentary:
 
