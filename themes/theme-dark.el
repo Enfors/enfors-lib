@@ -15,7 +15,8 @@
 ;; Faces
 (set-face-foreground 'default                      "#9090d0")
 ;(set-face-foreground 'bold                         "#6040a0")
-(set-face-attribute  'bold nil :foreground "#6040a0" :weight 'bold)
+; (set-face-attribute  'bold nil :foreground "#6040a0" :weight 'bold) ; Darker
+(set-face-attribute  'bold nil :foreground "#c0b8f0" :weight 'bold) ; Brighter
 (set-face-foreground 'font-lock-string-face        "#cccc33")
 (set-face-foreground 'font-lock-keyword-face       "magenta")
 (set-face-foreground 'font-lock-comment-face       "cyan")
