@@ -59,15 +59,17 @@
   ;; --- 8. REFILE SETTINGS ---
   ;; Tell org-mode that any file in 'org-agenda-files' is a target.
   ;; :maxlevel 3 means you can refile to a Top Level heading, or 2 levels down.
+  ;; (setq org-refile-targets
+  ;;       '((org-agenda-files . (:maxlevel . 3))))
   (setq org-refile-targets
-        '((org-agenda-files . (:maxlevel . 3))))
-
+        '((org-agenda-files :regexp . "^Todos$")))
+  
   ;; Use full outline paths (e.g., "work.org/ProjectA/Task")
   (setq org-refile-use-outline-path 'file)
 
   ;; Essential for Helm/Ivy: Allows you to type "ProjA" and jumpt straight there
   ;; instead of having to tab-complete step-by-step.
-  (setq org-outline-path-complete-in-steps t)
+  (setq org-outline-path-complete-in-steps nil)
 
   ;; Allow creating new nodes during refile if you need a new parent
   (setq org-refile-allow-creating-parent-nodes 'confirm))
