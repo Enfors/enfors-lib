@@ -43,5 +43,33 @@
     
     (message "Successfully exported %d articles to manifest.json" (length manifest-data))))
 
+(defun ttrpg-hangout-get-articles ()
+  "Return a list of all articles marked for publication."
+  (interactive)
+  (let* ((all-nodes (org-roam-node-list))
+         (publish-nodes (seq-filter (lambda (node)
+                                      (member "publish-ttrpg-hangout" (org-roam-node-tags node)))
+                                    all-nodes))
+         (articles
+          (mapcar (lambda (node)
+                    (let* ((id    (org-roam-node-id         node))
+                           (title (org-roam-node-title      node))
+                           (tags  (org-roam-node-tags       node))
+                           (props (org-roam-node-properties node))
+
+                           ;; Get custom properties
+                           (summary      (cdr (assoc "SUMMARY" props)))
+                           (author       (or (cdr (assoc "AUTHOR" props))
+                                             "Christer Enfors"))
+                           (publish-date (cdr (assoc "PUBLISH_DATE" props))))
+                      `((id           . ,id)
+                        (title        . ,title)
+                        (summary      . ,(or summary ""))
+                        (author       . ,author)
+                        (publish-date . ,(or publish-date ""))
+                        (tags         . ,tags))))
+                  publish-nodes)))
+    articles))
+
 (provide 'enfors-ttrpg-hangout-setup)
 ;;; enfors-ttrpg-hangout-setup.el ends here
