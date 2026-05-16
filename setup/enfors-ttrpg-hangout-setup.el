@@ -21,8 +21,13 @@
                            (props (org-roam-node-properties node))
 
                            ;; Get basename of filename
-                           (file-name (file-name-nondirectory
-                                       (org-roam-node-file node)))
+                           (file-name
+                            (concat
+                             (replace-regexp-in-string "^[0-9]+-" ""
+                                                       (file-name-sans-extension
+                                                        (file-name-nondirectory
+                                                         (org-roam-node-file node))))
+                            ".html"))
 
                            ;; Get custom properties
                            (summary      (cdr (assoc "SUMMARY" props)))
@@ -39,6 +44,27 @@
                   publish-nodes)))
     articles))
 
+(defun ttrpg-hangout-sort-articles (articles)
+  "Sort the alist of ARTICLES by publish-date, newest first."
+  (seq-sort (lambda (a b)
+              (string> (alist-get 'publish-date a)
+                       (alist-get 'publish-date b)))
+            articles))
+
+(defun ttrpg-hangout-make-recent-html (articles &optional limit)
+  "Generate an HTML snippet of the most recent ARTICLES. LIMIT defaults to 10."
+  (let* ((max (or limit 10))
+         (sorted (ttrpg-hangout-sort-articles articles))
+         (recent (seq-take sorted max)))
+    (with-temp-file "~/devel/RoamNotes/TTRPG-Hangout/recent.html"
+      (dolist (article recent)
+        (let* ((title        (alist-get 'title        article))
+               (file-name    (alist-get 'file-name    article))
+               (publish-date (alist-get 'publish-date article)))
+          (unless (string-empty-p publish-date)
+            (insert (format "<li><a href=\"%s\">%s</a> (%s)</li>\n"
+                            file-name title publish-date))))))))
+
 (defun ttrpg-hangout-get-article-by-title (target-title)
   "Return the metadata alist for the article matching TARGET-TITLE."
   (seq-find (lambda (article)
@@ -50,40 +76,41 @@
   (interactive)
   (let ((articles (ttrpg-hangout-get-articles)))
     (dolist (article articles)
-      (insert (format "- [ ] %s\n" (alist-get 'title article))))))
+      (insert (format "- [ ] %s\n" (alist-get 'title article)))))
+  (message "recent.html successfully generated."))
 
-(defun ttrpg-hangout-make-manifest ()
-  "Extract publishable TTRPG articles and metadata using the Org-Roam API."
-  (interactive)
-  (let ((manifest-data (ttrpg-hangout-get-articles))
-        (json-encoding-pretty-print t))
-    
+(defun ttrpg-hangout-make-manifest (articles)
+  "Write meta-data of ARTICLES in manifest.json."
+  (let ((json-encoding-pretty-print t))
     (with-temp-file "~/devel/RoamNotes/TTRPG-Hangout/manifest.json"
-      (insert (json-encode manifest-data)))
+      (insert (json-encode articles)))
     
-    (message "Successfully exported %d articles to manifest.json" (length manifest-data))))
+    (message "Successfully exported %d articles to manifest.json" (length articles))))
 
 (defun ttrpg-hangout-update ()
   "Update the local copy of the HTML files."
   (interactive)
-  (call-interactively #'ttrpg-hangout-make-manifest)
-
-  ;; Run update.sh
-  (let ((output-buffer (get-buffer-create "*TTRPG-Hangout Update*"))
+  (let ((articles (ttrpg-hangout-get-articles))
+        (output-buffer (get-buffer-create "*TTRPG-Hangout Update*"))
         (script-path (expand-file-name "~/devel/RoamNotes/update.sh")))
+    (ttrpg-hangout-make-manifest articles)
+    (ttrpg-hangout-make-recent-html articles)
 
+    ;; Run the update.sh script.
     ;; Clear the buffer of any previous output
     (with-current-buffer output-buffer
-      (erase-buffer))
+      (erase-buffer)
 
-    ;; Run the process.
-    ;; nil = no input file
-    ;; output-buffer = destination
-    ;; t = update display as output arrives
-    (call-process script-path nil output-buffer t)
+      ;; Run the process.
+      ;; nil = no input file
+      ;; output-buffer = destination
+      ;; t = update display as output arrives
+      (call-process script-path nil output-buffer t)
+      (special-mode)
 
-    ;; Pop open the window so you can read the log
-    (pop-to-buffer output-buffer)))
+      ;; Pop open the window so you can read the log
+      (pop-to-buffer output-buffer)))
+  (message "Local TTRPG-Hangout update completed."))
 
 (provide 'enfors-ttrpg-hangout-setup)
 ;;; enfors-ttrpg-hangout-setup.el ends here
