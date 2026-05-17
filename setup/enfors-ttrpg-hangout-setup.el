@@ -39,7 +39,7 @@
                         (file-name    . ,file-name)
                         (summary      . ,(or summary ""))
                         (author       . ,author)
-                        (publish-date . ,(or publish-date ""))
+                        (publish-date . ,(or publish-date nil))
                         (tags         . ,tags))))
                   publish-nodes)))
     articles))
@@ -58,12 +58,59 @@
          (recent (seq-take sorted max)))
     (with-temp-file "~/devel/RoamNotes/TTRPG-Hangout/recent.html"
       (dolist (article recent)
-        (let* ((title        (alist-get 'title        article))
-               (file-name    (alist-get 'file-name    article))
-               (publish-date (alist-get 'publish-date article)))
-          (unless (string-empty-p publish-date)
-            (insert (format "<li><a href=\"%s\">%s</a> (%s)</li>\n"
-                            file-name title publish-date))))))))
+        (when (alist-get 'publish-date article) ; Skip those with no pub date
+          (let* ((title        (alist-get 'title        article))
+                 (file-name    (alist-get 'file-name    article))
+                 (publish-date (alist-get 'publish-date article)))
+            (unless (string-empty-p publish-date)
+              (insert (format "<li><a href=\"%s\">%s</a> (%s)</li>\n"
+                              file-name title publish-date)))))))
+    (insert "Successfully generated recent.html.\n")))
+
+(defun ttrpg-hangout-read-file (file-path)
+  "Return the contents of FILE-PATH as a string."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+
+(defun ttrpg-hangout-make-atom-feed (atom-file-name articles)
+  "Generate atom file called ATOM-FILE-NAME from ARTICLES."
+  (with-temp-file atom-file-name
+    (let ((now (format-time-string "%Y-%m-%dT%H:%M:%SZ" (current-time) t)))
+      (insert (format "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<feed xmlns=\"http://www.w3.org/2005/Atom\">
+  <title>TTRPG-Hangout</title>
+  <link href=\"https://ttrpg-hangout.com/atom.xml\" rel=\"self\"/>
+  <link href=\"https://ttrpg-hangout.com/\"/>
+  <id>https://ttrpg-hangout.com/</id>
+  <updated>%sT00:00:00Z</updated>
+  <author>
+    <name>Christer Enfors</name>
+  </author>\n\n" now)))
+      (dolist (article articles)
+        (when (alist-get 'publish-date article)
+          (let* ((title        (alist-get 'title        article))
+                 (file-name    (alist-get 'file-name    article))
+                 (html         (ttrpg-hangout-read-file
+                                (format "~/devel/RoamNotes/TTRPG-Hangout/%s"
+                                        file-name)))
+                 (publish-date (alist-get 'publish-date article)))
+            (setq html
+                  (replace-regexp-in-string "<img src=\"/"
+                                            "<img src=\"https://ttrpg-hangout.com/"
+                                            html))
+            (insert (format "  <entry>
+    <title>%s</title>
+    <link href=\"https://ttrpg-hangout.com/%s\"/>
+    <id>https://ttrpg-hangout.com/%s</id>
+    <updated>%s</updated>
+    <summary>Summary not available.</summary>
+    <content type=\"html\"><![CDATA[
+      %s
+    ]]></content>
+  </entry>\n" title file-name file-name publish-date html)))))
+      (insert "</feed>\n"))
+  (insert "Successfully generated atom.xml.\n"))
 
 (defun ttrpg-hangout-get-article-by-title (target-title)
   "Return the metadata alist for the article matching TARGET-TITLE."
@@ -76,8 +123,8 @@
   (interactive)
   (let ((articles (ttrpg-hangout-get-articles)))
     (dolist (article articles)
-      (insert (format "- [ ] %s\n" (alist-get 'title article)))))
-  (message "recent.html successfully generated."))
+      (insert (format "1. [ ] %s\n" (alist-get 'title article)))))
+  (message "recent.html successfully updated."))
 
 (defun ttrpg-hangout-make-manifest (articles)
   "Write meta-data of ARTICLES in manifest.json."
@@ -85,7 +132,8 @@
     (with-temp-file "~/devel/RoamNotes/TTRPG-Hangout/manifest.json"
       (insert (json-encode articles)))
     
-    (message "Successfully exported %d articles to manifest.json" (length articles))))
+    (insert (format "Successfully exported %d articles to manifest.json.\n"
+                    (length articles)))))
 
 (defun ttrpg-hangout-update ()
   "Update the local copy of the HTML files."
@@ -93,23 +141,30 @@
   (let ((articles (ttrpg-hangout-get-articles))
         (output-buffer (get-buffer-create "*TTRPG-Hangout Update*"))
         (script-path (expand-file-name "~/devel/RoamNotes/update.sh")))
-    (ttrpg-hangout-make-manifest articles)
-    (ttrpg-hangout-make-recent-html articles)
-
     ;; Run the update.sh script.
     ;; Clear the buffer of any previous output
     (with-current-buffer output-buffer
-      (erase-buffer)
+      (let ((inhibit-read-only 1))
+        (erase-buffer)
+        (special-mode)
+        (pop-to-buffer output-buffer)
+        ;; Generate manifest.json
+        (ttrpg-hangout-make-manifest articles)
 
-      ;; Run the process.
-      ;; nil = no input file
-      ;; output-buffer = destination
-      ;; t = update display as output arrives
-      (call-process script-path nil output-buffer t)
-      (special-mode)
+        ;; Generate recent.html
+        (ttrpg-hangout-make-recent-html articles)
 
-      ;; Pop open the window so you can read the log
-      (pop-to-buffer output-buffer)))
+        ;; Generate atom.xml
+        (ttrpg-hangout-make-atom-feed
+         "~/devel/RoamNotes/TTRPG-Hangout/atom.xml"
+         (ttrpg-hangout-sort-articles articles))
+
+        ;; Run update.sh.
+        ;; nil = no input file
+        ;; output-buffer = destination
+        ;; t = update display as output arrives
+        (call-process script-path nil output-buffer t))))
+      
   (message "Local TTRPG-Hangout update completed."))
 
 (provide 'enfors-ttrpg-hangout-setup)
