@@ -6,7 +6,16 @@
   :config
   ;; Settings apply after the package loads
   (setq elfeed-search-filter "@2-months-ago +unread"
-        elfeed-sort-order 'descending)
+        elfeed-sort-order 'descending
+
+        ;; Ensure the HTML renderer is allowed to fetch and display images
+        shr-inhibit-images nil
+
+        ;; Highly recommended: scale down large images
+        shr-max-image-proportion 0.8
+
+        ;; Optional: turn on/off animated images
+        shr-image-animate t)
 
   ;; Visual tweaks
   ;; This sets the Title column to exactly 60 characters wide.
