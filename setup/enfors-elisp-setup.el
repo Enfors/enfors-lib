@@ -42,24 +42,36 @@
                   rainbow-delimiters-depth-9-face))
     (set-face-attribute face nil :weight 'bold)))
 
-(defun enfors-outshine-cycle-and-reset ()
-  "Cycle buffer visibility and ensure point is at the start of the heading."
-  (interactive)
-  (outshine-cycle-buffer)
-  ;; Pull the cursor out of the hidden text and onto the active headers
-  (ignore-errors (outline-back-to-heading t))
-  (beginning-of-line))
+;; I've replaced outshine-mode with the native outline mode (below).
+;; (defun enfors-outshine-cycle-and-reset ()
+;;   "Cycle buffer visibility and ensure point is at the start of the heading."
+;;   (interactive)
+;;   (outshine-cycle-buffer)
+;;   ;; Pull the cursor out of the hidden text and onto the active headers
+;;   (ignore-errors (outline-back-to-heading t))
+;;   (beginning-of-line))
 
-(use-package outshine
-  :ensure t
-  :diminish outshine-mode
-  :hook (emacs-lisp-mode . outshine-mode)
-  :bind (:map outshine-mode-map
-              ("<backtab>" . enfors-outshine-cycle-and-reset)
-              ("S-<tab>"   . enfors-outshine-cycle-and-reset))
-  :config
-  ;; Choose between `show-all' or `show-all' here:
-  (setq outshine-startup-folded-p 'hide-body))
+;; (use-package outshine
+;;   :ensure t
+;;   :diminish outshine-mode
+;;   :hook (emacs-lisp-mode . outshine-mode)
+;;   :bind (:map outshine-mode-map
+;;               ("<backtab>" . enfors-outshine-cycle-and-reset)
+;;               ("S-<tab>"   . enfors-outshine-cycle-and-reset))
+;;   :config
+;;   ;; Choose between `show-all' or `show-all' here:
+;;   (setq outshine-startup-folded-p 'hide-body))
+
+(use-package outline
+  :hook (emacs-lisp-mode . outline-minor-mode)
+  :config;; Enable native Org-style TAB and S-TAB cycling
+  (setq outline-minor-mode-cycle t)
+
+  ;; Start out with everything hidden/folded:
+  (add-hook 'outline-minor-mode-hook
+            (lambda ()
+              (when (derived-mode-p 'emacs-lisp-mode)
+                (outline-hide-body)))))
 
 ;(use-package hungry-delete
 ;  :ensure t
