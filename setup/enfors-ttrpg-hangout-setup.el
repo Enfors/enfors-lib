@@ -89,6 +89,8 @@
   <title>TTRPG-Hangout</title>
   <link href=\"https://ttrpg-hangout.com/atom.xml\" rel=\"self\"/>
   <link href=\"https://ttrpg-hangout.com/\"/>
+  <icon>https://ttrpg-hangout.com/images/feed-icon.png</icon>
+  <logo>https://ttrpg-hangout.com/images/feed-logo.png</logo>
   <id>https://ttrpg-hangout.com/</id>
   <updated>%sT00:00:00Z</updated>
   <author>
