@@ -17,7 +17,6 @@
   
   ;; --- 3. HABIT CONFIGURATION ---
   (setq org-habit-show-habits-only-for-today t)
-  (setq org-habit-graph-column 60)
   (setq org-log-done 'time)
   
   ;; --- 4. PRIORITIES ---
@@ -30,15 +29,16 @@
           ("@work" . ?w)
           ("@home" . ?h)
           (:endgroup)
-          ("ttrpg" . ?t)
           ("starter" . ?s)
           ("urgent" . ?u)
           ("focus" . ?f)
+          ("toad"  . ?t)
           ("crypt" . ?c))
         org-tag-faces
         '(("starter" . (:foreground "#449977" :weight bold))  ; Inviting Green
           ("urgent"  . (:foreground "#cc6666" :weight bold))  ; Alert Red
           ("focus"   . (:foreground "#e6b800" :weight bold))  ; Striking Gold
+          ("toad"    . (:foreground "#ffff00" :weight bold))  ; Yellow
           ("@work"   . (:foreground "#6699cc"))))
 
   ;; --- 6. AGENDA VIEWS ---
