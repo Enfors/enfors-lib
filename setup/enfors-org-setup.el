@@ -45,7 +45,7 @@
       org-deadline-warning-days         0   ; How many days in advance to warn
       org-agenda-remove-tags            nil
       org-agenda-tags-column            'auto
-      org-habit-graph-column            51  ; Don't let graph overwrite tags
+      org-habit-graph-column            45  ; Don't let graph overwrite tags
       org-agenda-start-on-weekday       nil ; Start today, not on Monday
       org-agenda-show-outline-path      t   ; Show outline in message buffer
       org-enforce-todo-dependencies     t   ; All children must be DONE before parent
