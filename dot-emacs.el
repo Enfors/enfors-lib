@@ -74,11 +74,6 @@
         ;; ("\\*compilation\\*" (display-buffer-same-window))
         ))
 
-;; Force Emacs to open buffers in the currently focused window
-;; (setq display-buffer-base-action
-;;       '((display-buffer-same-window)
-;;         (inhibit-same-window . nil)))
-
 ;; ;; Prevent Emacs from aggressively splitting windows on its own
 ;; (setq pop-up-windows nil)
 
