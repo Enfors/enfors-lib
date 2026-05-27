@@ -76,6 +76,14 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
+;;; Key bindings for agenda view
+;; org-agenda-goto means that when you hit RET on a todo in agenda view,
+;; then that todo is opened in a split window. If you instead want it to
+;; replace the agenda window, replace org-agenda-goto with
+;; org-agenda-switch-to.
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "RET") 'org-agenda-goto))
+
 ;;; Misc
 
 ;; Define function for loading all org files in directory
