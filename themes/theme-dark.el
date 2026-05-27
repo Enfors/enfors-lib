@@ -47,6 +47,15 @@
 (set-face-foreground 'minibuffer-prompt            "#9966cc")
 (set-face-foreground 'helm-minibuffer-prompt       "#9966cc")
 
+(set-face-attribute  'company-tooltip nil
+                     :background "white smoke" :foreground "blue")
+(set-face-attribute  'company-tooltip-common nil
+                     :foreground "dark slate blue")
+(set-face-attribute  'company-tooltip-selection nil
+                     :background "gray")
+ ;; '(company-tooltip ((t (:background "white smoke" :foreground "blue"))))
+ ;; '(company-tooltip-common ((t (:foreground "dark slate blue"))))
+ ;; '(company-tooltip-selection ((t (:background "gray")))))
 ;;; Set in other files:
 
 ;; enfors-roam-setup: org-document-title
