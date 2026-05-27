@@ -30,15 +30,16 @@
           ("@home" . ?h)
           (:endgroup)
           ("starter" . ?s)
-          ("urgent" . ?u)
-          ("focus" . ?f)
-          ("toad"  . ?t)
-          ("crypt" . ?c))
+          ("Per" .     ?p)
+          ("focus" .   ?f)
+          ("toad"  .   ?t)
+          ("crypt" .   ?c))
         org-tag-faces
         '(("starter" . (:foreground "#449977" :weight bold))  ; Inviting Green
           ("urgent"  . (:foreground "#cc6666" :weight bold))  ; Alert Red
           ("focus"   . (:foreground "#e6b800" :weight bold))  ; Striking Gold
           ("toad"    . (:foreground "#ffff00" :weight bold))  ; Yellow
+          ("Per"     . (:foreground "#ff44ff" :weight bold))  ; Purple
           ("@work"   . (:foreground "#6699cc"))))
 
   ;; --- 6. AGENDA VIEWS ---
