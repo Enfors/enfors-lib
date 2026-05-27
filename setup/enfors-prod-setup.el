@@ -96,12 +96,16 @@
   ;; Tweak this prefix. If it's too long, it pushes the graph away.
   (setq dashboard-agenda-prefix-format " %-12:c %-10s ")
 
-  (add-to-list 'dashboard-item-generators
-               '(shortcuts . (lambda (list-size)
-                               (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
-                               (insert "\n")
-                               (insert (concat "  [w] Work      [p] Personal      [t] Tracking  [C-c c] Capture\n"
-                                               "  [c] Calendar  [d] Workflow doc                [i]     Inbox")))))
+  (add-to-list
+   'dashboard-item-generators
+   '(shortcuts
+     .
+     (lambda (list-size)
+       (insert (propertize "Shortcuts:" 'face 'dashboard-heading))
+       (insert "\n")
+       (insert
+        (concat "  [w] Work      [p] Personal      [t] Tracking  [C-c c] Capture\n"
+                "  [c] Calendar  [d] Workflow doc                [i]     Inbox")))))
 
    
   ;; 3. What sections to show?
@@ -115,15 +119,40 @@
   (setq dashboard-agenda-sort-strategy '(time-up priority up))
 
   ;; 5. Custom Navigation
-  (add-hook 'dashboard-mode-hook
-            (lambda ()
-              (local-set-key (kbd "i") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
-              (local-set-key (kbd "w") (lambda () (interactive) (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
-              (local-set-key (kbd "p") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260502113133-personal_todos.org")))
-              (local-set-key (kbd "d") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131135628-org_roam_workflow.org")))
-              (local-set-key (kbd "c") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
-              (local-set-key (kbd "t") (lambda () (interactive) (find-file "~/devel/RoamNotes/20260506122339-prod_tracking.org")))
-              )))
+  (add-hook
+   'dashboard-mode-hook
+   (lambda ()
+     (local-set-key
+      (kbd "i")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20260124144908-inbox.org")))
+     (local-set-key
+      (kbd "w")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20220831105115-afry_todos.org")))
+     (local-set-key
+      (kbd "p")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20260502113133-personal_todos.org")))
+     (local-set-key
+      (kbd "d")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20260131135628-org_roam_workflow.org")))
+     (local-set-key
+      (kbd "c")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20260131184817-calendar.org")))
+     (local-set-key
+      (kbd "t")
+      (lambda ()
+        (interactive)
+        (find-file "~/devel/RoamNotes/20260506122339-prod_tracking.org")))
+     )))
 
 (defun enfors-org-skip-unless-focus-or-calendar ()
   "Skip agenda items unless they explicitly possess the 'focus' or 'calendar' tag."
@@ -137,9 +166,10 @@
   :config
   (setq org-agenda-custom-commands
        '(("w" "Work view"
-          ((tags-todo "+work|+@work"
-                      ((org-agenda-overriding-header "Work Tasks")
-                       (org-agenda-sorting-strategy '(priority-down time-up))))))
+          ((tags-todo
+            "+work|+@work"
+            ((org-agenda-overriding-header "Work Tasks")
+             (org-agenda-sorting-strategy '(priority-down time-up))))))
          ("p" "Personal view"
           ((tags-todo "+personal"
                       ((org-agenda-overriding-header "Personal Tasks")))
@@ -152,7 +182,8 @@
             (org-agenda-overriding-header "🎯 Today's focus tasks")))
          ("n" "Process Inbox"
           ((tags "ALL"
-                 ((org-agenda-files '("~/devel/RoamNotes/20260124144908-inbox.org"))
+                 ((org-agenda-files
+                   '("~/devel/RoamNotes/20260124144908-inbox.org"))
                   (org-agenda-overriding-header "Inbox items to refile"))))))))
 
 ;; Configure M-x calendar
