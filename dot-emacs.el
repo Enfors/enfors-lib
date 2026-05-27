@@ -17,7 +17,6 @@
 (package-initialize)
 
 ;;; General emacs stuff
-
 (setq transient-mark-mode t)
 (setq sentence-end-double-space nil)	; For filling
 (setq next-screen-context-lines   3)
@@ -25,11 +24,12 @@
 (menu-bar-mode                    -1)   ; Get rid of the filthy menu bar
 (unless (ignore-errors (tool-bar-mode -1))   ; and its ugly tool bar cousin
   (message "Unable to turn off toolbar mode."))
-;; This doesn't work for some reason (probably because terminal)
-(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>")  'shrink-window)
-(global-set-key (kbd "S-C-<up>")    'enlarge-window)
+;;; General keybindings
+(global-set-key (kbd "S-C-<left>")  #'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") #'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>")  #'shrink-window)
+(global-set-key (kbd "S-C-<up>")    #'enlarge-window)
+(global-set-key (kbd "M-j")         #'join-line)
 
 ;; IMenu - used to navigate. Press M-i tab for list of destinations.
 (global-set-key (kbd "M-i") 'imenu)
