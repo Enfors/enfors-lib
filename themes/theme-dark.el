@@ -53,6 +53,7 @@
                      :foreground "dark slate blue")
 (set-face-attribute  'company-tooltip-selection nil
                      :background "gray")
+(set-face-foreground 'fill-column-indicator        "#4a4466")
  ;; '(company-tooltip ((t (:background "white smoke" :foreground "blue"))))
  ;; '(company-tooltip-common ((t (:foreground "dark slate blue"))))
  ;; '(company-tooltip-selection ((t (:background "gray")))))
