@@ -5,6 +5,8 @@
 ;; To find faces to customize: M-x list-faces-display RET
 
 (set-background-color "#001138")
+;; Set the background color of the Org "C-c C-c Select tag preview"
+(set-face-attribute 'secondary-selection nil :background "#1E3A8A")
 (set-foreground-color "#ccccff")
 (set-cursor-color "green")
 
