@@ -58,7 +58,12 @@
 (set-face-foreground 'fill-column-indicator        "#4a4466")
  ;; '(company-tooltip ((t (:background "white smoke" :foreground "blue"))))
  ;; '(company-tooltip-common ((t (:foreground "dark slate blue"))))
- ;; '(company-tooltip-selection ((t (:background "gray")))))
+;; '(company-tooltip-selection ((t (:background "gray")))))
+
+
+;;; Don't underline links
+(set-face-attribute 'org-verbatim nil :underline nil)
+(set-face-attribute 'org-code nil :underline nil)
 ;;; Set in other files:
 
 ;; enfors-roam-setup: org-document-title
