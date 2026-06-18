@@ -185,6 +185,13 @@
   (with-current-buffer buf
     (my/org-roam-rename-buffer-to-title)))
 
+;;; Babel setup
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (shell . t)
+   (python . t)))
+(setq org-babel-python-command "python3")
 ;;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
