@@ -13,7 +13,8 @@
   (interactive)
   (let* ((all-nodes (org-roam-node-list))
          (publish-nodes (seq-filter (lambda (node)
-                                      (member "publish-ttrpg-hangout" (org-roam-node-tags node)))
+                                      (member "publish-ttrpg-hangout"
+                                              (org-roam-node-tags node)))
                                     all-nodes))
          (articles
           (mapcar (lambda (node)
@@ -25,10 +26,11 @@
                            ;; Get basename of filename
                            (file-name
                             (concat
-                             (replace-regexp-in-string "^[0-9]+-" ""
-                                                       (file-name-sans-extension
-                                                        (file-name-nondirectory
-                                                         (org-roam-node-file node))))
+                             (replace-regexp-in-string
+                              "^[0-9]+-" ""
+                              (file-name-sans-extension
+                               (file-name-nondirectory
+                                (org-roam-node-file node))))
                             ".html"))
 
                            ;; Get custom properties
@@ -81,7 +83,8 @@
                (publish-date (alist-get 'publish-date article)))
           (insert (format "<li><a href=\"%s\">%s</a> (%s)</li>\n"
                             file-name title publish-date)))))
-    (insert (format "Successfully put %d articles in recent.html.\n" (length recent)))))
+    (insert (format "Successfully put %d articles in recent.html.\n"
+                    (length recent)))))
 
 (defun ttrpg-hangout-read-file (file-path)
   "Return the contents of FILE-PATH as a string."
@@ -130,7 +133,8 @@
     ]]></content>
   </entry>\n" title file-name file-name publish-date update-date html)))))
     (insert "</feed>\n"))
-  (insert (format "Successfully put %d articles in atom.xml.\n" (length articles))))
+  (insert (format "Successfully put %d articles in atom.xml.\n"
+                  (length articles))))
 
 (defun ttrpg-hangout-get-article-by-title (target-title)
   "Return the metadata alist for the article matching TARGET-TITLE."
