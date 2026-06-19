@@ -5,6 +5,8 @@
 ;; To find faces to customize: M-x list-faces-display RET
 
 (set-background-color "#001138")
+;; Set the background color of the Org "C-c C-c Select tag preview"
+(set-face-attribute 'secondary-selection nil :background "#1E3A8A")
 (set-foreground-color "#ccccff")
 (set-cursor-color "green")
 
@@ -56,7 +58,12 @@
 (set-face-foreground 'fill-column-indicator        "#4a4466")
  ;; '(company-tooltip ((t (:background "white smoke" :foreground "blue"))))
  ;; '(company-tooltip-common ((t (:foreground "dark slate blue"))))
- ;; '(company-tooltip-selection ((t (:background "gray")))))
+;; '(company-tooltip-selection ((t (:background "gray")))))
+
+
+;;; Don't underline links
+(set-face-attribute 'org-verbatim nil :underline nil)
+(set-face-attribute 'org-code nil :underline nil)
 ;;; Set in other files:
 
 ;; enfors-roam-setup: org-document-title
