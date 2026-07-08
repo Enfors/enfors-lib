@@ -13,7 +13,8 @@
   (interactive)
   (let* ((all-nodes (org-roam-node-list))
          (publish-nodes (seq-filter (lambda (node)
-                                      (member "publish-ttrpg-hangout" (org-roam-node-tags node)))
+                                      (member "publish-ttrpg-hangout"
+                                              (org-roam-node-tags node)))
                                     all-nodes))
          (articles
           (mapcar (lambda (node)
@@ -25,23 +26,27 @@
                            ;; Get basename of filename
                            (file-name
                             (concat
-                             (replace-regexp-in-string "^[0-9]+-" ""
-                                                       (file-name-sans-extension
-                                                        (file-name-nondirectory
-                                                         (org-roam-node-file node))))
+                             (replace-regexp-in-string
+                              "^[0-9]+-" ""
+                              (file-name-sans-extension
+                               (file-name-nondirectory
+                                (org-roam-node-file node))))
                             ".html"))
 
                            ;; Get custom properties
                            (summary      (cdr (assoc "SUMMARY" props)))
                            (author       (or (cdr (assoc "AUTHOR" props))
                                              "Christer Enfors"))
-                           (publish-date (cdr (assoc "PUBLISH-DATE" props))))
+                           (publish-date (cdr (assoc "PUBLISH-DATE" props)))
+                           (update-date  (or (cdr (assoc "UPDATE-DATE" props))
+                                             publish-date)))
                       `((id           . ,id)
                         (title        . ,title)
                         (file-name    . ,file-name)
                         (summary      . ,(or summary ""))
                         (author       . ,author)
                         (publish-date . ,(or publish-date nil))
+                        (update-date  . ,(or update-date nil))
                         (tags         . ,tags))))
                   publish-nodes)))
     articles))
@@ -56,6 +61,12 @@
   (seq-sort (lambda (a b)
               (string> (alist-get 'publish-date a)
                        (alist-get 'publish-date b)))
+            articles))
+(defun ttrpg-hangout-sort-articles-update (articles)
+  "Sort the alist of ARTICLES by update-date, newest first."
+  (seq-sort (lambda (a b)
+              (string> (alist-get 'update-date a)
+                       (alist-get 'update-date b)))
             articles))
 
 (defun ttrpg-hangout-make-recent-html (articles &optional limit)
@@ -72,7 +83,8 @@
                (publish-date (alist-get 'publish-date article)))
           (insert (format "<li><a href=\"%s\">%s</a> (%s)</li>\n"
                             file-name title publish-date)))))
-    (insert (format "Successfully put %d articles in recent.html.\n" (length recent)))))
+    (insert (format "Successfully put %d articles in recent.html.\n"
+                    (length recent)))))
 
 (defun ttrpg-hangout-read-file (file-path)
   "Return the contents of FILE-PATH as a string."
@@ -103,7 +115,8 @@
                (html         (ttrpg-hangout-read-file
                               (format "~/devel/RoamNotes/TTRPG-Hangout/%s"
                                       file-name)))
-               (publish-date (alist-get 'publish-date article)))
+               (publish-date (alist-get 'publish-date article))
+               (update-date  (alist-get 'update-date  article)))
           (setq html
                 (replace-regexp-in-string "<img src=\"/"
                                           "<img src=\"https://ttrpg-hangout.com/"
@@ -112,14 +125,16 @@
     <title>%s</title>
     <link href=\"https://ttrpg-hangout.com/%s\"/>
     <id>https://ttrpg-hangout.com/%s</id>
+    <published>%s</published>
     <updated>%s</updated>
     <summary>Summary not available.</summary>
     <content type=\"html\"><![CDATA[
       %s
     ]]></content>
-  </entry>\n" title file-name file-name publish-date html)))))
+  </entry>\n" title file-name file-name publish-date update-date html)))))
     (insert "</feed>\n"))
-  (insert (format "Successfully put %d articles in atom.xml.\n" (length articles))))
+  (insert (format "Successfully put %d articles in atom.xml.\n"
+                  (length articles))))
 
 (defun ttrpg-hangout-get-article-by-title (target-title)
   "Return the metadata alist for the article matching TARGET-TITLE."
@@ -163,17 +178,18 @@
         ;; Generate recent.html
         (ttrpg-hangout-make-recent-html articles)
 
-        ;; Generate atom.xml
-        (ttrpg-hangout-make-atom-feed
-         "~/devel/RoamNotes/TTRPG-Hangout/atom.xml"
-         (seq-take (ttrpg-hangout-sort-articles articles) 20)) ; Max 20 in feed
-
         ;; Run update.sh.
         ;; nil = no input file
         ;; output-buffer = destination
         ;; t = update display as output arrives
-        (call-process script-path nil output-buffer t))))
+        (call-process script-path nil output-buffer t)
       
+        ;; Generate atom.xml
+        (ttrpg-hangout-make-atom-feed
+         "~/devel/RoamNotes/TTRPG-Hangout/atom.xml"
+         ;; Max 20 in feed
+         (seq-take (ttrpg-hangout-sort-articles-update articles) 20)))))
+
   (message "Local TTRPG-Hangout update completed."))
 
 (provide 'enfors-ttrpg-hangout-setup)
