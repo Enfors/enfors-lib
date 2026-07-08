@@ -1,3 +1,6 @@
+;;; enfors-roam-set.el --- my org-roam setup
+;;; Commentary:
+;;; Code:
 (use-package org-roam
   :ensure t
   :custom
@@ -12,7 +15,10 @@
          ("C-c n d" . org-roam-dailies-capture-today)    ; Quick capture to today's log
          ("C-c n D" . enfors-dailies-goto-today-smart)   ; Open today's log file
          ("C-c n m" . org-roam-dailies-capture-tomorrow) ; Plan for tomorrow
-         ("C-c n y" . org-roam-dailies-goto-yesterday))  ; Review yesterday
+         ("C-c n y" . org-roam-dailies-goto-yesterday)   ; Review yesterday
+         ("C-c n j" . (lambda ()
+                        (interactive)
+                        (org-roam-dailies-capture-today nil "j"))))
 
   :config
   ;; Enable the database synchronization
@@ -26,18 +32,13 @@
   (setq org-roam-dailies-directory "daily/")
 
   ;; 2. Template: Standard YYYY-MM-DD.org files
-  ;; (setq org-roam-dailies-capture-templates
-  ;;       '(("w" "Work Log" entry
-  ;;          "* %? :work:"
-  ;;          :target (file+head "%<%Y-%m-%d>.org"
-  ;;                             "#+title: %<%Y-%m-%d>\n")
-  ;;          :empty-lines 1)
-          
-  ;;         ("p" "Personal Diary" entry
-  ;;          "* %? :personal:"
-  ;;          :target (file+head "%<%Y-%m-%d>.org"
-  ;;                             "#+title: %<%Y-%m-%d>\n")
-  ;;          :empty-lines 1)))
+  ;; This part sets up a menu, which is bypassed by the "j" keybinding
+  (setq org-roam-dailies-capture-templates
+        `(("j" "journal" plain
+           "- [%(format-time-string \"%H:%M\")] %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              ,(concat "#+title: %<%Y-%m-%d>\n\n"
+                                       "* Journal\n\n")))))
 
   ;; 3. Custom functions
   (defun enfors-dailies-goto-today-smart ()
@@ -76,3 +77,5 @@
 (add-hook 'org-roam-mode-hook #'visual-line-mode)
 
 (provide 'enfors-roam-setup)
+
+;;; enfors-roam-setup.el ends here
