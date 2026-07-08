@@ -12,7 +12,8 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
          ;; --- DAILIES KEYBINDINGS ---
-         ("C-c n d" . org-roam-dailies-capture-today)    ; Quick capture to today's log
+         ("C-c n d" . org-roam-dailies-capture-today)    ; Quick capture to
+                                                         ; today's log
          ("C-c n D" . enfors-dailies-goto-today-smart)   ; Open today's log file
          ("C-c n m" . org-roam-dailies-capture-tomorrow) ; Plan for tomorrow
          ("C-c n y" . org-roam-dailies-goto-yesterday)   ; Review yesterday
@@ -45,8 +46,10 @@
     "Open today's daily note instantly if it exists.
      If it does not exist, ask which template to use to create it."
     (interactive)
-    (let* ((dailies-dir (expand-file-name org-roam-dailies-directory org-roam-directory))
-           (today-file (expand-file-name (format-time-string "%Y-%m-%d.org") dailies-dir)))
+    (let* ((dailies-dir (expand-file-name org-roam-dailies-directory
+                                          org-roam-directory))
+           (today-file (expand-file-name (format-time-string "%Y-%m-%d.org")
+                                         dailies-dir)))
       (if (file-exists-p today-file)
           (find-file today-file)
         ;; File doesn't exist? Trigger the capture menu to create it.
