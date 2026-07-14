@@ -35,11 +35,17 @@
   ;; 2. Template: Standard YYYY-MM-DD.org files
   ;; This part sets up a menu, which is bypassed by the "j" keybinding
   (setq org-roam-dailies-capture-templates
-        `(("j" "journal" plain
+        `(("j" "journal" item
            "- [%(format-time-string \"%H:%M\")] %?"
-           :target (file+head "%<%Y-%m-%d>.org"
+           :target (file+head+olp "%<%Y-%m-%d>.org"
                               ,(concat "#+title: %<%Y-%m-%d>\n\n"
-                                       "* Journal\n\n")))))
+                                       "* Journal\n\n")
+                              ("Journal")))))
+  ;; Highlight the Journal timestamps as keywords
+  (font-lock-add-keywords
+   'org-mode
+   '(("^\\s-*- \\(\\[[0-9]\\{2\\}:[0-9]\\{2\\}\\]\\)" 1
+      'font-lock-keyword-face prepend)))
 
   ;; 3. Custom functions
   (defun enfors-dailies-goto-today-smart ()
