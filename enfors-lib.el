@@ -14,7 +14,7 @@
 
 (add-to-list 'load-path (concat enfors-path "/ttrpg"))
 
-(setq enfors-files '("toys.el" "themes.el" "tools.el" "urpg.el" "dice.el"))
+(setq enfors-files '("toys.el" "themes.el" "tools.el" "urpg.el"))
 
 (mapcar (lambda (enfors-file)
 	  (load-file (concat enfors-path "/" enfors-file)))
