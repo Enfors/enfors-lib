@@ -1,0 +1,13 @@
+# key: 1on1
+# name: 1on1
+# --
+`(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
+
+- [ ] Agenda
+  - [ ] Mående: $0
+  - [ ] Arbetsbelastning: 
+  - [ ] Pain points: 
+  - [ ] Något jag kan hjälpa till med: 
+  - [ ] Feedback från mig: 
+  - [ ] Input från deltagaren: 
+  - [ ] Nya todos för mig: 
