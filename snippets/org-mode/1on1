@@ -4,7 +4,8 @@
 `(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
 
 - [ ] Agenda
-  - [ ] Mående: $0
+  - [ ] Allmän status:
+    - $0
   - [ ] Arbetsbelastning: 
   - [ ] Pain points: 
   - [ ] Något jag kan hjälpa till med: 
