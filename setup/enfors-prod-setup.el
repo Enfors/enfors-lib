@@ -154,11 +154,21 @@
      )))
 
 (defun enfors-org-skip-unless-focus-or-calendar ()
-  "Skip agenda items unless they explicitly possess the 'focus' or 'calendar' tag."
+  "Skip agenda items unless they have the 'focus' or 'calendar' tag.
+Exception: Never skip log entries (clocks, state changes, notes) so `v l`
+works."
   (let ((tags (org-get-tags)))
-    (if (or (member "focus" tags) (member "cal" tags))
+    (if (or (member "focus" tags)
+            (member "cal" tags)
+            ;; Check if the current line is a log entry
+            (save-excursion
+              (beginning-of-line)
+              ;; Matches lines starting with CLOCK:, - State, CLOSED:, Note, or
+              ;; [ (for inactive timestamps)
+              (looking-at-p
+               "^[ \t]*\\(CLOCK:\\|- State\\|CLOSED:\\|Note\\|\\[\\)")))
         nil          ; Condition met: Keep it in the agenda
-      (save-excursion (outline-next-heading) (point))))) ; Condition failed: Skip it
+      (save-excursion (outline-next-heading) (point))))) ; Cond. failed: Skip it
 
 (use-package org-agenda
   :ensure nil
