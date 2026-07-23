@@ -17,7 +17,6 @@
   
   ;; --- 3. HABIT CONFIGURATION ---
   (setq org-habit-show-habits-only-for-today t)
-  (setq org-log-done 'time)
   
   ;; --- 4. PRIORITIES ---
   (setq org-priority-start-cycle-with-default nil)

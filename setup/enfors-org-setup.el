@@ -14,6 +14,9 @@
 ;; Always use org-indent-mode
 (setq org-startup-indented t)           ; Diminished in dot-emacs.el
 
+;; Don't add extra CLOSED: under DONE items, rely on :LOGBOOK: instead
+(setq org-log-done nil)
+
 ;; Hide the all but the last star in headings
 (setq org-hide-leading-stars t)
 
