@@ -53,6 +53,8 @@
       org-agenda-dim-blocked-tasks      t
       org-agenda-echo-preserve-layout   t   ; Keep breadcrumb visible in msg area
       org-deadline-warning-days         0   ; Don't show future deadlines today
+      org-agenda-log-mode-items         '(closed clock state) ; What is shown in
+                                                              ; agenda view
       )
 
 (setq org-agenda-sorting-strategy
