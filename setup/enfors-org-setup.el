@@ -48,7 +48,8 @@
       org-habit-graph-column            45  ; Don't let graph overwrite tags
       org-agenda-start-on-weekday       nil ; Start today, not on Monday
       org-agenda-show-outline-path      t   ; Show outline in message buffer
-      org-enforce-todo-dependencies     t   ; All children must be DONE before parent
+      org-enforce-todo-dependencies     t   ; All children must be DONE before
+                                            ; parent
       org-agenda-dim-blocked-tasks      t
       org-agenda-echo-preserve-layout   t   ; Keep breadcrumb visible in msg area
       org-deadline-warning-days         0   ; Don't show future deadlines today
@@ -123,10 +124,13 @@
   (when-let ((backlinks (org-roam-backlinks-get node)))
     (magit-insert-section (org-roam-backlinks)
       (magit-insert-heading "Backlinks")
-      (dolist (backlink (sort backlinks (lambda (a b)
-                                          (time-less-p
-                                           (org-roam-node-file-mtime (org-roam-backlink-source-node b))
-                                           (org-roam-node-file-mtime (org-roam-backlink-source-node a))))))
+      (dolist (backlink (sort backlinks
+                              (lambda (a b)
+                                (time-less-p
+                                 (org-roam-node-file-mtime
+                                  (org-roam-backlink-source-node b))
+                                 (org-roam-node-file-mtime
+                                  (org-roam-backlink-source-node a))))))
         (org-roam-node-insert-section
          :source-node (org-roam-backlink-source-node backlink)
          :point (org-roam-backlink-point backlink)
