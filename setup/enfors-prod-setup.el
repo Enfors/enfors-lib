@@ -189,6 +189,10 @@ works."
          ("f" "Focus Tasks" agenda ""
            ((org-agenda-skip-function 'enfors-org-skip-unless-focus-or-calendar)
             (org-agenda-overriding-header "🎯 Today's focus tasks")))
+         ("u" "Unscheduled backlog" alltodo ""
+          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled
+                                                                'deadline))
+           (org-agenda-overriding-header ""📦 Backlog (Needs Scheduling)"")))
          ("n" "Process Inbox"
           ((tags "ALL"
                  ((org-agenda-files
