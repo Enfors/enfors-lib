@@ -7,6 +7,7 @@
 ;;; ----------------------------------------------------------------------------
 (use-package org
   :ensure nil ; Built into Emacs
+  :demand t
   :hook ((org-mode . visual-line-mode)
          (org-mode . (lambda ()
                        (set-face-foreground 'org-target "yellow")
@@ -53,7 +54,13 @@
   ;; Links
   (setf (alist-get 'file org-link-frame-setup) #'find-file))
 
-
+(with-eval-after-load 'simple ; simple.el is where visual-line-mode lives
+  (diminish 'visual-line-mode))
+;;; ----------------------------------------------------------------------------
+;;; ORG INDENT
+;;; ----------------------------------------------------------------------------
+(with-eval-after-load 'org-indent
+  (diminish 'org-indent-mode))
 ;;; ----------------------------------------------------------------------------
 ;;; ORG AGENDA
 ;;; ----------------------------------------------------------------------------
