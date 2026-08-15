@@ -2,222 +2,185 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'org)
-(require 'org-habit)
-(require 'org-capture)
+;;; ----------------------------------------------------------------------------
+;;; CORE ORG-MODE
+;;; ----------------------------------------------------------------------------
+(use-package org
+  :ensure nil ; Built into Emacs
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . (lambda ()
+                       (set-face-foreground 'org-target "yellow")
+                       (set-face-foreground 'org-checkbox "blue"))))
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         :map org-mode-map
+         ("S-<return>" . my-org-dumb-newline))
+  :config
+  ;; Custom functions
+  (defun my-org-dumb-newline ()
+    "Insert newline and copy the previous line's indentation (block indent)."
+    (interactive)
+    (newline)
+    (indent-relative))
+  
+  (defun enfors-load-all-org-files-in-directory (directory)
+    "Load all files ending with .org from specified DIRECTORY."
+    (interactive "sEnter directory: ")
+    (dolist (file (directory-files directory t "\.org$"))
+      (find-file file)))
 
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
-		  "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
+  ;; General settings
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
+                    "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
+  (setq org-startup-indented t
+        org-log-done nil
+        org-hide-leading-stars t
+        org-cycle-separator-lines 1
+        org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+        org-duration-format (quote h:mm)
+        org-return-follows-link t
+        org-clock-into-drawer t
+        org-log-into-drawer t)
 
-;;; General configuration
-;; Always use org-indent-mode
-(setq org-startup-indented t)
+  ;; Effort setup
+  (setq org-global-properties
+        '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
+  (setq org-columns-default-format
+        "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Clocked)")
 
-;; Don't add extra CLOSED: under DONE items, rely on :LOGBOOK: instead
-(setq org-log-done nil)
-
-;; Hide the all but the last star in headings
-(setq org-hide-leading-stars t)
-
-;; Use visual-line-mode instead for soft wrap
-(add-hook 'org-mode-hook 'visual-line-mode)
-
-;; Always display the empty line between headings
-(setq org-cycle-separator-lines 1)
-
-;; Always force an empty line before every new heading/task
-(setq org-blank-before-new-entry
-        '((heading . t)
-          (plain-list-item . auto)))
-
-;; Show time reports as hours and minutes, never days
-(setq org-duration-format (quote h:mm))
-;;; Effort setup
-(setq org-global-properties
-      '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
-(setq org-columns-default-format
-      "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Clocked)")
-
-;;; Colors
-(add-hook 'org-mode-hook (lambda ()
-                           (set-face-foreground 'org-target   "yellow")
-                           (set-face-foreground 'org-checkbox "blue")
-                           ))
-
-;;; Agenda view
-(setq org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-deadline-if-done  t
-      org-agenda-time-leading-zero      t
-      org-agenda-skip-unavailable-files t   ; Skip file if not present
-      org-deadline-warning-days         0   ; How many days in advance to warn
-      org-agenda-remove-tags            nil
-      org-agenda-tags-column            'auto
-      org-habit-graph-column            45  ; Don't let graph overwrite tags
-      org-agenda-start-on-weekday       nil ; Start today, not on Monday
-      org-agenda-show-outline-path      t   ; Show outline in message buffer
-      org-enforce-todo-dependencies     t   ; All children must be DONE before
-                                            ; parent
-      org-agenda-dim-blocked-tasks      t
-      org-agenda-echo-preserve-layout   t   ; Keep breadcrumb visible in msg area
-      org-deadline-warning-days         0   ; Don't show future deadlines today
-      org-agenda-log-mode-items         '(closed clock state) ; What is shown in
-                                                              ; agenda view
-      )
-
-(setq org-agenda-sorting-strategy
-      '((agenda time-up priority-down scheduled-up)
-        (todo   priority-down scheduled-up)
-        (tags   priority-down scheduled-up)
-        (search priority-down)))
-
-(setq org-agenda-time-grid
-      '((daily today require-timed remove-match)
-        (800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000)
-        "......"
-        "----------------"))
-
-(define-key org-agenda-mode-map (kbd "M-<up>") 'org-agenda-priority-up)
-(define-key org-agenda-mode-map (kbd "M-<down>") 'org-agenda-priority-down)
-
-;;; Key bindings
-
-;; Custom keys setup, from https://orgmode.org/manual/Activation.html:
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-
-;;; Key bindings for agenda view
-;; org-agenda-goto means that when you hit RET on a todo in agenda view,
-;; then that todo is opened in a split window. If you instead want it to
-;; replace the agenda window, replace org-agenda-goto with
-;; org-agenda-switch-to.
-(with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "RET") 'org-agenda-goto))
-
-;;; Misc
-
-;; Define function for loading all org files in directory
-(defun enfors-load-all-org-files-in-directory (directory)
-  "Load all files ending with .org from specified DIRECTORY."
-  (interactive "sEnter directory: ")
-  (dolist (file (directory-files directory t "\.org$"))
-    (find-file file)))
-
-;; Make Enter follow links instead of inserting an Enter into them.
-(setq org-return-follows-link t)  ; Now use C-c C-l to edit links
-
-;; Onen links in current window instead of find-file-other-window.
-(setf (alist-get 'file org-link-frame-setup) #'find-file)
-
-;; The following two functions were created by Gemini 3 (don't shoot me).
-;; The add s-Enter to indent to same level as leading "-" on previous line.
-(defun my-org-dumb-newline ()
-  "Insert newline and copy the previous line's indentation (block indent)."
-  (interactive)
-  (newline)
-  (indent-relative))
-
-(with-eval-after-load 'org
-  ;; Bind Shift-Return to the 'dumb' newline
-  (define-key org-mode-map (kbd "S-<return>") #'my-org-dumb-newline))
-;; End of code by Gemini
+  ;; Links
+  (setf (alist-get 'file org-link-frame-setup) #'find-file))
 
 
+;;; ----------------------------------------------------------------------------
+;;; ORG AGENDA
+;;; ----------------------------------------------------------------------------
+(use-package org-agenda
+  :ensure nil
+  :after org
+  :bind (:map org-agenda-mode-map
+              ("M-<up>" . org-agenda-priority-up)
+              ("M-<down>" . org-agenda-priority-down)
+              ("RET" . org-agenda-switch-to))
+  :config
+  (setq org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done  t
+        org-agenda-time-leading-zero      t
+        org-agenda-skip-unavailable-files t
+        org-deadline-warning-days         0
+        org-agenda-remove-tags            nil
+        org-agenda-tags-column            'auto
+        org-habit-graph-column            45
+        org-agenda-start-on-weekday       nil
+        org-agenda-show-outline-path      t
+        org-enforce-todo-dependencies     t
+        org-agenda-dim-blocked-tasks      t
+        org-agenda-echo-preserve-layout   t
+        org-agenda-log-mode-items         '(closed clock state))
 
-;;; Hack to get backlinks to sort in order of file modification date,
-;; rather than alphabetical sort of file name.
-;; Future versions of org-roam has org-roam-backlinks-sort - once I
-;; get that version, this hack will be obsolete.
-(defun enfors-org-roam-backlinks-section (node)
-  "The 'Backlinks' section for Org-roam, sorted by file modification time."
-  (when-let ((backlinks (org-roam-backlinks-get node)))
-    (magit-insert-section (org-roam-backlinks)
-      (magit-insert-heading "Backlinks")
-      (dolist (backlink (sort backlinks
-                              (lambda (a b)
-                                (time-less-p
-                                 (org-roam-node-file-mtime
-                                  (org-roam-backlink-source-node b))
-                                 (org-roam-node-file-mtime
-                                  (org-roam-backlink-source-node a))))))
-        (org-roam-node-insert-section
-         :source-node (org-roam-backlink-source-node backlink)
-         :point (org-roam-backlink-point backlink)
-         :properties (org-roam-backlink-properties backlink))))
-    (insert "\n")))
+  (setq org-agenda-sorting-strategy
+        '((agenda time-up priority-down scheduled-up)
+          (todo   priority-down scheduled-up)
+          (tags   priority-down scheduled-up)
+          (search priority-down)))
 
-;; Tell Org-roam to use OUR function instead of the default
-(setq org-roam-mode-sections
-      (list #'enfors-org-roam-backlinks-section
-            #'org-roam-reflinks-section))
-;; End of backlinks sorting hack.
-;;; Exporting setup
+  (setq org-agenda-time-grid
+        '((daily today require-timed remove-match)
+          (800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000)
+          "......"
+          "----------------")))
 
-(setq org-latex-remove-logfiles t)
-;; Add "tex" to the list of file extensions to delete after export
-(with-eval-after-load 'ox-latex
-      (add-to-list 'org-latex-logfiles-extensions "tex"))
 
-;;; Org-crypt setup
-(require 'org-crypt)
+;;; ----------------------------------------------------------------------------
+;;; ORG HABIT
+;;; ----------------------------------------------------------------------------
+(use-package org-habit
+  :ensure nil
+  :after org)
 
-;; Automatically encrypt upon saving
-(org-crypt-use-before-save-magic)
 
-;; Specify your GPG key ID or email address here
-(setq org-crypt-key "christer.enfors@gmail.com")
-;;(setq org-crypt-key "christer.enfors@afry.com") ; For work/union stuff
+;;; ----------------------------------------------------------------------------
+;;; ORG ROAM (Extensions & Hacks)
+;;; ----------------------------------------------------------------------------
+(use-package org-roam
+  :after org
+  :config
+  ;; Modeline shortening
+  (defun my/org-roam-rename-buffer-to-title ()
+    "Rename the current buffer to the value of the #+title: keyword."
+    (when (and (derived-mode-p 'org-mode)
+               (org-roam-file-p))
+      (let ((title (or (cadar (org-collect-keywords '("TITLE")))
+                       (file-name-nondirectory (buffer-file-name)))))
+        (when title
+          (rename-buffer title t)))))
+  
+  (add-hook 'org-roam-find-file-hook #'my/org-roam-rename-buffer-to-title)
+  
+  ;; Backlinks sorting hack
+  (defun enfors-org-roam-backlinks-section (node)
+    "The 'Backlinks' section for Org-roam, sorted by file modification time."
+    (when-let ((backlinks (org-roam-backlinks-get node)))
+      (magit-insert-section (org-roam-backlinks)
+        (magit-insert-heading "Backlinks")
+        (dolist (backlink (sort backlinks
+                                (lambda (a b)
+                                  (time-less-p
+                                   (org-roam-node-file-mtime
+                                    (org-roam-backlink-source-node b))
+                                   (org-roam-node-file-mtime
+                                    (org-roam-backlink-source-node a))))))
+          (org-roam-node-insert-section
+           :source-node (org-roam-backlink-source-node backlink)
+           :point (org-roam-backlink-point backlink)
+           :properties (org-roam-backlink-properties backlink))))
+      (insert "\n")))
 
-;; Prevent the :crypt: tag from being inherited by sub-headings,
-;; which messes up the encryption boundaries
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  (setq org-roam-mode-sections
+        (list #'enfors-org-roam-backlinks-section
+              #'org-roam-reflinks-section)))
 
-;; Highly recommended: Prevent auto-save from leaking decrypted text
-(setq org-crypt-disable-auto-save t)
 
-(with-eval-after-load 'epa
-  (setq epa-pinentry-mode 'loopback))
+;;; ----------------------------------------------------------------------------
+;;; ORG CRYPT
+;;; ----------------------------------------------------------------------------
+(use-package org-crypt
+  :ensure nil
+  :after org
+  :config
+  (org-crypt-use-before-save-magic)
+  (setq org-crypt-key "christer.enfors@gmail.com")
+  (setq org-tags-exclude-from-inheritance '("crypt"))
+  (setq org-crypt-disable-auto-save t))
 
-;;; Configuration to shorten org-roam names in modeline
+(use-package epa
+  :ensure nil
+  :custom
+  (epa-pinentry-mode 'loopback))
 
-;; Code by Gemini Pro.
-(defun my/org-roam-rename-buffer-to-title ()
-  "Rename the current buffer to the value of the #+title: keyword."
-  (when (and (derived-mode-p 'org-mode)
-             (org-roam-file-p))
-    (let ((title (or (cadar (org-collect-keywords '("TITLE")))
-                     (file-name-nondirectory (buffer-file-name)))))
-      (when title
-        (rename-buffer title t)))))
 
-;; Hook it into org-roam's file-opening process
-(add-hook 'org-roam-find-file-hook #'my/org-roam-rename-buffer-to-title)
+;;; ----------------------------------------------------------------------------
+;;; ORG EXPORT & BABEL
+;;; ----------------------------------------------------------------------------
+(use-package ox-latex
+  :ensure nil
+  :after org
+  :config
+  (setq org-latex-remove-logfiles t)
+  (add-to-list 'org-latex-logfiles-extensions "tex"))
 
-;; Optional: Rename already open buffers if they are org-roam nodes
-(dolist (buf (buffer-list))
-  (with-current-buffer buf
-    (my/org-roam-rename-buffer-to-title)))
-
-;;; Babel setup
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (shell . t)
-   (python . t)))
-(setq org-babel-python-command "python3")
-;;; custom-set-variables
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-clock-into-drawer t)
- '(org-log-into-drawer t))
-
-;; Agenda
-;(add-to-list 'org-agenda-files "~/devel/RoamNotes/20220513130808-hitachi.org")
+(use-package ob-core
+  :ensure nil
+  :after org
+  :config
+  (setq org-babel-python-command "python3")
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell . t)
+     (python . t))))
 
 (provide 'enfors-org-setup)
-
 ;;; enfors-org-setup.el ends here
