@@ -14,6 +14,9 @@
 ;; Always use org-indent-mode
 (setq org-startup-indented t)           ; Diminished in dot-emacs.el
 
+;; Don't add extra CLOSED: under DONE items, rely on :LOGBOOK: instead
+(setq org-log-done nil)
+
 ;; Hide the all but the last star in headings
 (setq org-hide-leading-stars t)
 
@@ -53,10 +56,13 @@
       org-habit-graph-column            45  ; Don't let graph overwrite tags
       org-agenda-start-on-weekday       nil ; Start today, not on Monday
       org-agenda-show-outline-path      t   ; Show outline in message buffer
-      org-enforce-todo-dependencies     t   ; All children must be DONE before parent
+      org-enforce-todo-dependencies     t   ; All children must be DONE before
+                                            ; parent
       org-agenda-dim-blocked-tasks      t
       org-agenda-echo-preserve-layout   t   ; Keep breadcrumb visible in msg area
       org-deadline-warning-days         0   ; Don't show future deadlines today
+      org-agenda-log-mode-items         '(closed clock state) ; What is shown in
+                                                              ; agenda view
       )
 
 (setq org-agenda-sorting-strategy
@@ -128,10 +134,13 @@
   (when-let ((backlinks (org-roam-backlinks-get node)))
     (magit-insert-section (org-roam-backlinks)
       (magit-insert-heading "Backlinks")
-      (dolist (backlink (sort backlinks (lambda (a b)
-                                          (time-less-p
-                                           (org-roam-node-file-mtime (org-roam-backlink-source-node b))
-                                           (org-roam-node-file-mtime (org-roam-backlink-source-node a))))))
+      (dolist (backlink (sort backlinks
+                              (lambda (a b)
+                                (time-less-p
+                                 (org-roam-node-file-mtime
+                                  (org-roam-backlink-source-node b))
+                                 (org-roam-node-file-mtime
+                                  (org-roam-backlink-source-node a))))))
         (org-roam-node-insert-section
          :source-node (org-roam-backlink-source-node backlink)
          :point (org-roam-backlink-point backlink)
