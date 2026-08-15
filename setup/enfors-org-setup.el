@@ -12,7 +12,7 @@
 
 ;;; General configuration
 ;; Always use org-indent-mode
-(setq org-startup-indented t)           ; Diminished in dot-emacs.el
+(setq org-startup-indented t)
 
 ;; Don't add extra CLOSED: under DONE items, rely on :LOGBOOK: instead
 (setq org-log-done nil)
