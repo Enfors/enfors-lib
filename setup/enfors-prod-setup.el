@@ -111,7 +111,7 @@
   ;; 3. What sections to show?
   (setq dashboard-items '(
                           ;; (important . 10)
-                          (agenda . 10)
+                          (agenda . 8)
                           (recents . 15)
                           (shortcuts . 2)))
 
