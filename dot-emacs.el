@@ -93,7 +93,7 @@
 
 ;; Because org-indent-mode is set to t in enfors-org-setup.el:
 (diminish 'org-indent-mode)     ; Hide Ind
-
+(diminish 'yas-minor-mode)      ; Hide yas
 ;;; Helm setup
 
 (helm-mode 1)
