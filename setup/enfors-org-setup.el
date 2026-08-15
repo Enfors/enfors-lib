@@ -88,7 +88,7 @@
         org-agenda-log-mode-items         '(closed clock state))
 
   (setq org-agenda-sorting-strategy
-        '((agenda time-up priority-down scheduled-up)
+        '((agenda time-up effort-up priority-down scheduled-up)
           (todo   priority-down scheduled-up)
           (tags   priority-down scheduled-up)
           (search priority-down)))
