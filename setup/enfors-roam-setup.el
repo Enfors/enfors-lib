@@ -40,6 +40,7 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               ,(concat "#+title: %<%Y-%m-%d>\n\n"))
            :empty-lines-before 1)))
+  (setq org-roam-node-display-template "${title:*}${tags:30}")
   (font-lock-add-keywords
    'org-mode
    '(("^\\s-*- \\(\\[[0-9]\\{2\\}:[0-9]\\{2\\}\\]\\)" 1
