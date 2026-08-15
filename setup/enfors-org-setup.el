@@ -189,5 +189,23 @@
      (shell . t)
      (python . t))))
 
+;;; ----------------------------------------------------------------------------
+;;; ORG TIME TABLES
+;;; ----------------------------------------------------------------------------
+(defvar enfors-clocktable-work-files
+  '("20260131140138-tingvalla_moten.org"
+    "20260319130840-utbildningsgruppen_moten.org"
+    "20260813125653-cybersec_forum.org"
+    "20230512084137-saab.org"
+  "A list of work files to include in work time reports.")
+
+(defvar enfors-clocktable-extra-files '()
+  "A list of extra Org files to include in clocktables, along agenda files.")
+
+(setq enfors-clocktable-extra-files enfors-clocktable-work-files)
+
+(defun enfors-get-clocktable-files ()
+  "Return a list of all agenda files plus `enfors-clocktable-extra-files`."
+  (append (org-agenda-files) enfors-clocktable-extra-files))
 (provide 'enfors-org-setup)
 ;;; enfors-org-setup.el ends here
