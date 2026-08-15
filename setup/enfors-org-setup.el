@@ -30,6 +30,11 @@
 
 ;; Show time reports as hours and minutes, never days
 (setq org-duration-format (quote h:mm))
+;;; Effort setup
+(setq org-global-properties
+      '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
+(setq org-columns-default-format
+      "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Clocked)")
 
 ;;; Colors
 (add-hook 'org-mode-hook (lambda ()
