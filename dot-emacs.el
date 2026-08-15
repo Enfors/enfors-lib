@@ -95,7 +95,6 @@
 (diminish 'org-indent-mode)     ; Hide Ind
 (diminish 'yas-minor-mode)      ; Hide yas
 ;;; Helm setup
-
 (helm-mode 1)
 
 (setq helm-buffer-details-flag    nil
@@ -106,6 +105,12 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b")   'helm-mini)
+
+;;; Autorevert setup (just for diminish)
+(use-package autorevert
+  :ensure nil
+  :diminish auto-revert-mode
+  :diminish global-auto-revert-mode)
 
 (provide 'dot-emacs)
 
