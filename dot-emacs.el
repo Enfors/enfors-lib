@@ -95,16 +95,18 @@
 (diminish 'org-indent-mode)     ; Hide Ind
 (diminish 'yas-minor-mode)      ; Hide yas
 ;;; Helm setup
-(helm-mode 1)
-
-(setq helm-buffer-details-flag    nil
-      helm-buffer-max-length      40
-      helm-split-window-in-side-p t
-      )
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x b")   'helm-mini)
+(use-package helm
+  :demand t
+  :diminish helm-mode
+  :bind (("M-x"      . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x b"   . helm-mini))
+  :config
+  (setq helm-buffer-details-flag    nil
+        helm-buffer-max-length      40
+        helm-split-window-in-side-p t)
+  ;; Start Helm globally
+  (helm-mode 1))
 
 ;;; Autorevert setup (just for diminish)
 (use-package autorevert
