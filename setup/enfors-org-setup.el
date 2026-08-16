@@ -196,7 +196,7 @@
   '("20260131140138-tingvalla_moten.org"
     "20260319130840-utbildningsgruppen_moten.org"
     "20260813125653-cybersec_forum.org"
-    "20230512084137-saab.org"
+    "20230512084137-saab.org")
   "A list of work files to include in work time reports.")
 
 (defvar enfors-clocktable-extra-files '()
