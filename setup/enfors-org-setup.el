@@ -98,7 +98,47 @@
           (800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000)
           "......"
           "----------------")))
+;;; ----------------------------------------------------------------------------
+;;; AUTO UPDATE EFFORT BASED ON DURATIONS IN CALENDAR FILE
+;;; ----------------------------------------------------------------------------
+;; I want my agenda column view to show how much time is planned - put into
+;; "effort" - in total for each day. I add meetings to my calendar file with a
+;; duration, but "duration" doesn't show up in the "effort" totals in agenda
+;; column view. So these functions make sure that an effort is set automatically
+;; on each entry in the calendar file when it is saved, based on each entry's
+;; duration. So basically, it duplicates the data (from duration to effort)
+;; automatically, so I don't have to do it manually. The functions were written
+;; by Gemini Pro.
 
+(defun enfors-auto-effort-from-timestamp ()
+  "Find time ranges in Org timestamps and copy the duration to the Effort property."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "<[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^>]*? \\([0-9]\\{1,2\\}:[0-9]\\{2\\}\\)-\\([0-9]\\{1,2\\}:[0-9]\\{2\\}\\)>" nil t)
+      (let* ((start-time (match-string-no-properties 1))
+             (end-time   (match-string-no-properties 2))
+             (start-mins (org-duration-to-minutes start-time))
+             (end-mins   (org-duration-to-minutes end-time))
+             ;; Force the float into a clean integer here:
+             (duration   (round (- end-mins start-mins))))
+        (when (> duration 0)
+          (let ((effort-string (format "%d:%02d" (/ duration 60)
+                                       (% duration 60))))
+            (save-excursion
+              (org-back-to-heading t)
+              (unless (org-entry-get nil "Effort")
+                (org-set-property "Effort" effort-string)))))))))
+
+(defun enfors-calendar-effort-hook ()
+  "Trigger effort calculation only when saving the specific calendar file."
+  (when (and (eq major-mode 'org-mode)
+             (buffer-file-name)
+             (string-match-p "20260131184817-calendar\\.org$"
+                             (buffer-file-name)))
+    (enfors-auto-effort-from-timestamp)))
+
+(add-hook 'before-save-hook #'enfors-calendar-effort-hook)
 
 ;;; ----------------------------------------------------------------------------
 ;;; ORG HABIT
