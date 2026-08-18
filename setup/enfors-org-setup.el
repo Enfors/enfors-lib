@@ -88,7 +88,7 @@
         org-agenda-log-mode-items         '(closed clock state))
 
   (setq org-agenda-sorting-strategy
-        '((agenda time-up effort-up priority-down scheduled-up)
+        '((agenda time-up priority-down effort-up scheduled-up)
           (todo   priority-down scheduled-up)
           (tags   priority-down scheduled-up)
           (search priority-down)))
@@ -195,6 +195,7 @@
 (defvar enfors-clocktable-work-files
   '("20260131140138-tingvalla_moten.org"
     "20260319130840-utbildningsgruppen_moten.org"
+    "20260402081109-unionen_moten.org"
     "20260813125653-cybersec_forum.org"
     "20230512084137-saab.org")
   "A list of work files to include in work time reports.")
