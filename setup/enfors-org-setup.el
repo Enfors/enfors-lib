@@ -33,8 +33,8 @@
 
   ;; General settings
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "VERIFY(v)" "|"
-                    "DONE(d)" "DELEGATED(e@)" "CANCELLED(c@)")))
+        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "|"
+                    "DONE(d)" "CANCELLED(c@)")))
   (setq org-startup-indented t
         org-log-done nil
         org-hide-leading-stars t
@@ -50,6 +50,10 @@
         '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
   (setq org-columns-default-format
         "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Clocked)")
+  ;; Sadly, org-agenda-columns-add-appointments-to-effort-sum seems to not work.
+  ;; Therefore, I have the enfors-auto-effort-from-timestamp function further
+  ;; down to fix that.
+  (setq org-agenda-columns-add-appointments-to-effort-sum t)
 
   ;; Links
   (setf (alist-get 'file org-link-frame-setup) #'find-file))
@@ -72,7 +76,7 @@
               ("M-<down>" . org-agenda-priority-down)
               ("RET" . org-agenda-switch-to))
   :config
-  (setq org-agenda-skip-scheduled-if-done t
+  (setq org-agenda-skip-scheduled-if-done nil
         org-agenda-skip-deadline-if-done  t
         org-agenda-time-leading-zero      t
         org-agenda-skip-unavailable-files t
@@ -88,7 +92,7 @@
         org-agenda-log-mode-items         '(closed clock state))
 
   (setq org-agenda-sorting-strategy
-        '((agenda time-up priority-down effort-up scheduled-up)
+        '((agenda time-up priority-down todo-state-down effort-up scheduled-up)
           (todo   priority-down scheduled-up)
           (tags   priority-down scheduled-up)
           (search priority-down)))
@@ -109,7 +113,9 @@
 ;; duration. So basically, it duplicates the data (from duration to effort)
 ;; automatically, so I don't have to do it manually. The functions were written
 ;; by Gemini Pro.
-
+;; 
+;; This is becaus org-agenda-columns-add-appointments-to-effort-sum doesn't seem
+;; to work.
 (defun enfors-auto-effort-from-timestamp ()
   "Find time ranges in Org timestamps and copy the duration to the Effort property."
   (interactive)
@@ -140,6 +146,12 @@
 
 (add-hook 'before-save-hook #'enfors-calendar-effort-hook)
 
+;;; ----------------------------------------------------------------------------
+;;; ORG NOTIFICATIONS
+;;; ----------------------------------------------------------------------------
+(setq org-show-notification-handler
+      (lambda (msg)
+        (message "%s" msg)))
 ;;; ----------------------------------------------------------------------------
 ;;; ORG HABIT
 ;;; ----------------------------------------------------------------------------
