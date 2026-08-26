@@ -1,13 +1,14 @@
 # key: 1on1
 # name: 1on1
 # --
-`(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
+`(progn (insert (format-time-string "[%Y-%m-%d %a] $0")) (org-clock-in))`
 
-- [ ] Agenda
+- [0/6] Agenda
   - [ ] Allmän status:
-    - $0
+    - $1
   - [ ] Arbetsbelastning: 
   - [ ] Pain points: 
   - [ ] Något jag kan hjälpa till med: 
-  - [ ] Input till mig:
-  - [ ] Skapa nya todos för mig: 
+  - [ ] Övrigt: 
+  - [ ] Skapa nya todos för mig:
+  
