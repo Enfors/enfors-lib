@@ -15,7 +15,7 @@
 (require 'helm)
 
 ;; Faces
-(set-face-foreground 'default                      "#9090d0")
+(set-face-foreground 'default                      "#a0a0d0")
 ;(set-face-foreground 'bold                         "#6040a0")
 ; (set-face-attribute  'bold nil :foreground "#6040a0" :weight 'bold) ; Darker
 (set-face-attribute  'bold nil :foreground "#c0b8f0" :weight 'bold) ; Brighter
