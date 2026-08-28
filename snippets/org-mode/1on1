@@ -1,7 +1,7 @@
 # key: 1on1
 # name: 1on1
 # --
-`(progn (insert (format-time-string "[%Y-%m-%d %a] $0")) (org-clock-in))`
+`(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
 
 - [0/6] Agenda
   - [ ] Allmän status:
