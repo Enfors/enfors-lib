@@ -30,7 +30,7 @@
 (set-face-foreground 'company-tooltip              "blue")
 (set-face-foreground 'helm-selection               "white")
 (set-face-foreground 'helm-match                   "#6060ff")
-(set-face-foreground 'org-level-1                  "#6060ff")
+(set-face-foreground 'org-level-1                  "#8060ff")
 (set-face-foreground 'org-level-2                  "#44ffa0")
 (set-face-foreground 'org-level-4                  "#44aaff")
 (set-face-foreground 'org-todo                     "#cc4488")
