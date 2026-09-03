@@ -15,7 +15,7 @@
 (require 'helm)
 
 ;; Faces
-(set-face-foreground 'default                      "#9090d0")
+(set-face-foreground 'default                      "#a0a0d0")
 ;(set-face-foreground 'bold                         "#6040a0")
 ; (set-face-attribute  'bold nil :foreground "#6040a0" :weight 'bold) ; Darker
 (set-face-attribute  'bold nil :foreground "#c0b8f0" :weight 'bold) ; Brighter
@@ -30,7 +30,7 @@
 (set-face-foreground 'company-tooltip              "blue")
 (set-face-foreground 'helm-selection               "white")
 (set-face-foreground 'helm-match                   "#6060ff")
-(set-face-foreground 'org-level-1                  "#6060ff")
+(set-face-foreground 'org-level-1                  "#8060ff")
 (set-face-foreground 'org-level-2                  "#44ffa0")
 (set-face-foreground 'org-level-4                  "#44aaff")
 (set-face-foreground 'org-todo                     "#cc4488")

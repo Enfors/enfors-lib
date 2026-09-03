@@ -192,7 +192,7 @@ works."
          ("u" "Unscheduled backlog" alltodo ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled
                                                                 'deadline))
-           (org-agenda-overriding-header ""📦 Backlog (Needs Scheduling)"")))
+           (org-agenda-overriding-header "📦 Backlog (Needs Scheduling)")))
          ("n" "Process Inbox"
           ((tags "ALL"
                  ((org-agenda-files

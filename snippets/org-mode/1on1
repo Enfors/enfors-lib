@@ -3,12 +3,13 @@
 # --
 `(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
 
-- [ ] Agenda
+- [0/6] Agenda
   - [ ] Allmän status:
-    - $0
+    - $1
   - [ ] Arbetsbelastning: 
   - [ ] Pain points: 
-  - [ ] Något jag kan hjälpa till med: 
-  - [ ] Input till mig:
   - [ ] Har du några utvecklingsmål inom uppdraget (inget krav): 
+  - [ ] Något jag kan hjälpa till med: 
+  - [ ] Övrigt:
   - [ ] Skapa nya todos för mig: 
+
