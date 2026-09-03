@@ -114,6 +114,10 @@
   :diminish auto-revert-mode
   :diminish global-auto-revert-mode)
 
+;; Make PDFs automatically update on screen when changed on disk
+(add-hook 'doc-view-mode-hook #'auto-revert-mode)
+(add-hook 'pdf-view-mode-hook #'auto-revert-mode)
+
 (provide 'dot-emacs)
 
 ;;; dot-emacs.el ends here
