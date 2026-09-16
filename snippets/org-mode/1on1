@@ -1,14 +1,16 @@
 # key: 1on1
 # name: 1on1
 # --
-`(progn (insert (format-time-string "[%Y-%m-%d %a]")) (org-clock-in))`
+`(progn (insert (format-time-string "[%Y-%m-%d %a]") " One-on-one "
+   (save-excursion (org-up-heading-safe) (nth 4 (org-heading-components))))
+   (org-clock-in))`
 
 - [0/6] Agenda
   - [ ] Allmän status:
-    - $1
+    - $2
   - [ ] Arbetsbelastning: 
   - [ ] Pain points: 
-  - [ ] Har du några utvecklingsmål inom uppdraget (inget krav): 
+  - [ ] Vad kan du lära dig i uppdraget just nu?
   - [ ] Något jag kan hjälpa till med: 
   - [ ] Övrigt:
   - [ ] Skapa nya todos för mig: 
