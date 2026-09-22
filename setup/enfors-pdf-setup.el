@@ -1,5 +1,8 @@
 ;;; enfors-pdf-setup --- My PDF configuration
 ;;; Commentary:
+;;; Installing external dependencies:
+;; Fonts:
+;; sudo apt install texlive-fonts-recommended texlive-fonts-extra
 ;;; Code:
 
 (use-package pdf-tools
