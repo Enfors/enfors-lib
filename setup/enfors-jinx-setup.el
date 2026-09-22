@@ -7,7 +7,9 @@
 (use-package jinx
   :ensure t
   :bind (("M-$" . jinx-correct))
-  :hook ((text-mode . jinx-mode))
+  :hook ((text-mode . (lambda ()
+                        (unless (derived-mode-p 'org-mode)
+                          (jinx-mode 1)))))
   :custom
   (jinx-exclude-regexps '((t "[A-ZÅÄÖ]\\w*" ; Ignore capitalized words
                              "\\w*[0-9]\\w" ; Ignore words with digits
