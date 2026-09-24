@@ -84,7 +84,7 @@
                           (message "Context set to: %s" name)))))
               enfors-contexts)))])
 
-(global-set-key (kbd "C-c C") 'enfors-context-menu)
+(global-set-key (kbd "C-c e") 'enfors-context-menu)
 ;;; Support functions:
 
 (defun enfors-context-get ()
