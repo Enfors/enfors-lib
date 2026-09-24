@@ -1,4 +1,4 @@
-;;; enfors-context-setup.el --- system for changing org/agenda context
+;;; enfors-context-setup.el --- Setting agenda files -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;
 ;; The purpose of this system is to be able to change "contexts" for Org
@@ -7,6 +7,16 @@
 ;; Next step: Add a transient menu for setting the context.
 ;;
 ;;; Code:
+;;; Requires:
+
+(require 'transient)
+
+;;; Variables:
+
+
+
+;; "Leaf" agenda file variables
+
 (setq enfors-work-agenda-files
       '("~/devel/RoamNotes/20240920133750-lansforsakringar.org"
         "~/devel/RoamNotes/20260502113133-personal_todos.org"
@@ -16,20 +26,66 @@
         "~/devel/RoamNotes/20220527134741-tingvalla.org"
         "~/devel/RoamNotes/20260124144908-inbox.org"
         "~/devel/RoamNotes/20250121113929-unionen.org"
-        "~/devel/RoamNotes/20220831105115-afry_todos.org"))
+        "~/devel/RoamNotes/20220831105115-afry_todos.org")
+      enfors-org-dev-agenda-files
+      '("~/devel/RoamNotes/20260428085706-org_mode_contributor_liaison.org")
+      enfors-karlstad-agenda-files
+      '("")
+      enfors-ekshärad-agenda-files
+      '("20260411131443-eksharad.org")
+      enfors-pf-campaign-agenda-files
+      '("20240808163532-springhaven_pathfinder_campaign.org")
+      enfors-ttrpg-hangout-agenda-files
+      '("20240422141314-ttrpg_hangout.org"))
 
-(setq enfors-org-dev-agenda-files
-      '("~/devel/RoamNotes/20260428085706-org_mode_contributor_liaison.org"))
+;; "Composite" agenda file variables
+(setq enfors-home-agenda-files
+      (append
+       enfors-org-dev-agenda-files
+       enfors-pf-capaign-agenda-files
+       enfors-ttrpg-hangout-agenda-files))
 
 (defvar enfors-contexts
   `(("Work" .                           ; The first context becomes the default
-     ((hotkey        . "w")
+     ((key        . "w")
       (agenda-files  . ,enfors-work-agenda-files)))
     ("OrgDev" .
-     ((hotkey        . "o")
+     ((key        . "o")
       (agenda-files  . ,enfors-org-dev-agenda-files)))))
 
 (defvar enfors-context-name (car (car enfors-contexts)))
+
+
+;;; Transient menu:
+
+;; Define the menu (the prefix)
+
+(transient-define-prefix enfors-context-menu ()
+  "Enfors Context menu."
+  ["Static Actions"
+   ("q" "Quit" transient-quit-one)]
+  
+  ["Dynamic Contexts"
+   :setup-children
+   (lambda (_)
+     ;; Parse our generated lists into actual Transient suffix objects.
+     ;; The first argument must be the name of this prefix command.
+     (transient-parse-suffixes
+      'enfors-context-menu
+      (mapcar (lambda (item)
+                (let* ((name (car item))
+                       (key  (alist-get 'key (cdr item))))
+                  ;; Return a standard Transient suffix list
+                  (list key
+                        (format "Switch to %s" name)
+                        (lambda ()
+                          (interactive)
+                          (enfors-context-set name)
+                          (message "Context set to: %s" name)))))
+              enfors-contexts)))])
+
+(global-set-key (kbd "C-c C") 'enfors-context-menu)
+;;; Support functions:
 
 (defun enfors-context-get ()
   "Return the current context."
