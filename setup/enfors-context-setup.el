@@ -42,7 +42,7 @@
 (setq enfors-home-agenda-files
       (append
        enfors-org-dev-agenda-files
-       enfors-pf-capaign-agenda-files
+       enfors-pf-campaign-agenda-files
        enfors-ttrpg-hangout-agenda-files))
 
 (defvar enfors-contexts
