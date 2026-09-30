@@ -59,8 +59,12 @@
 (defun enfors-encipher-region (start end key)
   "Insert the enciphered text from the region between START and END, using KEY."
   (interactive "r\nsCipher key: ")
-  (insert
-   (enfors-cipher-text (buffer-substring-no-properties start end) key 1)))
+  (let ((enciphered-text (enfors-cipher-text
+                          (buffer-substring-no-properties start end)
+                          key 1)))
+    (insert "\n")
+    (insert enciphered-text)
+    (message "%d characters enciphered." (length enciphered-text))))
 
 (defun enfors-decipher-region (start end key)
   "Message the deciphered text from the region between START and END, using KEY."
