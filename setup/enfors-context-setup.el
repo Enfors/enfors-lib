@@ -12,11 +12,29 @@
 (require 'transient)
 
 ;;; Variables:
+;;; Agenda files setup overview:
+;; - Agendas specific to one location are named after the street.
+;; - Leaf agendas are agendas which only pertain to one topic
+;; - Composite agendas are appended together from leaf agendas
+;;
+;; LEAF AGENDAS - all variables are named `enfors-(name-below)-agenda-files'
+;; - work
+;; - org-dev
+;; - pf-campaign
+;; - ttrpg-hangout
+;; - podcast
+;; - Location-based agendas:
+;;   - kamomillgatan
+;;   - ängsvägen
+;;
+;; COMPOSITE AGENDAS
+;; - home     - Everything that can be done either in Karlstad or Ekshärad
+;; - karlstad - Everything that can be done in Karlstad (not work related)
+;;   = home + kamomillgatan
+;; - ekshärad - Everything that can be done in Ekshärad (not work related)
+;;   = home + ängsvägen
 
-
-
-;; "Leaf" agenda file variables
-
+;;; Leaf agendas:
 (setq enfors-work-agenda-files
       '("~/devel/RoamNotes/20240920133750-lansforsakringar.org"
         "~/devel/RoamNotes/20260502113133-personal_todos.org"
@@ -29,21 +47,37 @@
         "~/devel/RoamNotes/20220831105115-afry_todos.org")
       enfors-org-dev-agenda-files
       '("~/devel/RoamNotes/20260428085706-org_mode_contributor_liaison.org")
-      enfors-karlstad-agenda-files
+      enfors-kamomillgatan-agenda-files
       '("")
-      enfors-ekshärad-agenda-files
-      '("20260411131443-eksharad.org")
+      enfors-ängsvägen-agenda-files
+      '("~/devel/RoamNotes/20261006143255-angsvagen.org")
       enfors-pf-campaign-agenda-files
-      '("20240808163532-springhaven_pathfinder_campaign.org")
+      '("~/devel/RoamNotes/20240808163532-springhaven_pathfinder_campaign.org")
       enfors-ttrpg-hangout-agenda-files
-      '("20240422141314-ttrpg_hangout.org"))
+      '("~/devel/RoamNotes/20240422141314-ttrpg_hangout.org")
+      enfors-podcast-agenda-files
+      '("~/devel/RoamNotes/20260907131647-solo_rpg_actual_play_podcast.org"))
 
-;; "Composite" agenda file variables
-(setq enfors-home-agenda-files
+;;; Composite agendas:
+;; home
+(setq enfors-home-agenda-files          ; Home
       (append
        enfors-org-dev-agenda-files
        enfors-pf-campaign-agenda-files
+       enfors-podcast-agenda-files
        enfors-ttrpg-hangout-agenda-files))
+
+;; karlstad
+(setq enfors-karlstad-agenda-files
+      (append
+       enfors-home-agenda-files
+       enfors-kamomillgatan-agenda-files)) ; Location file
+
+;; ekshärad
+(setq enfors-ekshärad-agenda-files
+      (append
+       enfors-home-agenda-files
+       enfors-ängsvägen-agenda-files))  ; Location file
 
 (defvar enfors-contexts
   `(("Work" .                           ; The first context becomes the default
@@ -51,10 +85,24 @@
       (agenda-files  . ,enfors-work-agenda-files)))
     ("OrgDev" .
      ((key        . "o")
-      (agenda-files  . ,enfors-org-dev-agenda-files)))))
+      (agenda-files  . ,enfors-org-dev-agenda-files)))
+    ("PF2 Campaign" .
+     ((key        . "c")
+      (agenda-files . ,enfors-pf-campaign-agenda-files)))
+    ("TTRPG-Hangout" .
+     ((key        . "t")
+      (agenda-files . ,enfors-ttrpg-hangout-agenda-files)))
+    ("Karlstad" .
+     ((key        . "k")
+      (agenda-files  . ,enfors-home-agenda-files)))
+    ("Ekshärad" .
+     ((key        . "e")
+      (agenda-files  . ,enfors-home-agenda-files)))
+    ("Podcast" .
+     ((key        . "p")
+      (agenda-files  . ,enfors-podcast-agenda-files)))))
 
 (defvar enfors-context-name (car (car enfors-contexts)))
-
 
 ;;; Transient menu:
 
@@ -62,10 +110,7 @@
 
 (transient-define-prefix enfors-context-menu ()
   "Enfors Context menu."
-  ["Static Actions"
-   ("q" "Quit" transient-quit-one)]
-  
-  ["Dynamic Contexts"
+  ["Contexts"
    :setup-children
    (lambda (_)
      ;; Parse our generated lists into actual Transient suffix objects.
@@ -82,7 +127,11 @@
                           (interactive)
                           (enfors-context-set name)
                           (message "Context set to: %s" name)))))
-              enfors-contexts)))])
+              enfors-contexts)))]
+  ["Static Actions"
+   ("q" "Quit" transient-quit-one)]
+  
+)
 
 (global-set-key (kbd "C-c e") 'enfors-context-menu)
 ;;; Support functions:
