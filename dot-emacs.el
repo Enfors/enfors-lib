@@ -113,6 +113,16 @@
   :ensure nil
   :diminish auto-revert-mode
   :diminish global-auto-revert-mode)
+;;; Japanese input
+;; 1. Clear the existing terminal bindings for the hyphen
+(global-unset-key (kbd "C-x 8 -"))
+(define-key key-translation-map (kbd "C-x 8 -") nil)
+
+;; 2. Define the new macron sequences
+(define-key key-translation-map (kbd "C-x 8 - o") (kbd "ō"))
+(define-key key-translation-map (kbd "C-x 8 - u") (kbd "ū"))
+(define-key key-translation-map (kbd "C-x 8 - O") (kbd "Ō"))
+(define-key key-translation-map (kbd "C-x 8 - U") (kbd "Ū"))
 
 (provide 'dot-emacs)
 
