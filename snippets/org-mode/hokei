@@ -1,0 +1,10 @@
+# key: hokei
+# name: hokei
+# --
+** $1                                                                :drill:
+
+$1
+
+*** $1
+
+$0
