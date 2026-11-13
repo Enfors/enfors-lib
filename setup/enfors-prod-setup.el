@@ -30,6 +30,7 @@
           (:endgroup)
           ("starter" . ?s)
           ("Per" .     ?p)
+          ("drill" .   ?d)
           ("focus" .   ?f)
           ("toad"  .   ?t)
           ("crypt" .   ?c))
