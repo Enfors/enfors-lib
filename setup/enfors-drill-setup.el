@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 (use-package org-drill
+  :ensure t
   :config
   (defun org-drill-time-to-inactive-org-timestamp (time)
     "Convert TIME into org-mode timestamp."
